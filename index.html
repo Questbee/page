@@ -190,8 +190,8 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrap cyan-icon">🤖</div>
-                    <h3>AI &amp; IoT Ready</h3>
-                    <p>Headless API for IoT sensor ingestion. MCP server support for AI agents to generate forms, inject test data, and analyze submissions.</p>
+                    <h3>AI-Ready via MCP</h3>
+                    <p>Questbee speaks MCP — connect Claude, GPT, or any compatible AI assistant to build forms by describing them in plain language, populate test data, and query submissions. Your AI, your data, your infrastructure.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrap amber-icon">⚡</div>
@@ -213,16 +213,16 @@
             <div class="community-grid">
                 <div class="community-text">
                     <span class="section-label">Community Edition</span>
-                    <h2 id="community-heading">Free. Open source.<br>Self-hosted.</h2>
-                    <p>The Community Edition includes all core features: form builder, offline mobile app, sync engine, and basic reporting. No license required.</p>
+                    <h2 id="community-heading">Free. Self-hosted.<br>No license required.</h2>
+                    <p>The server platform — form builder, sync engine, API, and web dashboard — is open source and free to deploy. The mobile app is provided as a free prebuilt binary (Android APK + Expo Go).</p>
 
                     <ul class="feature-list">
-                        <li><span class="check">✓</span> Full source code access</li>
+                        <li><span class="check">✓</span> Server platform source code (MIT License)</li>
                         <li><span class="check">✓</span> Docker-based deployment</li>
+                        <li><span class="check">✓</span> Unlimited users on your own infra</li>
+                        <li><span class="check">✓</span> Mobile app as free prebuilt binary</li>
                         <li><span class="check">✓</span> Community support via GitHub</li>
-                        <li><span class="check">✓</span> Deploy on any infrastructure</li>
-                        <li><span class="check">✓</span> No vendor lock-in</li>
-                        <li><span class="check">✓</span> MIT License</li>
+                        <li><span class="check">✓</span> No expiry, no telemetry, no lock-in</li>
                     </ul>
 
                     <div class="community-actions">
@@ -267,66 +267,91 @@ docker-compose up --build
         <div class="section-wrapper">
             <div class="section-header">
                 <span class="section-label">Pricing</span>
-                <h2 id="licensing-heading">Simple, transparent pricing</h2>
-                <p class="section-subtitle">Start free with the Community Edition. Upgrade for white-labeling, SSO, and enterprise support.</p>
+                <h2 id="licensing-heading">Start free. Scale when you need to.</h2>
+                <p class="section-subtitle">The Community Edition is free and open source. Upgrade for white-labeling, SSO, AI automation, and enterprise support.</p>
             </div>
-            <div class="pricing-grid">
+
+            <div class="pricing-grid pricing-grid-4">
                 <!-- Community -->
                 <div class="pricing-card">
                     <div class="pricing-tier">Community</div>
                     <div class="pricing-price">Free</div>
-                    <div class="pricing-desc">Open Source · MIT License</div>
+                    <div class="pricing-desc">Server: MIT open source · App: free binary</div>
                     <ul class="plan-features">
-                        <li class="feat-yes">Full platform access</li>
-                        <li class="feat-yes">Offline mobile app</li>
                         <li class="feat-yes">Form builder (15+ field types)</li>
+                        <li class="feat-yes">Mobile app (prebuilt APK / Expo Go)</li>
+                        <li class="feat-yes">Sync engine</li>
+                        <li class="feat-yes">Headless API / IoT ingestion</li>
+                        <li class="feat-yes">Self-hosted, unlimited users</li>
                         <li class="feat-yes">Community support (GitHub)</li>
-                        <li class="feat-yes">Self-hosted</li>
                         <li class="feat-no">White-label branding</li>
                         <li class="feat-no">SSO / Active Directory</li>
-                        <li class="feat-no">Priority support</li>
                     </ul>
-                    <a href="https://github.com/questbee-io/questbee" target="_blank" rel="noopener" class="btn btn-outline btn-block">Get Community Edition</a>
+                    <a href="https://github.com/questbee-io/questbee" target="_blank" rel="noopener" class="btn btn-outline btn-block">Get Started Free</a>
+                </div>
+
+                <!-- Professional -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Professional</div>
+                    <div class="pricing-price">$6K<span class="pricing-period">/year</span></div>
+                    <div class="pricing-desc">Up to 50 users · $100/user after</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Community</li>
+                        <li class="feat-yes">White-label branding</li>
+                        <li class="feat-yes">Advanced RBAC</li>
+                        <li class="feat-yes">Mobile app packaging (APK)</li>
+                        <li class="feat-yes">AI connection via MCP</li>
+                        <li class="feat-yes">Email support</li>
+                        <li class="feat-yes">Monthly option available</li>
+                        <li class="feat-no">SSO / SAML</li>
+                        <li class="feat-no">Audit logs</li>
+                    </ul>
+                    <a href="mailto:hello@questbee.io" class="btn btn-outline btn-block">Get a Quote</a>
                 </div>
 
                 <!-- Enterprise -->
                 <div class="pricing-card pricing-featured">
                     <div class="pricing-badge">Most Popular</div>
                     <div class="pricing-tier">Enterprise</div>
-                    <div class="pricing-price">$5K–$15K<span class="pricing-period">/year</span></div>
-                    <div class="pricing-desc">Per organization · Billed annually</div>
+                    <div class="pricing-price">$12K<span class="pricing-period">/year</span></div>
+                    <div class="pricing-desc">Up to 200 users · $80/user after</div>
                     <ul class="plan-features">
-                        <li class="feat-yes">Everything in Community</li>
-                        <li class="feat-yes">White-label mobile app &amp; dashboard</li>
-                        <li class="feat-yes">SSO / Active Directory / SAML</li>
-                        <li class="feat-yes">Audit logs &amp; compliance reporting</li>
-                        <li class="feat-yes">Priority support (SLA)</li>
-                        <li class="feat-yes">Custom app store packaging</li>
-                        <li class="feat-yes">Dedicated deployment engineer</li>
+                        <li class="feat-yes">Everything in Professional</li>
+                        <li class="feat-yes">SSO / SAML / Active Directory</li>
+                        <li class="feat-yes">Audit logs &amp; compliance exports</li>
+                        <li class="feat-yes">AI connection via MCP</li>
+                        <li class="feat-yes">Priority support (8h SLA)</li>
+                        <li class="feat-yes">Branded iOS + Android apps</li>
+                        <li class="feat-yes">Implementation included</li>
                         <li class="feat-yes">Non-profit pricing available</li>
                     </ul>
                     <a href="mailto:hello@questbee.io" class="btn btn-primary btn-block">Contact Sales</a>
                 </div>
 
-                <!-- Implementation -->
+                <!-- Enterprise+ -->
                 <div class="pricing-card">
-                    <div class="pricing-tier">Implementation</div>
-                    <div class="pricing-price">$2K–$5K<span class="pricing-period"> one-time</span></div>
-                    <div class="pricing-desc">Optional professional services</div>
+                    <div class="pricing-tier">Enterprise+</div>
+                    <div class="pricing-price">Custom</div>
+                    <div class="pricing-desc">Unlimited users · Multi-instance</div>
                     <ul class="plan-features">
-                        <li class="feat-yes">Guided deployment setup</li>
-                        <li class="feat-yes">Custom configuration</li>
-                        <li class="feat-yes">Staff training (up to 2 days)</li>
-                        <li class="feat-yes">Integration support</li>
-                        <li class="feat-yes">Mobile app compilation</li>
-                        <li class="feat-yes">Data migration support</li>
-                        <li class="feat-no">Ongoing support</li>
-                        <li class="feat-no">License fees included</li>
+                        <li class="feat-yes">Everything in Enterprise</li>
+                        <li class="feat-yes">Unlimited users</li>
+                        <li class="feat-yes">Multi-instance management</li>
+                        <li class="feat-yes">Dedicated deployment engineer</li>
+                        <li class="feat-yes">Custom SLA</li>
+                        <li class="feat-yes">Managed hosting option</li>
+                        <li class="feat-yes">Partner integration support</li>
+                        <li class="feat-yes">Volume license discounts</li>
                     </ul>
-                    <a href="mailto:hello@questbee.io" class="btn btn-outline btn-block">Get a Quote</a>
+                    <a href="mailto:hello@questbee.io" class="btn btn-outline btn-block">Talk to Us</a>
                 </div>
             </div>
-            <p class="pricing-note">Non-profit and academic pricing available — <a href="mailto:hello@questbee.io">contact us</a>.</p>
+
+            <div class="pricing-footnotes">
+                <p>💡 <strong>Per-user example:</strong> A 350-user Enterprise deployment = $12,000 + (150 extra × $80) = <strong>$24,000/year</strong>.</p>
+                <p>📅 <strong>Monthly option:</strong> Pay month-to-month at 1.5× the annual monthly rate. Convert to annual any time for a 33% saving.</p>
+                <p>🏛️ <strong>Non-profit &amp; academic:</strong> Reduced rates available — <a href="mailto:hello@questbee.io">contact us</a>.</p>
+            </div>
         </div>
     </section>
 
@@ -374,7 +399,7 @@ docker-compose up --build
                             <td class="no">✗</td>
                         </tr>
                         <tr>
-                            <td>AI / MCP integration</td>
+                            <td>AI connection (MCP)</td>
                             <td class="col-questbee yes">✓</td>
                             <td class="no">✗</td>
                             <td class="partial">Limited</td>
@@ -524,13 +549,19 @@ docker-compose up --build
                 <a href="partner_pilot_offer.md" class="doc-card">
                     <div class="doc-icon">👥</div>
                     <h3>Partner Guide</h3>
-                    <p>Deployment playbook, pilot checklists, and everything partners need to run an engagement.</p>
+                    <p>Pilot offer, revenue share terms, partner commitment rules, and deployment playbook.</p>
                     <span class="doc-link">Read guide →</span>
                 </a>
                 <a href="docs/deployment.md" class="doc-card">
                     <div class="doc-icon">🚀</div>
                     <h3>Deployment Guide</h3>
                     <p>Production deployment on AWS, Azure, or on-premise private server with SSL and backups.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
+                <a href="product_status.md" class="doc-card">
+                    <div class="doc-icon">📋</div>
+                    <h3>Product Status</h3>
+                    <p>What's available today vs. on the roadmap — for partners setting client expectations.</p>
                     <span class="doc-link">Read guide →</span>
                 </a>
             </div>
@@ -547,20 +578,30 @@ docker-compose up --build
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
-                        Is the Community Edition really free?
+                        Is the Community Edition really free — forever?
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>Yes. The Community Edition is fully open source under the MIT license. You can deploy it on your own infrastructure at no cost, forever. There are no usage limits, no feature gating, and no call-home telemetry.</p>
+                        <p>Yes. The server platform (FastAPI backend, Next.js dashboard, sync engine) is MIT-licensed open source — free to deploy, no user limits, no expiry, no telemetry. The mobile app is provided as a free prebuilt binary (Android APK + Expo Go) for community use. Mobile app source code is commercial and included with paid plans.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
-                        Do I need a cloud account or internet access to run Questbee?
+                        Can I use an AI assistant to build and manage forms?
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>No. Questbee is designed to run entirely on-premise with zero external dependencies. You need Docker and Docker Compose — that's it. It works in air-gapped environments and private networks.</p>
+                        <p>Yes — <strong>Professional and above</strong> includes an <strong>MCP server</strong> that lets any compatible AI assistant (Claude, GPT, etc.) connect directly to your Questbee instance. Through that connection, your AI can build form schemas from a plain-language description, inject test submissions, and query collected data — without you needing to touch the form builder manually.</p>
+                        <p>Questbee does not include a built-in AI model. It provides the MCP interface so you bring your own AI assistant and it does the work on your behalf, on your infrastructure.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Do I need a cloud account or internet to run Questbee?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>No. Questbee runs entirely on your own infrastructure — a VM, bare-metal server, or your own cloud account. No data leaves your environment. It works in air-gapped networks with no outbound internet access. All you need is Docker and Docker Compose.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -569,7 +610,30 @@ docker-compose up --build
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>Yes — this is the core design principle. The mobile app uses a local SQLite database to store all collected data. When connectivity is restored (WiFi or cellular), the app automatically syncs with the server using a conflict-resolution engine.</p>
+                        <p>Yes — this is the core design principle. The mobile app stores all submissions locally using SQLite. Field workers can collect GPS coordinates, photos, barcodes, and form data with zero connectivity. When WiFi or cellular is restored, the app syncs automatically using a conflict-resolution engine. There is no minimum connectivity requirement.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        How does pricing work? Is there per-user pricing?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Yes — pricing scales with users:</p>
+                        <p><strong>Professional — $6,000/year:</strong> Covers up to 50 users. Each additional user is $100/year. Includes white-labeling and advanced RBAC.</p>
+                        <p><strong>Enterprise — $12,000/year:</strong> Covers up to 200 users. Each additional user is $80/year. Includes SSO, audit logs, branded App Store apps, and priority support.</p>
+                        <p><strong>Enterprise+:</strong> Custom quote for unlimited users, multi-instance, and managed hosting.</p>
+                        <p>Monthly payment is available at 1.5× the annual monthly rate. Example: a 350-user Enterprise deployment = $12,000 + (150 × $80) = <strong>$24,000/year</strong>.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        What does white-labeling include, and which tier do I need?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p><strong>Professional and above</strong> includes: custom logo and colors in the web dashboard, a branded Android APK, and a custom domain. All Questbee branding is removed from user-facing interfaces.</p>
+                        <p><strong>Enterprise and above</strong> additionally includes full App Store + Google Play publishing (iOS + Android). This requires the client organization to own an Apple Developer account ($99/year) and a Google Play account ($25 one-time).</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -578,25 +642,16 @@ docker-compose up --build
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>Migration support is included in the Implementation service package. The Questbee schema is inspired by XLSForm (used by KoboToolbox/ODK), making form migration straightforward. Historical data migration from existing deployments is handled case-by-case.</p>
+                        <p>Form migration is straightforward — Questbee's schema is inspired by XLSForm (the standard used by KoboToolbox and ODK), so most forms can be imported with minimal rework. Historical submission data migration is handled case-by-case and is included in the Implementation service package.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
-                        What does white-labeling include?
+                        What happens if Questbee stops being developed?
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>White-labeling (Enterprise only) covers: custom logo and colors in the web dashboard, a fully branded mobile app with your organization's name published to app stores, a custom domain, and removal of all Questbee branding from user-facing interfaces.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        How does Enterprise pricing work?
-                        <span class="faq-arrow" aria-hidden="true">+</span>
-                    </button>
-                    <div class="faq-answer" hidden>
-                        <p>Enterprise licenses are priced at $5K–$15K per organization per year, depending on the number of users and deployment complexity. Non-profit and academic organizations may qualify for reduced rates. Contact <a href="mailto:hello@questbee.io">hello@questbee.io</a> for a custom quote.</p>
+                        <p>Because the Community Edition is MIT-licensed open source, you always retain the code. If development stops, you can continue running the existing version indefinitely, fork the project, or hire a developer to maintain it. There is no vendor lock-in — your data stays in your PostgreSQL database, in standard formats.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -605,7 +660,8 @@ docker-compose up --build
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>Questbee is currently in pre-MVP development. The documentation describes the intended architecture and features. We are actively looking for pilot partners to co-develop the first production deployment. <a href="mailto:partnerships@questbee.io">Get in touch</a> to join the pilot program.</p>
+                        <p>Questbee is in <strong>pre-MVP development</strong>. The architecture, documentation, and business model are fully defined. We are actively onboarding pilot partners to co-develop the first production deployment — meaning early partners get direct influence over the product and favorable pricing.</p>
+                        <p><a href="mailto:partnerships@questbee.io">Contact us</a> to join the pilot program, or <a href="https://github.com/questbee-io/questbee" target="_blank" rel="noopener">watch the repository on GitHub</a> to follow development.</p>
                     </div>
                 </div>
             </div>

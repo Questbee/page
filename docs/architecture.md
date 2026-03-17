@@ -1,5 +1,7 @@
 # Questbee Architecture
 
+> ⚠️ **Pre-MVP Notice:** This document describes the intended system architecture. Questbee is in pre-MVP development — implementation details are subject to change.
+
 This document provides a high-level overview of Questbee's system architecture.
 
 ## System Overview

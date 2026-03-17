@@ -1,5 +1,7 @@
 # Getting Started with Questbee
 
+> ⚠️ **Pre-MVP Notice:** This documentation describes the intended setup and features. Questbee is in pre-MVP development — some steps may change before the first release. Join the [pilot program](mailto:partnerships@questbee.io) to get early access.
+
 Welcome to Questbee! This guide will walk you through setting up your first Questbee instance for development or testing.
 
 ## Prerequisites
@@ -36,6 +38,8 @@ http://localhost:3000
 Default credentials:
 - **Email:** admin@example.com
 - **Password:** admin123
+
+> ⚠️ **Security:** Change these credentials immediately after first login. Never use the default password on any non-local deployment. Set a strong password in **Settings → Account** or via the `ADMIN_PASSWORD` environment variable in `docker-compose.yml`.
 
 ## Creating Your First Form
 

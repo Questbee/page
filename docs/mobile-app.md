@@ -69,7 +69,7 @@ The compiled app can be distributed via:
 - Google Play Store (internal track)
 - Apple App Store (TestFlight for pilots)
 
-> **Enterprise only**: White-label compilation with custom bundle ID, app name, and assets is included in the Enterprise license.
+> **Professional and above**: White-label Android APK compilation (custom bundle ID, app name, assets) is included in the Professional license. Full App Store + Play Store publishing (both iOS and Android) requires the Enterprise license or above, as it involves signing under the client's developer accounts.
 
 ---
 

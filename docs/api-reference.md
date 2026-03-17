@@ -1,5 +1,7 @@
 # Questbee API Reference
 
+> ⚠️ **Pre-MVP Notice:** This API reference describes the intended endpoint design. Questbee is in pre-MVP development — endpoints, request shapes, and authentication methods are subject to change before the first release.
+
 Complete reference for the Questbee REST API.
 
 ## Base URL
