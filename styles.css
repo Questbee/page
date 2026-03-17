@@ -823,17 +823,20 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--color-
 .code-panel-body {
     padding: var(--space-6);
     overflow-x: auto;
+    background: #0f172a;
 }
 
-.code-panel-body pre {
+.code-panel-body pre,
+.code-panel-body pre code {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     line-height: 1.8;
     color: #e2e8f0;
     white-space: pre;
+    background: transparent;
 }
 
-.code-comment  { color: #475569; }
+.code-comment  { color: #64748b; }
 .code-success  { color: #4ade80; }
 
 .code-panel-footer {
