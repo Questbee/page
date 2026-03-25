@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile App Guide — Questbee Docs</title>
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="getting-started.html" class="docs-sidebar-link">Getting Started</a>
+      <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link active">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>Mobile App Guide</h1>
+
+        <h2 id="overview">Overview</h2>
+        <p>The Questbee mobile app is an offline-first data collection tool for field workers. It runs on Android and iOS, works with no internet connection, and automatically syncs collected data to your Questbee server when back online.</p>
+        <p>The app is distributed as a <strong>prebuilt binary</strong>:</p>
+        <ul>
+          <li><strong>Android:</strong> APK download from the GitHub releases page</li>
+          <li><strong>iOS (preview):</strong> Via Expo Go during development</li>
+        </ul>
+        <p>White-label compilation (your organization's name, logo, and colors) is available on <strong>Professional and above</strong>.</p>
+
+        <hr>
+
+        <h2 id="installation">Installation</h2>
+
+        <h3>Android</h3>
+        <ol>
+          <li>Download the latest APK from the <a href="https://github.com/Questbee/community/releases" target="_blank" rel="noopener">releases page on GitHub</a></li>
+          <li>On your Android device go to <strong>Settings → Security → Unknown Sources</strong> and allow installation from unknown sources</li>
+          <li>Open the downloaded <code>.apk</code> file and tap <strong>Install</strong></li>
+          <li>Open <strong>Questbee</strong> from the app drawer</li>
+        </ol>
+
+        <h3>iOS (Preview / Development)</h3>
+        <ol>
+          <li>Install the <strong>Expo Go</strong> app from the App Store</li>
+          <li>Get the Expo development URL from your Questbee administrator</li>
+          <li>Open Expo Go and scan or enter the URL</li>
+        </ol>
+        <blockquote><p>The iOS preview via Expo Go is for testing and piloting only. A compiled standalone iOS app is available on paid plans.</p></blockquote>
+
+        <hr>
+
+        <h2 id="pairing">Pairing with Your Server</h2>
+        <p>Before collecting data, the app must be connected to your organization's Questbee server. Pairing is done by scanning a QR code — no separate username or password is required on the device.</p>
+
+        <h3>Step 1 — Generate a Pairing QR Code (Dashboard)</h3>
+        <ol>
+          <li>Log into the Questbee web dashboard</li>
+          <li>Go to <strong>Settings</strong></li>
+          <li>Under <strong>Mobile Pairing</strong>, click <strong>Generate QR Code</strong></li>
+          <li>A QR code appears — it is valid for a short time (shown on screen)</li>
+        </ol>
+
+        <h3>Step 2 — Connect the App</h3>
+        <ol>
+          <li>Open the Questbee app on your phone</li>
+          <li>Tap <strong>Scan QR Code</strong></li>
+          <li>Point the camera at the QR code on the dashboard screen</li>
+        </ol>
+        <p>The app will verify the connection, store your device token securely, and download your assigned forms automatically.</p>
+
+        <hr>
+
+        <h2 id="managing-devices">Managing Connected Devices</h2>
+        <p>Administrators and managers can see all paired devices in the dashboard under <strong>Settings → Connected Devices</strong>. Each entry shows the device label, the user it is linked to, and the last sync time.</p>
+        <p>To disconnect a device, click <strong>Revoke</strong> next to it. The device will no longer be able to sync until re-paired.</p>
+
+        <hr>
+
+        <h2 id="collecting-data">Collecting Data</h2>
+
+        <h3>Start a Submission</h3>
+        <ol>
+          <li>Open the <strong>Forms</strong> tab</li>
+          <li>Tap the form you want to fill out</li>
+          <li>Fill in each field — swipe or tap <strong>Next</strong> to advance</li>
+          <li>Tap <strong>Submit</strong> when complete</li>
+        </ol>
+
+        <h3>Field Types</h3>
+        <table>
+          <thead><tr><th>Field</th><th>How to Use</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Text / Long text</strong></td><td>Type your response</td></tr>
+            <tr><td><strong>Number</strong></td><td>Enter a number using the numeric keypad</td></tr>
+            <tr><td><strong>Email / Phone</strong></td><td>Type using the appropriate keyboard</td></tr>
+            <tr><td><strong>Date / Time</strong></td><td>Tap to open a date or time picker</td></tr>
+            <tr><td><strong>Single choice</strong></td><td>Tap one option</td></tr>
+            <tr><td><strong>Multiple choice</strong></td><td>Tap all options that apply</td></tr>
+            <tr><td><strong>GPS location</strong></td><td>Tap <strong>Capture</strong> to record your current position. Wait for accuracy to improve before confirming.</td></tr>
+            <tr><td><strong>GPS trace</strong></td><td>Tap <strong>Start</strong> to begin recording your path. Tap <strong>Stop</strong> when done.</td></tr>
+            <tr><td><strong>Photo</strong></td><td>Tap <strong>Take Photo</strong> to use the camera, or <strong>Choose from Gallery</strong></td></tr>
+            <tr><td><strong>Audio</strong></td><td>Tap <strong>Record</strong> — tap again to stop</td></tr>
+            <tr><td><strong>Signature</strong></td><td>Draw with your finger on the signature pad</td></tr>
+            <tr><td><strong>Barcode / QR</strong></td><td>Tap <strong>Scan</strong> and point the camera at the code</td></tr>
+            <tr><td><strong>File attachment</strong></td><td>Tap to select a file from your device</td></tr>
+            <tr><td><strong>Repeating group</strong></td><td>Tap <strong>Add entry</strong> to fill in a set of fields multiple times (e.g., one per household member)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Conditional Questions</h3>
+        <p>Some questions only appear based on your previous answers. The form shows only what is relevant to your responses.</p>
+
+        <h3>Required Fields</h3>
+        <p>Fields marked with <code>*</code> must be answered before you can submit. If you tap Submit with missing required fields, the form scrolls to the first unanswered required field.</p>
+
+        <hr>
+
+        <h2 id="offline-mode">Offline Mode</h2>
+        <p>The app is designed to work without internet. When offline:</p>
+        <ul>
+          <li>You can fill out and submit forms normally</li>
+          <li>Submissions are saved to the device queue</li>
+          <li>Photos, audio, and other media are stored on the device</li>
+          <li>GPS capture works using the device's GPS chip — no internet needed</li>
+        </ul>
+        <p>The status indicator on the home screen shows:</p>
+        <ul>
+          <li><strong>Synced</strong> — all submissions have been uploaded</li>
+          <li><strong>X pending</strong> — number of submissions waiting to sync</li>
+          <li><strong>Offline</strong> — device has no internet connection</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="syncing">Syncing</h2>
+        <p>Sync happens automatically when the device has a network connection. You do not need to do anything manually.</p>
+
+        <h3>What Gets Synced</h3>
+        <ul>
+          <li>Submission data (all field responses)</li>
+          <li>Photos, audio recordings, signatures, and file attachments</li>
+          <li>GPS traces</li>
+        </ul>
+        <p>Media files may take longer to upload than form data on slow connections. The app continues uploading in the background.</p>
+
+        <h3>Reliability</h3>
+        <p>Each submission is sent with a unique device-generated ID. If the connection drops mid-sync, the app retries automatically. The server ignores duplicate submissions — you will never get duplicate records even if the same submission is sent twice.</p>
+
+        <hr>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <h3>Can't connect after scanning QR code</h3>
+        <ul>
+          <li>Make sure your phone can reach the server (same Wi-Fi, or the server is publicly accessible)</li>
+          <li>Ask your administrator to verify the server is running: <code>docker compose ps</code></li>
+          <li>The QR code expires after a short time — ask for a new one if it has been more than a few minutes</li>
+        </ul>
+
+        <h3>Forms not appearing after pairing</h3>
+        <ul>
+          <li>Pull down to refresh on the Forms tab</li>
+          <li>Check that your user account has published forms assigned to it</li>
+        </ul>
+
+        <h3>Submissions stuck as pending</h3>
+        <ul>
+          <li>Check your network connection</li>
+          <li>Open the app with a working connection — sync runs automatically</li>
+          <li>If it continues, check with your administrator that the server is reachable</li>
+        </ul>
+
+        <h3>GPS not capturing</h3>
+        <ul>
+          <li>Make sure location permission is granted: <strong>Phone Settings → Apps → Questbee → Permissions → Location → Allow all the time</strong></li>
+          <li>Move to an open area — GPS is unreliable indoors and under heavy tree cover</li>
+          <li>Wait 30–60 seconds for accuracy to improve before confirming</li>
+        </ul>
+
+        <h3>Photo / camera not working</h3>
+        <ul>
+          <li>Make sure camera permission is granted: <strong>Phone Settings → Apps → Questbee → Permissions → Camera → Allow</strong></li>
+        </ul>
+
+        <h3>App crashed or won't open</h3>
+        <ul>
+          <li>Force-stop the app and reopen it</li>
+          <li>Unsynced submissions are saved in the device database — they will not be lost unless you clear app storage</li>
+        </ul>
+
+        <hr>
+
+        <h2>See Also</h2>
+        <ul>
+          <li><a href="getting-started.html">Getting Started</a> — Server setup and first form</li>
+          <li><a href="api-reference.html">API Reference</a> — Technical integration reference</li>
+          <li><a href="deployment.html">Deployment Guide</a> — Self-hosting and production setup</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

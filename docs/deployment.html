@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deployment Guide — Questbee Docs</title>
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="getting-started.html" class="docs-sidebar-link">Getting Started</a>
+      <a href="deployment.html" class="docs-sidebar-link active">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>Deployment Guide</h1>
+
+        <h2 id="local-development">Local Development</h2>
+        <p><strong>Requirements:</strong> Docker, Docker Compose v2, Git. 2 CPU cores, 4 GB RAM, 10 GB disk minimum.</p>
+        <pre><code class="language-bash">git clone https://github.com/Questbee/community.git
+cd community
+cp .env.example .env
+# Edit .env — see Environment Variables section
+docker compose up --build</code></pre>
+        <table>
+          <thead><tr><th>Service</th><th>URL</th></tr></thead>
+          <tbody>
+            <tr><td>Web dashboard</td><td>http://localhost:3000</td></tr>
+            <tr><td>API</td><td>http://localhost:8000</td></tr>
+            <tr><td>API docs (Swagger)</td><td>http://localhost:8000/docs</td></tr>
+          </tbody>
+        </table>
+        <p>On first login you will be prompted to change the default credentials.</p>
+        <pre><code class="language-bash"># Stop services
+docker compose down
+
+# Stop and delete all data
+docker compose down -v   # WARNING: destroys database and media volumes</code></pre>
+
+        <hr>
+
+        <h2 id="production-on-premise">Production — On-Premise / Private Server</h2>
+        <p>The most common deployment for governments and NGOs who want full data control.</p>
+        <p><strong>Server requirements:</strong></p>
+        <ul>
+          <li>Ubuntu 22.04 LTS (or equivalent Linux)</li>
+          <li>2 CPU cores, 4 GB RAM, 50 GB SSD (minimum)</li>
+          <li>Static IP address or domain name</li>
+          <li>Ports 80 and 443 open to the internet (or your intranet)</li>
+          <li>Port 22 open for SSH administration</li>
+        </ul>
+
+        <h3>1. Install Docker</h3>
+        <pre><code class="language-bash">sudo apt update && sudo apt upgrade -y
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+sudo apt install -y docker-compose-plugin
+# Log out and back in for group changes to take effect</code></pre>
+
+        <h3>2. Deploy Questbee</h3>
+        <pre><code class="language-bash"># Create application directory
+sudo mkdir -p /opt/questbee
+sudo chown $USER:$USER /opt/questbee
+cd /opt/questbee
+
+# Clone the repository
+git clone https://github.com/Questbee/community.git .
+
+# Configure environment
+cp .env.example .env
+nano .env   # edit values (see Environment Variables section)
+
+# Start services in the background
+docker compose up -d --build
+
+# Verify all containers are running
+docker compose ps</code></pre>
+
+        <h3>3. Set Up a Reverse Proxy (TLS / HTTPS)</h3>
+        <p><strong>Option A — Caddy (recommended, automatic TLS)</strong></p>
+        <pre><code class="language-bash">sudo apt install -y caddy
+
+sudo tee /etc/caddy/Caddyfile &gt; /dev/null &lt;&lt; 'EOF'
+your-domain.com {
+    reverse_proxy /api/* localhost:8000
+    reverse_proxy /* localhost:3000
+}
+EOF
+
+sudo systemctl reload caddy</code></pre>
+        <p>Caddy automatically provisions and renews a Let's Encrypt certificate.</p>
+
+        <p><strong>Option B — Nginx + Certbot</strong></p>
+        <pre><code class="language-bash">sudo apt install -y nginx certbot python3-certbot-nginx
+
+sudo tee /etc/nginx/sites-available/questbee &gt; /dev/null &lt;&lt; 'EOF'
+server {
+    server_name your-domain.com;
+
+    location /api/ {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+    }
+}
+EOF
+
+sudo ln -s /etc/nginx/sites-available/questbee /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+# Obtain TLS certificate
+sudo certbot --nginx -d your-domain.com</code></pre>
+
+        <h3>4. Configure Firewall</h3>
+        <pre><code class="language-bash">sudo ufw enable
+sudo ufw allow 22/tcp    # SSH
+sudo ufw allow 80/tcp    # HTTP (redirects to HTTPS)
+sudo ufw allow 443/tcp   # HTTPS
+# Do NOT expose port 5432 (PostgreSQL), 8000, or 3000 directly</code></pre>
+
+        <hr>
+
+        <h2 id="production-cloud">Production — Cloud</h2>
+        <p>Questbee runs on any Linux host that supports Docker. Cloud deployments follow the same steps as on-premise.</p>
+        <table>
+          <thead><tr><th>Provider</th><th>Instance</th><th>Spec</th></tr></thead>
+          <tbody>
+            <tr><td>AWS</td><td>t3.medium</td><td>2 vCPU, 4 GB RAM</td></tr>
+            <tr><td>Azure</td><td>B2s</td><td>2 vCPU, 4 GB RAM</td></tr>
+            <tr><td>GCP</td><td>e2-medium</td><td>2 vCPU, 4 GB RAM</td></tr>
+            <tr><td>DigitalOcean</td><td>4 GB Droplet</td><td>2 vCPU, 4 GB RAM</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="environment-variables">Environment Variables</h2>
+        <p>Create a <code>.env</code> file in <code>community/</code>. Never commit this file to version control.</p>
+        <pre><code class="language-bash"># Database
+DB_PASSWORD=a_very_strong_password
+
+# Security
+SECRET_KEY=replace_with_64_random_hex_chars   # openssl rand -hex 32
+ADMIN_EMAIL=admin@your-domain.com
+ADMIN_PASSWORD=ChangeMe123!
+
+# CORS and API URL
+ALLOWED_ORIGINS=https://your-domain.com
+NEXT_PUBLIC_API_URL=https://your-domain.com/api/v1
+
+# Optional tuning
+MAX_UPLOAD_MB=20
+SYNC_BATCH_SIZE=100</code></pre>
+
+        <table>
+          <thead><tr><th>Variable</th><th>Required</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>DB_PASSWORD</code></td><td>Yes</td><td>—</td><td>PostgreSQL password</td></tr>
+            <tr><td><code>SECRET_KEY</code></td><td>Yes</td><td>—</td><td>JWT signing secret (32+ random hex chars)</td></tr>
+            <tr><td><code>ADMIN_EMAIL</code></td><td>Yes</td><td>—</td><td>Auto-created admin account email</td></tr>
+            <tr><td><code>ADMIN_PASSWORD</code></td><td>Yes</td><td>—</td><td>Initial admin password (forced reset on first login)</td></tr>
+            <tr><td><code>ALLOWED_ORIGINS</code></td><td>Yes</td><td>—</td><td>Comma-separated CORS origins</td></tr>
+            <tr><td><code>NEXT_PUBLIC_API_URL</code></td><td>Yes</td><td>—</td><td>API URL as seen from the browser</td></tr>
+            <tr><td><code>MAX_UPLOAD_MB</code></td><td>No</td><td><code>20</code></td><td>Max media file upload size in MB</td></tr>
+            <tr><td><code>SYNC_BATCH_SIZE</code></td><td>No</td><td><code>100</code></td><td>Max submissions per bulk sync request</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="backups">Backups</h2>
+        <p>Questbee does not manage backups on self-hosted deployments — this is your responsibility.</p>
+
+        <h3>Automated daily database backup</h3>
+        <pre><code class="language-bash">sudo tee /usr/local/bin/questbee-backup.sh &gt; /dev/null &lt;&lt; 'EOF'
+#!/bin/bash
+BACKUP_DIR="/backups/questbee"
+mkdir -p "$BACKUP_DIR"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+docker exec community-db-1 \
+  pg_dump -U questbee questbee | gzip &gt; "$BACKUP_DIR/db_$TIMESTAMP.sql.gz"
+
+# Keep last 30 days only
+find "$BACKUP_DIR" -name "*.gz" -mtime +30 -delete
+
+echo "Backup complete: db_$TIMESTAMP.sql.gz"
+EOF
+
+chmod +x /usr/local/bin/questbee-backup.sh
+
+# Schedule daily at 02:00
+(crontab -l 2&gt;/dev/null; echo "0 2 * * * /usr/local/bin/questbee-backup.sh") | crontab -</code></pre>
+
+        <h3>Restore from backup</h3>
+        <pre><code class="language-bash">gunzip &lt; /backups/questbee/db_20260317_020000.sql.gz | \
+  docker exec -i community-db-1 psql -U questbee questbee</code></pre>
+
+        <h3>Media files backup</h3>
+        <pre><code class="language-bash">docker run --rm -v questbee_media-data:/data -v /backups/questbee:/backup \
+  alpine tar czf /backup/media_$(date +%Y%m%d).tar.gz -C /data .</code></pre>
+
+        <hr>
+
+        <h2 id="production-checklist">Production Checklist</h2>
+        <ul class="checklist">
+          <li>Default credentials changed on first login</li>
+          <li><code>SECRET_KEY</code> set to a long random value (not the example)</li>
+          <li>Database password is strong and not the default</li>
+          <li><code>.env</code> file is not committed to version control</li>
+          <li>TLS/HTTPS configured and certificate is valid</li>
+          <li><code>ALLOWED_ORIGINS</code> and <code>NEXT_PUBLIC_API_URL</code> set to your actual domain</li>
+          <li>Firewall configured — only ports 80 and 443 are exposed</li>
+          <li>Database port (5432) is not exposed externally</li>
+          <li>Daily database backup is scheduled and tested</li>
+          <li>Media volume is included in backup schedule</li>
+          <li><code>docker compose ps</code> shows all containers as <code>Up</code></li>
+          <li>Health check endpoint responds: <code>GET /api/v1/health</code></li>
+        </ul>
+
+        <hr>
+
+        <h2 id="day-to-day">Day-to-Day Operations</h2>
+        <p>All commands run from the <code>community/</code> directory:</p>
+        <table>
+          <thead><tr><th>Task</th><th>Command</th></tr></thead>
+          <tbody>
+            <tr><td>Start (first time / after code changes)</td><td><code>docker compose up --build -d</code></td></tr>
+            <tr><td>Normal restart</td><td><code>docker compose up -d</code></td></tr>
+            <tr><td>Stop, keep data</td><td><code>docker compose down</code></td></tr>
+            <tr><td>Stop, wipe all data</td><td><code>docker compose down -v</code></td></tr>
+            <tr><td>View logs</td><td><code>docker compose logs -f api</code></td></tr>
+            <tr><td>Update (pull + rebuild)</td><td><code>git pull &amp;&amp; docker compose up --build -d</code></td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <h3>Containers not starting</h3>
+        <pre><code class="language-bash">docker compose logs api
+docker compose logs db
+docker compose logs web</code></pre>
+
+        <h3>Database connection error</h3>
+        <pre><code class="language-bash">docker compose ps
+docker exec community-db-1 psql -U questbee -c "SELECT 1"
+docker exec community-api-1 printenv DATABASE_URL</code></pre>
+
+        <h3>Dashboard not reachable</h3>
+        <pre><code class="language-bash">docker compose ps
+docker compose port web 3000</code></pre>
+
+        <h3>Disk space issues</h3>
+        <pre><code class="language-bash">df -h
+docker system prune    # remove unused containers and images</code></pre>
+
+        <hr>
+
+        <h2>See Also</h2>
+        <ul>
+          <li><a href="getting-started.html">Getting Started</a> — Local development setup</li>
+          <li><a href="architecture.html">Architecture</a> — System design</li>
+          <li><a href="api-reference.html">API Reference</a> — Endpoint reference</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

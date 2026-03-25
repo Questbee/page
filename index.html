@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questbee – Surveys &amp; Field Data Collection, On Your Own Servers</title>
+    <meta name="description" content="Build surveys, collect field data offline, and keep every submission on your own servers. No third-party cloud. Free to start.">
+    <meta name="author" content="Questbee">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Questbee – Surveys &amp; Field Data, On Your Own Servers">
+    <meta property="og:description" content="Build surveys, collect data offline, keep full control. Your data stays on your servers — not ours.">
+    <meta property="og:image" content="images/questbee-logo.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Questbee – Self-Hosted Field Data Collection">
+    <meta name="twitter:description" content="Deploy-anywhere, offline-first platform for data sovereignty.">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/questbee-icon.svg" type="image/svg+xml">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" aria-label="Questbee home">
+                <img src="images/questbee-icon.svg" alt="" class="logo-icon" width="32" height="32">
+                <span class="nav-brand">Questbee</span>
+            </a>
+            <ul class="nav-menu" id="nav-menu" role="list">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#licensing">Pricing</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="docs/index.html">Docs</a></li>
+                <li><a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="nav-github" aria-label="View on GitHub">GitHub</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" aria-label="Hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Self-hosted · Open Source · Works Offline
+            </div>
+            <h1>Surveys &amp; Field Data<br><span class="hero-gradient">Your Organization Owns</span></h1>
+            <p class="hero-subtitle">Build forms, collect data in the field — even without internet — and keep every submission on your own servers. Nothing leaves your organization.</p>
+            <div class="hero-buttons">
+                <a href="#how-it-works" class="btn btn-primary btn-large">See How It Works</a>
+                <a href="#community" class="btn btn-ghost btn-large">Get It Free →</a>
+            </div>
+            <div class="hero-trust">
+                <span>Built for</span>
+                <span class="trust-item">🏛️ Government</span>
+                <span class="trust-item">🌍 NGOs</span>
+                <span class="trust-item">🏭 Enterprise</span>
+                <span class="trust-item">📊 Research</span>
+            </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+            <!-- Dashboard UI mockup -->
+            <div class="dashboard-mockup">
+                <div class="mockup-chrome">
+                    <div class="chrome-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="chrome-url">questbee.local:3000</div>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-sidebar">
+                        <div class="mockup-sidebar-brand">
+                            <img src="images/questbee-icon.svg" width="22" height="22" alt="" class="mockup-brand-icon">
+                            <span class="mockup-brand-name">Questbee</span>
+                        </div>
+                        <div class="sidebar-nav">
+                            <div class="sidebar-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                                Dashboard
+                            </div>
+                            <div class="sidebar-item active">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                Forms
+                            </div>
+                            <div class="sidebar-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+                                Submissions
+                            </div>
+                            <div class="sidebar-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                Users
+                            </div>
+                            <div class="sidebar-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+                                API Keys
+                            </div>
+                            <div class="sidebar-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                                Settings
+                            </div>
+                        </div>
+                        <div class="sidebar-spacer"></div>
+                        <div class="sidebar-sync">
+                            <span class="sync-dot"></span>
+                            <span>147 synced</span>
+                        </div>
+                    </div>
+                    <div class="mockup-main">
+                        <div class="mockup-header">
+                            <div class="mockup-header-left">
+                                <span class="mockup-back">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                                </span>
+                                <span class="mockup-title">Field Survey 2026</span>
+                            </div>
+                            <span class="mockup-btn">Publish</span>
+                        </div>
+                        <div class="form-field-list">
+                            <div class="form-field">
+                                <span class="field-type blue">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                                </span>
+                                <div class="field-info">
+                                    <span class="field-name">Full Name</span>
+                                    <span class="field-meta">Text · Required</span>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <span class="field-type amber">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                </span>
+                                <div class="field-info">
+                                    <span class="field-name">GPS Location</span>
+                                    <span class="field-meta">Geopoint · Auto-capture</span>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <span class="field-type teal">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                                </span>
+                                <div class="field-info">
+                                    <span class="field-name">Photo Evidence</span>
+                                    <span class="field-meta">Photo · Multiple</span>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <span class="field-type green">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                                </span>
+                                <div class="field-info">
+                                    <span class="field-name">Status Check</span>
+                                    <span class="field-meta">Select One · Conditional</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mockup-status-bar">
+                            <div class="status-pill green-pill">
+                                <span class="status-dot"></span>
+                                Synced · 147 submissions
+                            </div>
+                            <div class="status-pill amber-pill">
+                                📱 3 devices offline
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar" aria-label="Key metrics">
+        <div class="stats-container">
+            <div class="stat">
+                <span class="stat-number">30 min</span>
+                <span class="stat-label">Target deployment time</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-number">24</span>
+                <span class="stat-label">Field types supported</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Offline capable</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-number">0</span>
+                <span class="stat-label">External dependencies</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works" aria-labelledby="hiw-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">How It Works</span>
+                <h2 id="hiw-heading">Simple from day one</h2>
+                <p class="section-subtitle">No technical knowledge required to collect data. Your IT team sets it up once — then anyone on your team can build and run surveys.</p>
+            </div>
+            <div class="hiw-steps">
+                <div class="hiw-step">
+                    <div class="hiw-number">1</div>
+                    <div class="hiw-icon">📋</div>
+                    <h3>Build your survey</h3>
+                    <p>Use the drag-and-drop form builder to create surveys with text, photos, GPS, checkboxes, and more. No coding required.</p>
+                </div>
+                <div class="hiw-arrow" aria-hidden="true">→</div>
+                <div class="hiw-step">
+                    <div class="hiw-number">2</div>
+                    <div class="hiw-icon">📱</div>
+                    <h3>Collect data in the field</h3>
+                    <p>Field teams use the mobile app on their phones. Works in areas with no internet — data is saved on the device and syncs automatically when back online.</p>
+                </div>
+                <div class="hiw-arrow" aria-hidden="true">→</div>
+                <div class="hiw-step">
+                    <div class="hiw-number">3</div>
+                    <div class="hiw-icon">🔒</div>
+                    <h3>Your data stays with you</h3>
+                    <p>Every submission goes directly to your server — not ours, not a third-party cloud. Your organization has full control of all data, always.</p>
+                </div>
+            </div>
+            <div class="hiw-kobo-note">
+                <p>
+                    <strong>Already using another data collection tool?</strong>
+                    Questbee works the same way — same idea, same workflow. The key difference: most tools store your data on their servers. Questbee installs on yours, so your government agency, NGO, or foundation retains complete ownership.
+                </p>
+                <a href="#licensing" class="btn btn-outline">See pricing →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features" aria-labelledby="features-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">Features</span>
+                <h2 id="features-heading">Everything your team needs in the field</h2>
+                <p class="section-subtitle">Designed for organizations that work in remote areas, handle sensitive data, or simply prefer not to depend on outside cloud services.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap blue-icon">🔒</div>
+                    <h3>Your data never leaves your servers</h3>
+                    <p>Questbee installs on your own infrastructure — a government server, a private cloud, or an on-premise machine. No data is sent to us or any third party. Full compliance with local data regulations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap green-icon">📱</div>
+                    <h3>Works without internet</h3>
+                    <p>Field teams collect data even in areas with no connection. Data is saved on their phone and automatically uploads to your server as soon as they are back online.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap purple-icon">🎨</div>
+                    <h3>Branded as your own app</h3>
+                    <p>Put your organization's name, logo, and colors on the mobile app. Field workers and respondents see your brand — not Questbee's.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap cyan-icon">🤖</div>
+                    <h3>Build forms with AI assistance</h3>
+                    <p>Connect your AI assistant (Claude, GPT, or similar) to Questbee and describe your survey in plain language — the AI builds the form for you. Available on paid plans.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap amber-icon">⚡</div>
+                    <h3>Ready in under an hour</h3>
+                    <p>Your IT team can have Questbee running on your server in under an hour — no specialized knowledge required. One command starts everything.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap red-icon">📊</div>
+                    <h3>Capture anything in the field</h3>
+                    <p>GPS location, photos, barcode scanning, digital signatures, audio, and smart conditional questions — all saved offline on the device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community" aria-labelledby="community-heading">
+        <div class="section-wrapper">
+            <div class="community-grid">
+                <div class="community-text">
+                    <span class="section-label">Community Edition</span>
+                    <h2 id="community-heading">Free. Self-hosted.<br>No license required.</h2>
+                    <p>The server platform — form builder, sync engine, API, and web dashboard — is open source and free to deploy. The mobile app is provided as a free prebuilt binary (Android APK + Expo Go).</p>
+
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Server platform source code (MIT License)</li>
+                        <li><span class="check">✓</span> Docker-based deployment</li>
+                        <li><span class="check">✓</span> Unlimited users on your own infra</li>
+                        <li><span class="check">✓</span> Mobile app as free prebuilt binary</li>
+                        <li><span class="check">✓</span> Community support via GitHub</li>
+                        <li><span class="check">✓</span> No expiry, no telemetry, no lock-in</li>
+                    </ul>
+
+                    <div class="community-actions">
+                        <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+                        <a href="docs/index.html" class="btn btn-outline">Read Docs</a>
+                    </div>
+                </div>
+                <div class="community-code-panel">
+                    <div class="code-panel-header">
+                        <span class="code-dot"></span>
+                        <span class="code-dot"></span>
+                        <span class="code-dot"></span>
+                        <span class="code-label">terminal</span>
+                    </div>
+                    <div class="code-panel-body">
+                        <pre><code><span class="code-comment"># Clone the repository</span>
+git clone https://github.com/Questbee/community.git
+cd questbee/community
+
+<span class="code-comment"># Configure environment</span>
+cp .env.example .env   <span class="code-comment"># fill in DB_PASSWORD and SECRET_KEY</span>
+
+<span class="code-comment"># Start all services</span>
+docker compose up --build
+
+<span class="code-comment"># Dashboard available at:</span>
+<span class="code-success">→</span> http://localhost:3000
+
+<span class="code-comment"># API available at:</span>
+<span class="code-success">→</span> http://localhost:8000/api/v1</code></pre>
+                    </div>
+                    <div class="code-panel-footer">
+                        <span class="code-tag">FastAPI</span>
+                        <span class="code-tag">Next.js</span>
+                        <span class="code-tag">PostgreSQL</span>
+                        <span class="code-tag">React Native</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Licensing Section -->
+    <section id="licensing" class="licensing" aria-labelledby="licensing-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">Pricing</span>
+                <h2 id="licensing-heading">Start free. Scale when you need to.</h2>
+                <p class="section-subtitle">The Community Edition is free and open source. Upgrade for white-labeling, SSO, AI automation, and enterprise support.</p>
+            </div>
+
+            <div class="pricing-grid pricing-grid-4">
+                <!-- Community -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Community</div>
+                    <div class="pricing-price">Free</div>
+                    <div class="pricing-desc">Server: MIT open source · App: free binary</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Form builder (24 field types)</li>
+                        <li class="feat-yes">Mobile app (prebuilt APK / Expo Go)</li>
+                        <li class="feat-yes">Sync engine</li>
+                        <li class="feat-yes">Headless API / IoT ingestion</li>
+                        <li class="feat-yes">Self-hosted, unlimited users</li>
+                        <li class="feat-yes">Community support (GitHub)</li>
+                        <li class="feat-no">White-label branding</li>
+                        <li class="feat-no">SSO / Active Directory</li>
+                    </ul>
+                    <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="btn btn-outline btn-block">Get Started Free</a>
+                </div>
+
+                <!-- Professional -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Professional</div>
+                    <div class="pricing-price">$6K<span class="pricing-period">/year</span></div>
+                    <div class="pricing-desc">Up to 50 users · $100/user after</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Community</li>
+                        <li class="feat-yes">White-label branding</li>
+                        <li class="feat-yes">Advanced RBAC</li>
+                        <li class="feat-yes">Mobile app packaging (APK)</li>
+                        <li class="feat-yes">AI connection via MCP</li>
+                        <li class="feat-yes">Email support</li>
+                        <li class="feat-yes">Monthly option available</li>
+                        <li class="feat-no">SSO / SAML</li>
+                        <li class="feat-no">Audit logs</li>
+                    </ul>
+                    <a href="mailto:warionv@gmail.com" class="btn btn-outline btn-block">Get a Quote</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card pricing-featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">$12K<span class="pricing-period">/year</span></div>
+                    <div class="pricing-desc">Up to 200 users · $80/user after</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Professional</li>
+                        <li class="feat-yes">SSO / SAML / Active Directory</li>
+                        <li class="feat-yes">Audit logs &amp; compliance exports</li>
+                        <li class="feat-yes">AI connection via MCP</li>
+                        <li class="feat-yes">Priority support (8h SLA)</li>
+                        <li class="feat-yes">Branded iOS + Android apps</li>
+                        <li class="feat-yes">Implementation included</li>
+                        <li class="feat-yes">Non-profit pricing available</li>
+                    </ul>
+                    <a href="mailto:warionv@gmail.com" class="btn btn-primary btn-block">Contact Sales</a>
+                </div>
+
+                <!-- Enterprise+ -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise+</div>
+                    <div class="pricing-price">Custom</div>
+                    <div class="pricing-desc">Unlimited users · Multi-instance</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Enterprise</li>
+                        <li class="feat-yes">Unlimited users</li>
+                        <li class="feat-yes">Multi-instance management</li>
+                        <li class="feat-yes">Dedicated deployment engineer</li>
+                        <li class="feat-yes">Custom SLA</li>
+                        <li class="feat-yes">Managed hosting option</li>
+                        <li class="feat-yes">Partner integration support</li>
+                        <li class="feat-yes">Volume license discounts</li>
+                    </ul>
+                    <a href="mailto:warionv@gmail.com" class="btn btn-outline btn-block">Talk to Us</a>
+                </div>
+            </div>
+
+            <div class="pricing-footnotes">
+                <p>💡 <strong>Per-user example:</strong> A 350-user Enterprise deployment = $12,000 + (150 extra × $80) = <strong>$24,000/year</strong>.</p>
+                <p>📅 <strong>Monthly option:</strong> Pay month-to-month at 1.5× the annual monthly rate. Convert to annual any time for a 33% saving.</p>
+                <p>🏛️ <strong>Non-profit &amp; academic:</strong> Reduced rates available — <a href="mailto:warionv@gmail.com">contact us</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison" aria-labelledby="comparison-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">How We Compare</span>
+                <h2 id="comparison-heading">How does Questbee compare?</h2>
+                <p class="section-subtitle">Most data collection tools store your data on their servers. Questbee installs on yours — same workflow, full ownership.</p>
+            </div>
+            <div class="comparison-table-wrap">
+                <table class="comparison-table" role="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" class="col-questbee">Questbee</th>
+                            <th scope="col">KoboToolbox / ODK</th>
+                            <th scope="col">Google Forms / SurveyMonkey</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Your data stays on your servers</td>
+                            <td class="col-questbee yes">✓ Always</td>
+                            <td class="partial">Only if self-hosted (complex)</td>
+                            <td class="no">✗ Stored in their cloud</td>
+                        </tr>
+                        <tr>
+                            <td>Works without internet</td>
+                            <td class="col-questbee yes">✓ Fully offline</td>
+                            <td class="partial">Partial</td>
+                            <td class="no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>Branded as your organization's app</td>
+                            <td class="col-questbee yes">✓</td>
+                            <td class="no">✗</td>
+                            <td class="partial">Paid add-on</td>
+                        </tr>
+                        <tr>
+                            <td>Easy to set up (one command)</td>
+                            <td class="col-questbee yes">✓</td>
+                            <td class="no">✗ Requires DevOps expertise</td>
+                            <td class="yes">✓ (but data goes to their cloud)</td>
+                        </tr>
+                        <tr>
+                            <td>AI assistant can build forms for you</td>
+                            <td class="col-questbee yes">✓ Paid plans</td>
+                            <td class="no">✗</td>
+                            <td class="no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>Free to use</td>
+                            <td class="col-questbee yes">✓ Community Edition</td>
+                            <td class="yes">✓ Free tier</td>
+                            <td class="partial">Free tier (limited)</td>
+                        </tr>
+                        <tr>
+                            <td>Open source</td>
+                            <td class="col-questbee yes">✓</td>
+                            <td class="yes">✓</td>
+                            <td class="no">✗</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners" aria-labelledby="partners-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">Partner Program</span>
+                <h2 id="partners-heading">Grow your consulting business with Questbee</h2>
+                <p class="section-subtitle">We build the product. You bring the customer relationships. Together we serve governments, NGOs, and enterprises.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>15–25% Revenue Share</h3>
+                    <p>Earn commission on annual license fees from every customer you introduce to Questbee, starting from their first paid contract.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📦</div>
+                    <h3>Turnkey Pilot Package</h3>
+                    <p>Everything you need to run a 2–4 week pilot: deployment guides, training materials, and direct technical support from our team.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📣</div>
+                    <h3>Co-Marketing</h3>
+                    <p>Case studies, co-branded materials, and logo placement to help you pitch Questbee to your government and enterprise clients.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛟</div>
+                    <h3>Dedicated Support</h3>
+                    <p>A direct channel to the Questbee engineering team for customer escalations, technical questions, and implementation help.</p>
+                </div>
+            </div>
+            <div class="ideal-partners-block">
+                <h3>Ideal partners</h3>
+                <div class="ideal-grid">
+                    <span class="ideal-tag">🏛️ Government IT consulting firms</span>
+                    <span class="ideal-tag">💧 Water &amp; environmental institutions</span>
+                    <span class="ideal-tag">🌍 NGOs and development organizations</span>
+                    <span class="ideal-tag">🔧 IT integrators &amp; system integrators</span>
+                    <span class="ideal-tag">📊 Data science &amp; analytics consultancies</span>
+                    <span class="ideal-tag">🗳️ Electoral &amp; public affairs firms</span>
+                </div>
+            </div>
+            <div class="partners-cta">
+                <a href="mailto:warionv@gmail.com" class="btn btn-primary">Contact Partnerships</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Built For Section -->
+    <section class="use-cases" aria-labelledby="usecases-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">Use Cases</span>
+                <h2 id="usecases-heading">Built for critical field operations</h2>
+                <p class="section-subtitle">From government census teams to NGO field workers operating in remote areas with no connectivity.</p>
+            </div>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">🏛️</div>
+                    <h3>Government &amp; Public Sector</h3>
+                    <p><strong>Census, inspections, public works</strong></p>
+                    <p>Collect data from field teams while meeting strict data localization and regulatory compliance requirements.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🌍</div>
+                    <h3>NGO &amp; Humanitarian</h3>
+                    <p><strong>Rural surveys &amp; monitoring</strong></p>
+                    <p>Work in remote areas without internet. Sync all collected data automatically when connectivity returns to camp.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🏭</div>
+                    <h3>Enterprise Field Teams</h3>
+                    <p><strong>Inspections, audits, asset tracking</strong></p>
+                    <p>Safety inspections and compliance audits with GPS, photo documentation, and barcode scanning — all offline.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">📊</div>
+                    <h3>Data Science &amp; Research</h3>
+                    <p><strong>AI-assisted surveys &amp; prototyping</strong></p>
+                    <p>Use AI to generate survey forms and inject synthetic data for rapid prototyping and model training.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Docs Section -->
+    <section id="docs" class="docs" aria-labelledby="docs-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">Documentation</span>
+                <h2 id="docs-heading">Everything you need to ship</h2>
+                <p class="section-subtitle">From first deployment to production — guides for developers, IT admins, and partners.</p>
+            </div>
+            <div class="docs-grid">
+                <a href="docs/getting-started.html" class="doc-card">
+                    <div class="doc-icon">📖</div>
+                    <h3>Getting Started</h3>
+                    <p>Quick setup guide for developers and IT admins. Up and running in under 30 minutes.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
+                <a href="docs/architecture.html" class="doc-card">
+                    <div class="doc-icon">🏗️</div>
+                    <h3>Architecture</h3>
+                    <p>System design, database schema, component overview, and data flow diagrams.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
+                <a href="docs/mobile-app.html" class="doc-card">
+                    <div class="doc-icon">📱</div>
+                    <h3>Mobile App Guide</h3>
+                    <p>How to deploy, configure, and white-label the Questbee mobile app for your organization.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
+                <a href="docs/api-reference.html" class="doc-card">
+                    <div class="doc-icon">🔌</div>
+                    <h3>API Reference</h3>
+                    <p>REST endpoints, authentication methods, IoT ingestion, and SDK code examples.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
+                <a href="docs/deployment.html" class="doc-card">
+                    <div class="doc-icon">🚀</div>
+                    <h3>Deployment Guide</h3>
+                    <p>Production deployment on AWS, Azure, or on-premise private server with SSL and backups.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
+                <a href="mailto:warionv@gmail.com" class="doc-card">
+                    <div class="doc-icon">🤝</div>
+                    <h3>Partner Program</h3>
+                    <p>Revenue share, pilot package, co-marketing, and dedicated support for consulting firms.</p>
+                    <span class="doc-link">Contact us →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" aria-labelledby="faq-heading">
+        <div class="section-wrapper faq-wrapper">
+            <div class="section-header">
+                <span class="section-label">FAQ</span>
+                <h2 id="faq-heading">Frequently asked questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Is the Community Edition really free — forever?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Yes. The server platform (FastAPI backend, Next.js dashboard, sync engine) is MIT-licensed open source — free to deploy, no user limits, no expiry, no telemetry. The mobile app is provided as a free prebuilt binary (Android APK + Expo Go) for community use. Mobile app source code is commercial and included with paid plans.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Can I use an AI assistant to build and manage forms?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Yes — <strong>Professional and above</strong> includes an <strong>MCP server</strong> that lets any compatible AI assistant (Claude, GPT, etc.) connect directly to your Questbee instance. Through that connection, your AI can build form schemas from a plain-language description, inject test submissions, and query collected data — without you needing to touch the form builder manually.</p>
+                        <p>Questbee does not include a built-in AI model. It provides the MCP interface so you bring your own AI assistant and it does the work on your behalf, on your infrastructure.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Do I need a cloud account or internet to run Questbee?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>No. Questbee runs entirely on your own infrastructure — a VM, bare-metal server, or your own cloud account. No data leaves your environment. It works in air-gapped networks with no outbound internet access. All you need is Docker and Docker Compose.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Can the mobile app collect data without internet?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Yes — this is the core design principle. The mobile app stores all submissions locally using SQLite. Field workers can collect GPS coordinates, photos, barcodes, and form data with zero connectivity. When WiFi or cellular is restored, the app syncs automatically using a conflict-resolution engine. There is no minimum connectivity requirement.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        How does pricing work? Is there per-user pricing?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Yes — pricing scales with users:</p>
+                        <p><strong>Professional — $6,000/year:</strong> Covers up to 50 users. Each additional user is $100/year. Includes white-labeling and advanced RBAC.</p>
+                        <p><strong>Enterprise — $12,000/year:</strong> Covers up to 200 users. Each additional user is $80/year. Includes SSO, audit logs, branded App Store apps, and priority support.</p>
+                        <p><strong>Enterprise+:</strong> Custom quote for unlimited users, multi-instance, and managed hosting.</p>
+                        <p>Monthly payment is available at 1.5× the annual monthly rate. Example: a 350-user Enterprise deployment = $12,000 + (150 × $80) = <strong>$24,000/year</strong>.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        What does white-labeling include, and which tier do I need?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p><strong>Professional and above</strong> includes: custom logo and colors in the web dashboard, a branded Android APK, and a custom domain. All Questbee branding is removed from user-facing interfaces.</p>
+                        <p><strong>Enterprise and above</strong> additionally includes full App Store + Google Play publishing (iOS + Android). This requires the client organization to own an Apple Developer account ($99/year) and a Google Play account ($25 one-time).</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Can I migrate from KoboToolbox or ODK?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Form migration is straightforward — Questbee's schema is inspired by XLSForm (the standard used by KoboToolbox and ODK), so most forms can be imported with minimal rework. Historical submission data migration is handled case-by-case and is included in the Implementation service package.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        What happens if Questbee stops being developed?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Because the Community Edition is MIT-licensed open source, you always retain the code. If development stops, you can continue running the existing version indefinitely, fork the project, or hire a developer to maintain it. There is no vendor lock-in — your data stays in your PostgreSQL database, in standard formats.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Is the product available now?
+                        <span class="faq-arrow" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" hidden>
+                        <p>Yes — the Community Edition is available now. The full stack (API, dashboard, mobile app, sync engine) is running and deployable with a single <code>docker compose up</code>. We are onboarding pilot partners for the first production deployments and offering favorable early-access pricing.</p>
+                        <p><a href="https://github.com/Questbee/community" target="_blank" rel="noopener">Get started on GitHub</a> or <a href="mailto:warionv@gmail.com">contact us</a> to discuss a pilot.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" aria-label="Call to action">
+        <div class="cta-content">
+            <h2>Ready to own your field data?</h2>
+            <p>Join governments, enterprises, and NGOs collecting field data securely and offline.</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="btn btn-white btn-large">Explore Community Edition</a>
+                <a href="mailto:warionv@gmail.com" class="btn btn-outline-white btn-large">Contact for Enterprise</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="images/questbee-icon.svg" alt="" width="28" height="28">
+                    <span>Questbee</span>
+                </div>
+                <p class="footer-tagline">Self-hosted, offline-first field data collection for organizations that need data sovereignty.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+                    <a href="https://buymeacoffee.com/questbee" target="_blank" rel="noopener" aria-label="Support on Buy Me a Coffee">☕ Donate</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#licensing">Pricing</a></li>
+                        <li><a href="#partners">Partners</a></li>
+                        <li><a href="#docs">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/Questbee/community" target="_blank" rel="noopener">GitHub</a></li>
+                        <li><a href="docs/getting-started.md">Getting Started</a></li>
+                        <li><a href="docs/api-reference.md">API Reference</a></li>
+                        <li><a href="docs/deployment.md">Deployment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="mailto:warionv@gmail.com">About</a></li>
+                        <li><a href="mailto:warionv@gmail.com">Partnerships</a></li>
+                        <li><a href="mailto:warionv@gmail.com">Contact</a></li>
+                        <li><a href="mailto:warionv@gmail.com">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Questbee. Self-hosted, offline-first field data collection.</p>
+            <div class="footer-legal">
+                <a href="mailto:warionv@gmail.com">Privacy</a>
+                <a href="mailto:warionv@gmail.com">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('nav-open');
+            navToggle.classList.toggle('nav-toggle-open', isOpen);
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+        // Close nav on link click (mobile)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('nav-open');
+                navToggle.classList.remove('nav-toggle-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const arrow = btn.querySelector('.faq-arrow');
+                const isOpen = !answer.hidden;
+                // Close all
+                document.querySelectorAll('.faq-answer').forEach(a => { a.hidden = true; });
+                document.querySelectorAll('.faq-question').forEach(b => {
+                    b.setAttribute('aria-expanded', 'false');
+                    b.querySelector('.faq-arrow').textContent = '+';
+                });
+                // Open this one if it was closed
+                if (!isOpen) {
+                    answer.hidden = false;
+                    btn.setAttribute('aria-expanded', 'true');
+                    arrow.textContent = '−';
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('navbar-scrolled', window.scrollY > 20);
+        });
+    </script>
+</body>
+</html> 

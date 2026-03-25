@@ -1,0 +1,301 @@
+:root {
+  --brand: #f59e0b;
+  --brand-dark: #d97706;
+  --brand-light: #fef3c7;
+  --text: #111827;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --bg: #f9fafb;
+  --sidebar-w: 260px;
+  --topnav-h: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: #fff;
+  line-height: 1.6;
+}
+
+/* ── Top nav ─────────────────────────────────────────────── */
+.docs-topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topnav-h);
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 100;
+}
+
+.docs-topnav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.docs-topnav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.docs-topnav-links a {
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: color 0.15s;
+}
+
+.docs-topnav-links a:hover { color: var(--text); }
+
+.docs-topnav-links a.github {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  background: var(--text);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+.docs-layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: var(--topnav-h);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+.docs-sidebar {
+  position: fixed;
+  top: var(--topnav-h);
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - var(--topnav-h));
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+  padding: 1.5rem 0;
+}
+
+.docs-sidebar-section {
+  padding: 0 1.25rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.docs-sidebar-link {
+  display: block;
+  padding: 0.4rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, background 0.15s;
+}
+
+.docs-sidebar-link:hover {
+  color: var(--text);
+  background: #f3f4f6;
+}
+
+.docs-sidebar-link.active {
+  color: var(--brand-dark);
+  font-weight: 600;
+  border-left-color: var(--brand);
+  background: var(--brand-light);
+}
+
+.docs-sidebar-divider {
+  margin: 1rem 1.25rem;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Main content ────────────────────────────────────────── */
+.docs-main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+.docs-content {
+  max-width: 800px;
+  padding: 2.5rem 3rem 4rem;
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+.docs-content h1 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.docs-content h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1rem;
+}
+
+.docs-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.docs-content p {
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
+.docs-content ul, .docs-content ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.docs-content li {
+  margin-bottom: 0.375rem;
+  color: #374151;
+}
+
+.docs-content a {
+  color: var(--brand-dark);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s;
+}
+
+.docs-content a:hover {
+  text-decoration-color: var(--brand-dark);
+}
+
+.docs-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+.docs-content strong { font-weight: 600; }
+
+.docs-content code {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  font-size: 0.8125rem;
+  background: #f3f4f6;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: #1f2937;
+}
+
+.docs-content pre {
+  margin: 1rem 0 1.5rem;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.docs-content pre code {
+  font-size: 0.8125rem;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+.docs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.875rem;
+}
+
+.docs-content th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border);
+  color: #374151;
+}
+
+.docs-content td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: #374151;
+}
+
+.docs-content tr:last-child td { border-bottom: none; }
+
+/* ── Blockquote / Note ───────────────────────────────────── */
+.docs-content blockquote {
+  margin: 1rem 0 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--brand-light);
+  border-left: 3px solid var(--brand);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.875rem;
+  color: #92400e;
+}
+
+.docs-content blockquote p { margin: 0; color: inherit; }
+
+/* ── Checklist ───────────────────────────────────────────── */
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.375rem; }
+.checklist li::before { content: "☐"; flex-shrink: 0; font-size: 1rem; margin-top: -1px; }
+
+/* ── Docs index cards ────────────────────────────────────── */
+.docs-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.docs-index-card {
+  display: block;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.docs-index-card:hover {
+  border-color: var(--brand);
+  box-shadow: 0 2px 8px rgba(245,158,11,0.1);
+  text-decoration: none;
+}
+
+.docs-index-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.docs-index-card h3 { font-size: 0.9375rem; font-weight: 600; color: var(--text); margin-bottom: 0.375rem; margin-top: 0; }
+.docs-index-card p { font-size: 0.8125rem; color: var(--text-secondary); margin: 0; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .docs-sidebar { display: none; }
+  .docs-main { margin-left: 0; }
+  .docs-content { padding: 1.5rem 1.25rem 3rem; }
+  .docs-topnav-links a:not(.github) { display: none; }
+}

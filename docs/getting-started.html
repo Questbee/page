@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started — Questbee Docs</title>
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="getting-started.html" class="docs-sidebar-link active">Getting Started</a>
+      <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>Getting Started</h1>
+
+        <h2 id="prerequisites">Prerequisites</h2>
+        <ul>
+          <li>Docker and Docker Compose v2 installed</li>
+          <li>Git (to clone the repository)</li>
+          <li>At least 2 CPU cores, 4 GB RAM, 50 GB disk</li>
+          <li>Basic command-line familiarity</li>
+        </ul>
+
+        <hr>
+
+        <h2 id="quick-start">Quick Start</h2>
+
+        <h3>1. Clone the Repository</h3>
+        <pre><code class="language-bash">git clone https://github.com/Questbee/community.git
+cd community</code></pre>
+
+        <h3>2. Configure Environment</h3>
+        <pre><code class="language-bash">cp .env.example .env</code></pre>
+        <p>Edit <code>.env</code> — the minimum required values:</p>
+        <pre><code class="language-bash">DB_PASSWORD=a_strong_password
+SECRET_KEY=run_python3_to_generate_this
+ADMIN_EMAIL=admin@yourorg.com
+ADMIN_PASSWORD=ChangeMe123!
+ALLOWED_ORIGINS=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1</code></pre>
+        <p>Generate a proper <code>SECRET_KEY</code>:</p>
+        <pre><code class="language-bash">python3 -c "import secrets; print(secrets.token_hex(32))"</code></pre>
+        <blockquote><p><strong>Note on email:</strong> use a real-looking domain like <code>yourorg.com</code>. Pydantic rejects reserved TLDs like <code>.local</code>.</p></blockquote>
+
+        <h3>3. Start the Stack</h3>
+        <pre><code class="language-bash">docker compose up --build</code></pre>
+        <table>
+          <thead><tr><th>Service</th><th>URL</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Web dashboard</td><td>http://localhost:3000</td><td>Next.js admin interface</td></tr>
+            <tr><td>API</td><td>http://localhost:8000</td><td>FastAPI backend</td></tr>
+            <tr><td>API docs (Swagger)</td><td>http://localhost:8000/docs</td><td>Interactive endpoint explorer</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4. First Login</h3>
+        <ol>
+          <li>Open <strong>http://localhost:3000</strong></li>
+          <li>Log in with <code>ADMIN_EMAIL</code> and <code>ADMIN_PASSWORD</code> from your <code>.env</code></li>
+          <li>You will be redirected to a <strong>Change Password</strong> screen — this is mandatory on first login</li>
+          <li>After changing your password, you land on the dashboard</li>
+        </ol>
+
+        <hr>
+
+        <h2 id="first-steps">First Steps in the Dashboard</h2>
+
+        <h3>Create a Project</h3>
+        <p>Forms are organized inside Projects. A project maps to one program or initiative.</p>
+        <ol>
+          <li>Go to <strong>Dashboard</strong> → click <strong>New Project</strong></li>
+          <li>Enter a name (e.g. "2026 Household Survey")</li>
+          <li>Click <strong>Create</strong></li>
+        </ol>
+
+        <h3>Create and Build a Form</h3>
+        <ol>
+          <li>Inside the project, click <strong>New Form</strong></li>
+          <li>Give it a name and optional description</li>
+          <li>Click <strong>Create</strong> — you land in the form builder</li>
+          <li>Add fields from the left panel</li>
+          <li>Configure each field: label, required, hint, conditional logic</li>
+          <li>Click <strong>Publish</strong> when the form is ready</li>
+        </ol>
+
+        <p><strong>Available field types:</strong></p>
+        <table>
+          <thead><tr><th>Category</th><th>Fields</th></tr></thead>
+          <tbody>
+            <tr><td>Text</td><td>Short text, Long text, Number, Email, Phone</td></tr>
+            <tr><td>Date / Time</td><td>Date, Time, Date + Time</td></tr>
+            <tr><td>Choice</td><td>Single choice, Multiple choice, Single choice with write-in</td></tr>
+            <tr><td>Location</td><td>GPS point (geopoint), GPS trace (geotrace)</td></tr>
+            <tr><td>Media</td><td>Photo, Audio recording, Signature, File attachment</td></tr>
+            <tr><td>Scan</td><td>Barcode / QR code</td></tr>
+            <tr><td>Logic</td><td>Calculated value, Hidden field</td></tr>
+            <tr><td>Layout</td><td>Note, Divider, Field group, Repeating group</td></tr>
+          </tbody>
+        </table>
+
+        <blockquote><p><strong>Versioning:</strong> Once published, a form version is locked. Any edit creates a new draft. Existing submissions always reference the version they were collected against.</p></blockquote>
+
+        <hr>
+
+        <h2 id="pairing-the-mobile-app">Pairing the Mobile App</h2>
+        <p>The mobile app connects to your server via a QR code generated in the dashboard. The QR code embeds both the server URL and a short-lived pairing token — no separate login is required on the device.</p>
+
+        <h3>Generate a Pairing Code</h3>
+        <ol>
+          <li>In the dashboard go to <strong>Settings</strong></li>
+          <li>Under <strong>Mobile Pairing</strong>, click <strong>Generate QR Code</strong></li>
+        </ol>
+
+        <h3>Connect the App</h3>
+        <ol>
+          <li>Open the Questbee app on your device</li>
+          <li>Tap <strong>Scan QR Code</strong></li>
+          <li>Point the camera at the QR code shown in the dashboard</li>
+        </ol>
+        <p>The app connects, stores your credentials securely, and downloads your assigned forms automatically. You are ready to collect data.</p>
+
+        <hr>
+
+        <h2 id="collecting-data">Collecting Data</h2>
+
+        <h3>Via Mobile App (Offline-First)</h3>
+        <ol>
+          <li>Open the app → select a form</li>
+          <li>Fill in all fields — no internet required</li>
+          <li>Tap <strong>Submit</strong> — data is saved locally if offline</li>
+          <li>When the device reconnects, pending submissions upload automatically</li>
+        </ol>
+
+        <h3>Via Web (Online Only)</h3>
+        <p>Web submission from the dashboard is available for managers testing forms or entering data manually.</p>
+
+        <hr>
+
+        <h2 id="viewing-submissions">Viewing Submissions</h2>
+        <ol>
+          <li>Go to <strong>Submissions</strong> in the sidebar</li>
+          <li>Filter by form using the dropdown</li>
+          <li>Click any row to see full submission details, including media files</li>
+        </ol>
+
+        <hr>
+
+        <h2 id="exporting-data">Exporting Data</h2>
+        <p>Click <strong>Export</strong> on the Submissions page to download your data:</p>
+        <table>
+          <thead><tr><th>Format</th><th>Contents</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CSV</strong></td><td>One row per submission; repeat groups in separate files</td></tr>
+            <tr><td><strong>GeoJSON</strong></td><td>GPS points, traces, and routes as a FeatureCollection</td></tr>
+            <tr><td><strong>GPX</strong></td><td>Route/trace fields as a GPX track (opens in QGIS, OsmAnd, etc.)</td></tr>
+            <tr><td><strong>Media files</strong></td><td>ZIP archive of all uploaded files with an index CSV</td></tr>
+            <tr><td><strong>Full package</strong></td><td>ZIP with all of the above combined</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="environment-variables">Environment Variables</h2>
+        <table>
+          <thead><tr><th>Variable</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>DB_PASSWORD</code></td><td>Yes</td><td>PostgreSQL password for the <code>questbee</code> user</td></tr>
+            <tr><td><code>SECRET_KEY</code></td><td>Yes</td><td>JWT signing secret (32+ random hex chars)</td></tr>
+            <tr><td><code>ADMIN_EMAIL</code></td><td>Yes</td><td>Email for the auto-created admin account</td></tr>
+            <tr><td><code>ADMIN_PASSWORD</code></td><td>Yes</td><td>Initial password (must be changed on first login)</td></tr>
+            <tr><td><code>ALLOWED_ORIGINS</code></td><td>Yes</td><td>Comma-separated CORS origins for the dashboard</td></tr>
+            <tr><td><code>NEXT_PUBLIC_API_URL</code></td><td>Yes</td><td>API URL as seen from the browser</td></tr>
+            <tr><td><code>MAX_UPLOAD_MB</code></td><td>No</td><td>Max media file upload size in MB (default: 20)</td></tr>
+            <tr><td><code>SYNC_BATCH_SIZE</code></td><td>No</td><td>Max submissions per bulk sync request (default: 100)</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <h3>Dashboard not loading</h3>
+        <pre><code class="language-bash">docker compose logs web</code></pre>
+
+        <h3>API errors</h3>
+        <pre><code class="language-bash">docker compose logs api</code></pre>
+
+        <h3>Database issues</h3>
+        <pre><code class="language-bash">docker compose ps           # check all containers are Up
+docker compose restart db   # restart database if needed</code></pre>
+
+        <h3>Mobile app not syncing</h3>
+        <ul>
+          <li>Confirm the server URL is reachable from the device network</li>
+          <li>Check: <code>docker compose logs api</code> for 4xx/5xx errors</li>
+        </ul>
+
+        <h3>Full reset (delete all data)</h3>
+        <pre><code class="language-bash">docker compose down -v</code></pre>
+
+        <hr>
+
+        <h2>Next Steps</h2>
+        <ul>
+          <li><a href="architecture.html">Architecture</a> — System design overview</li>
+          <li><a href="api-reference.html">API Reference</a> — Headless API and IoT ingestion</li>
+          <li><a href="deployment.html">Deployment Guide</a> — Production setup</li>
+          <li><a href="mobile-app.html">Mobile App Guide</a> — Full field worker reference</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

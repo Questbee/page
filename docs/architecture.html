@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture — Questbee Docs</title>
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="getting-started.html" class="docs-sidebar-link">Getting Started</a>
+      <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link active">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>Architecture Overview</h1>
+
+        <h2 id="system-overview">System Overview</h2>
+        <p>Questbee has three client surfaces — a web dashboard, a mobile app, and a headless API — all backed by a single FastAPI service and a PostgreSQL database, packaged as a Docker Compose stack that runs entirely on your own server.</p>
+        <pre><code>┌────────────────────────────────────────────────────────────────────┐
+│                         CLIENT SURFACES                            │
+├─────────────────┬──────────────────────┬───────────────────────────┤
+│  Web Dashboard  │    Mobile App        │    Headless API / IoT     │
+│  (Next.js)      │    (React Native)    │    (API key auth)         │
+│  Browser        │    iOS + Android     │    External systems       │
+└────────┬────────┴──────────┬───────────┴───────────┬───────────────┘
+         │                   │                        │
+         │         HTTPS / REST API (FastAPI)         │
+         └───────────────────┼────────────────────────┘
+                             │
+         ┌───────────────────▼────────────────────────┐
+         │              FastAPI Backend               │
+         │  • Forms &amp; versioned schemas               │
+         │  • Offline sync engine                     │
+         │  • Auth: JWT + API keys + device tokens    │
+         │  • Role-based access control               │
+         │  • Media file storage                      │
+         │  • Data export (CSV, GeoJSON, GPX, ZIP)    │
+         └───────────────────┬────────────────────────┘
+                             │
+         ┌───────────────────▼────────────────────────┐
+         │              PostgreSQL                    │
+         │  • Forms, submissions (JSONB)              │
+         │  • Users, tenants, projects                │
+         │  • API keys, media files, device tokens    │
+         └────────────────────────────────────────────┘</code></pre>
+        <p>All containers run inside a Docker Compose stack on your own infrastructure. No data is sent to Questbee servers.</p>
+
+        <hr>
+
+        <h2 id="components">Components</h2>
+
+        <h3>Web Dashboard (Next.js)</h3>
+        <p>Browser-based interface for program managers and administrators.</p>
+        <ul>
+          <li>Build and publish forms with a visual form builder</li>
+          <li>Manage users and assign roles (Admin, Manager, Field Worker)</li>
+          <li>Browse, search, and review submissions with media preview</li>
+          <li>Export data as CSV, GeoJSON, GPX, or media ZIP</li>
+          <li>Generate pairing QR codes and manage connected devices</li>
+          <li>Manage API keys for headless integrations</li>
+        </ul>
+
+        <h3>Mobile App (React Native / Expo)</h3>
+        <p>Offline-first data collection app for field workers.</p>
+        <ul>
+          <li>Pairs with the server via QR code — no separate login required</li>
+          <li>Downloads assigned form schemas to the device</li>
+          <li>Collects data with no internet connection — data saved locally in SQLite</li>
+          <li>Automatically syncs pending submissions and media files when back online</li>
+          <li>Supports GPS, photos, audio, signatures, barcodes, and more</li>
+        </ul>
+        <p><strong>Distribution:</strong> prebuilt Android APK and Expo Go for iOS. White-label compilation is available on paid plans.</p>
+
+        <h3>Backend API (FastAPI)</h3>
+        <p>The central service. All three client surfaces communicate through it.</p>
+        <table>
+          <thead><tr><th>Area</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Forms</td><td>CRUD for form schemas; immutable versioning on publish</td></tr>
+            <tr><td>Submissions</td><td>Accept from mobile (JWT) and headless API (API key); idempotent bulk sync</td></tr>
+            <tr><td>Media</td><td>File upload and authenticated retrieval; stored on the server filesystem</td></tr>
+            <tr><td>Sync</td><td>Bulk submission endpoint with device-UUID deduplication</td></tr>
+            <tr><td>Auth</td><td>JWT for dashboard users; API keys for IoT/headless; device tokens for mobile</td></tr>
+            <tr><td>RBAC</td><td>Role enforcement: Admin &gt; Manager &gt; Field Worker</td></tr>
+            <tr><td>Export</td><td>CSV (flat + repeat groups), GeoJSON, GPX, media ZIP, full package</td></tr>
+            <tr><td>Settings</td><td>Mobile pairing tokens, connected device management, server URL config</td></tr>
+            <tr><td>Webhooks</td><td>Per-form HTTP webhooks triggered on new submissions</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Database (PostgreSQL)</h3>
+        <p>All persistent data lives here.</p>
+        <p>Core tables: <code>tenants</code>, <code>projects</code>, <code>forms</code>, <code>form_versions</code>, <code>submissions</code>, <code>users</code>, <code>api_keys</code>, <code>media_files</code>, <code>device_tokens</code>, <code>pairing_tokens</code></p>
+        <p>Form schemas and submission data are stored as <strong>JSONB</strong> — flexible enough to support any combination of field types without a schema migration per form change.</p>
+
+        <hr>
+
+        <h2 id="tech-stack">Tech Stack</h2>
+        <table>
+          <thead><tr><th>Layer</th><th>Technology</th></tr></thead>
+          <tbody>
+            <tr><td>Backend</td><td>FastAPI (Python 3.11+)</td></tr>
+            <tr><td>Web dashboard</td><td>Next.js 14 + TypeScript + Tailwind CSS</td></tr>
+            <tr><td>Mobile app</td><td>React Native / Expo (TypeScript)</td></tr>
+            <tr><td>Mobile local DB</td><td>SQLite (via Expo SQLite)</td></tr>
+            <tr><td>Server DB</td><td>PostgreSQL 15</td></tr>
+            <tr><td>Containers</td><td>Docker + Docker Compose v2</td></tr>
+          </tbody>
+        </table>
+        <p>Minimum server requirements: <strong>2 CPU cores, 4 GB RAM, 50 GB disk</strong>, Ubuntu 22.04 or equivalent.</p>
+
+        <hr>
+
+        <h2 id="offline-sync">Data Flow: Offline Mobile Sync</h2>
+        <pre><code>Field worker fills form — no internet
+        │
+        ▼
+Saved to SQLite on device (status: pending)
+Media files (photos, audio) stored on device
+        │
+Device reconnects
+        │
+        ▼
+Sync engine: POST /api/v1/submissions/bulk
+Each submission carries a device-generated UUID — retries never create duplicates
+        │
+        ├─ 200 OK  → submission marked as synced
+        └─ error   → retried with exponential backoff
+
+Media uploads: POST /api/v1/media/upload (per file, after submission sync)</code></pre>
+
+        <hr>
+
+        <h2 id="device-pairing">Device Pairing Flow</h2>
+        <pre><code>Admin generates pairing token in dashboard
+        │
+        ▼
+QR code encodes: server URL + one-time token + user identity
+        │
+Field worker scans QR code with mobile app
+        │
+        ▼
+POST /api/v1/mobile/pair
+  - token validated and consumed
+  - device_token issued and stored securely on device
+  - forms downloaded automatically
+        │
+        ▼
+Subsequent requests: Authorization: Bearer &lt;device_token&gt;</code></pre>
+        <p>No separate login step is required on the device — the QR code embeds the user identity.</p>
+
+        <hr>
+
+        <h2 id="multi-tenancy">Multi-Tenancy</h2>
+        <p>A single Questbee instance serves multiple independent organizations. Each tenant has its own users, projects, forms, and submissions — isolated at the database query level by <code>tenant_id</code>.</p>
+
+        <hr>
+
+        <h2 id="security">Security</h2>
+        <ul>
+          <li><strong>JWT</strong> for web dashboard sessions (short-lived access tokens + refresh tokens)</li>
+          <li><strong>API keys</strong> for headless/IoT integrations (hashed in the database, scoped to projects)</li>
+          <li><strong>Device tokens</strong> for mobile app pairing (per-device, revocable from the dashboard)</li>
+          <li><strong>RBAC</strong> enforced at the API layer on every request</li>
+          <li><strong>Multi-tenant isolation</strong> — all queries are scoped to <code>tenant_id</code></li>
+          <li><strong>No external dependencies</strong> — no calls to third-party services for core functionality</li>
+        </ul>
+
+        <hr>
+
+        <h2>See Also</h2>
+        <ul>
+          <li><a href="getting-started.html">Getting Started</a> — Step-by-step setup</li>
+          <li><a href="api-reference.html">API Reference</a> — Endpoint reference</li>
+          <li><a href="deployment.html">Deployment Guide</a> — Production configuration</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

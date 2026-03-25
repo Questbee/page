@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Reference — Questbee Docs</title>
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="getting-started.html" class="docs-sidebar-link">Getting Started</a>
+      <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link active">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>API Reference</h1>
+
+        <h2 id="base-url">Base URL</h2>
+        <pre><code>http://&lt;your-server&gt;:8000/api/v1</code></pre>
+        <p>Replace <code>&lt;your-server&gt;</code> with your server's IP or domain. In local development use <code>localhost</code>.</p>
+        <p>Interactive documentation (Swagger UI) is available at <code>http://&lt;your-server&gt;:8000/docs</code>.</p>
+
+        <hr>
+
+        <h2 id="authentication">Authentication</h2>
+
+        <h3>JWT (Web Dashboard Users)</h3>
+        <p>Obtain a token via <code>POST /auth/login</code>. Pass it in all subsequent requests:</p>
+        <pre><code>Authorization: Bearer &lt;access_token&gt;</code></pre>
+        <p>Access tokens expire after 15 minutes. Use <code>POST /auth/refresh</code> with the refresh token to get a new one.</p>
+
+        <h3>API Keys (Headless / IoT)</h3>
+        <p>API keys are created in the dashboard under <strong>Settings → API Keys</strong>. Pass the key in every request:</p>
+        <pre><code>X-API-Key: &lt;your_key&gt;</code></pre>
+        <blockquote><p>The key is shown only once at creation time. Store it securely.</p></blockquote>
+
+        <h3>Device Token (Mobile App)</h3>
+        <p>The mobile app receives a device token during QR-code pairing. It is used as a Bearer token and managed automatically by the app.</p>
+
+        <hr>
+
+        <h2 id="auth-endpoints">Auth Endpoints</h2>
+
+        <h3>Login</h3>
+        <pre><code class="language-http">POST /auth/login</code></pre>
+        <p><strong>Request:</strong></p>
+        <pre><code class="language-json">{ "email": "admin@example.com", "password": "your_password" }</code></pre>
+        <p><strong>Response:</strong></p>
+        <pre><code class="language-json">{
+  "access_token": "eyJ...",
+  "refresh_token": "eyJ...",
+  "token_type": "bearer"
+}</code></pre>
+
+        <h3>Refresh Token</h3>
+        <pre><code class="language-http">POST /auth/refresh</code></pre>
+        <p><strong>Request:</strong> <code>{ "refresh_token": "eyJ..." }</code><br>
+        <strong>Response:</strong> New <code>access_token</code>.</p>
+
+        <h3>Logout</h3>
+        <pre><code class="language-http">POST /auth/logout</code></pre>
+        <p>Invalidates the current session. No request body needed.</p>
+
+        <h3>Change Password</h3>
+        <pre><code class="language-http">POST /auth/change-password</code></pre>
+        <pre><code class="language-json">{ "current_password": "old", "new_password": "NewPass123!" }</code></pre>
+
+        <h3>Get Current User</h3>
+        <pre><code class="language-http">GET /auth/me</code></pre>
+        <p>Returns the authenticated user's profile.</p>
+
+        <hr>
+
+        <h2 id="projects">Projects</h2>
+
+        <h3>List Projects</h3>
+        <pre><code class="language-http">GET /projects</code></pre>
+
+        <h3>Get Project</h3>
+        <pre><code class="language-http">GET /projects/&lt;project_id&gt;</code></pre>
+
+        <h3>Create Project</h3>
+        <pre><code class="language-http">POST /projects</code></pre>
+        <pre><code class="language-json">{ "name": "2026 Census" }</code></pre>
+
+        <h3>Delete Project</h3>
+        <pre><code class="language-http">DELETE /projects/&lt;project_id&gt;</code></pre>
+        <p>Returns <code>409 Conflict</code> if the project still contains forms.</p>
+
+        <hr>
+
+        <h2 id="forms">Forms</h2>
+
+        <h3>List Forms</h3>
+        <pre><code class="language-http">GET /forms</code></pre>
+        <table>
+          <thead><tr><th>Parameter</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>project_id</code></td><td>No</td><td>Filter by project</td></tr>
+            <tr><td><code>status</code></td><td>No</td><td><code>"draft"</code> or <code>"published"</code></td></tr>
+          </tbody>
+        </table>
+        <pre><code class="language-json">[
+  {
+    "id": "uuid",
+    "name": "Household Survey",
+    "project_id": "uuid",
+    "published": true,
+    "created_at": "2026-03-17T10:00:00Z"
+  }
+]</code></pre>
+
+        <h3>Get Form</h3>
+        <pre><code class="language-http">GET /forms/&lt;form_id&gt;</code></pre>
+        <p>Returns the form with its current schema.</p>
+
+        <h3>Create Form</h3>
+        <pre><code class="language-http">POST /forms</code></pre>
+        <pre><code class="language-json">{
+  "project_id": "uuid",
+  "name": "Household Survey",
+  "schema": {
+    "title": "Household Survey",
+    "fields": [
+      { "id": "full_name", "type": "text", "label": "Full Name", "required": true },
+      { "id": "gps", "type": "geopoint", "label": "GPS Location" }
+    ]
+  }
+}</code></pre>
+
+        <h3>Update Form (Draft)</h3>
+        <pre><code class="language-http">PUT /forms/&lt;form_id&gt;</code></pre>
+        <p>Updates the form name or schema while it is in draft state.</p>
+
+        <h3>Publish Form</h3>
+        <pre><code class="language-http">POST /forms/&lt;form_id&gt;/publish</code></pre>
+        <p>Freezes the current draft as an immutable published version. Mobile apps download the new version on next sync.</p>
+
+        <h3>Delete Form</h3>
+        <pre><code class="language-http">DELETE /forms/&lt;form_id&gt;</code></pre>
+        <p>Admin only. Permanently deletes the form and all its versions, submissions, and media files. This action is irreversible.</p>
+
+        <h3>List Form Versions</h3>
+        <pre><code class="language-http">GET /forms/&lt;form_id&gt;/versions</code></pre>
+        <p>Returns all published versions for the form, newest first.</p>
+
+        <h3 id="webhooks">Webhooks</h3>
+
+        <h4>Create Webhook</h4>
+        <pre><code class="language-http">POST /forms/&lt;form_id&gt;/webhooks</code></pre>
+        <pre><code class="language-json">{ "url": "https://your-system.com/hook", "secret": "optional_signing_secret" }</code></pre>
+        <p>The webhook fires with a POST to the given URL on every new submission. The body is the full submission JSON.</p>
+
+        <h4>List Webhooks</h4>
+        <pre><code class="language-http">GET /forms/&lt;form_id&gt;/webhooks</code></pre>
+
+        <h4>Delete Webhook</h4>
+        <pre><code class="language-http">DELETE /forms/&lt;form_id&gt;/webhooks/&lt;webhook_id&gt;</code></pre>
+
+        <hr>
+
+        <h2 id="submissions">Submissions</h2>
+
+        <h3>List Submissions</h3>
+        <pre><code class="language-http">GET /submissions</code></pre>
+        <table>
+          <thead><tr><th>Parameter</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>form_id</code></td><td>No</td><td>Filter by form</td></tr>
+            <tr><td><code>start_date</code></td><td>No</td><td>ISO 8601 — inclusive lower bound on <code>collected_at</code></td></tr>
+            <tr><td><code>end_date</code></td><td>No</td><td>ISO 8601 — inclusive upper bound</td></tr>
+            <tr><td><code>skip</code></td><td>No</td><td>Pagination offset</td></tr>
+            <tr><td><code>limit</code></td><td>No</td><td>Page size (default: 50)</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Get Submission</h3>
+        <pre><code class="language-http">GET /submissions/&lt;submission_id&gt;</code></pre>
+        <p>Returns full submission data including the list of attached media files.</p>
+
+        <h3>Submit (Single)</h3>
+        <pre><code class="language-http">POST /submissions</code></pre>
+        <pre><code class="language-json">{
+  "form_id": "uuid",
+  "form_version_id": "uuid",
+  "local_uuid": "device-generated-uuid",
+  "data": { "full_name": "Maria Lopez", "gps": { "latitude": -0.2295, "longitude": -78.5243 } },
+  "device_id": "uuid",
+  "collected_at": "2026-03-17T14:35:00Z"
+}</code></pre>
+        <p><code>local_uuid</code> ensures idempotency — resubmitting the same UUID is silently ignored.</p>
+
+        <h3>Bulk Sync (Mobile)</h3>
+        <pre><code class="language-http">POST /submissions/bulk</code></pre>
+        <p>Accepts an array of submissions in one request. Each is processed independently; duplicates are skipped. Used by the mobile sync engine.</p>
+
+        <hr>
+
+        <h2 id="export">Export</h2>
+        <p>All export endpoints accept the following query parameters:</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>form_id</code></td><td>Yes</td><td>Form to export</td></tr>
+            <tr><td><code>from</code></td><td>No</td><td>ISO 8601 date — start of range</td></tr>
+            <tr><td><code>to</code></td><td>No</td><td>ISO 8601 date — end of range</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Export CSV</h3>
+        <pre><code class="language-http">GET /submissions/export/csv</code></pre>
+        <p>Returns a ZIP file containing:</p>
+        <ul>
+          <li><code>&lt;form_name&gt;.csv</code> — one row per submission; media fields show the <code>media_file_id</code></li>
+          <li><code>&lt;form_name&gt;_&lt;repeat_field&gt;.csv</code> — one file per repeat group field</li>
+        </ul>
+        <p>Column headers use field labels. Duplicate labels get the field ID appended in parentheses. <code>select_multiple</code> values are pipe-separated (<code>A|B|C</code>). <code>geopoint</code> flattens to four columns (<code>_lat</code>, <code>_lng</code>, <code>_alt</code>, <code>_accuracy</code>). Submissions where a media file was not uploaded yet show <code>[upload_missing]</code>.</p>
+
+        <h3>Export GeoJSON</h3>
+        <pre><code class="language-http">GET /submissions/export/geojson</code></pre>
+        <p>Returns a GeoJSON <code>FeatureCollection</code>. Each GPS field type produces features:</p>
+        <ul>
+          <li><code>geopoint</code> → <code>Point</code></li>
+          <li><code>geotrace</code> → <code>LineString</code></li>
+          <li>Route fields → <code>LineString</code> with telemetry in <code>properties</code></li>
+        </ul>
+        <p>All non-spatial submission fields are included as feature properties.</p>
+
+        <h3>Export GPX</h3>
+        <pre><code class="language-http">GET /submissions/export/gpx</code></pre>
+        <p>Returns a GPX file. Route fields become <code>&lt;trk&gt;</code> elements with <code>&lt;trkseg&gt;</code> breaks at pause boundaries.</p>
+
+        <h3>Export Media Files</h3>
+        <pre><code class="language-http">GET /submissions/export/media</code></pre>
+        <p>Returns a ZIP archive containing all uploaded media files organized as <code>media/&lt;submission_id&gt;/&lt;field_id&gt;/&lt;filename&gt;</code>, plus a <code>media/index.csv</code> mapping each file to its submission and field.</p>
+
+        <h3>Export Full Package</h3>
+        <pre><code class="language-http">GET /submissions/export/package</code></pre>
+        <p>Returns a single ZIP combining all of the above: CSV files, GeoJSON, GPX, and the full media archive.</p>
+
+        <hr>
+
+        <h2 id="media">Media</h2>
+
+        <h3>Upload Media File</h3>
+        <pre><code class="language-http">POST /media/upload</code></pre>
+        <p><code>Content-Type: multipart/form-data</code></p>
+        <table>
+          <thead><tr><th>Field</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>file</code></td><td>The file to upload</td></tr>
+            <tr><td><code>submission_local_uuid</code></td><td>The local UUID of the associated submission</td></tr>
+            <tr><td><code>field_id</code></td><td>The form field ID this file belongs to</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Response:</strong></p>
+        <pre><code class="language-json">{ "media_file_id": "uuid", "filename": "photo.jpg", "size_bytes": 204800 }</code></pre>
+
+        <h3>Get Media File</h3>
+        <pre><code class="language-http">GET /media/&lt;media_id&gt;</code></pre>
+        <p>Returns the file with appropriate <code>Content-Type</code>. Requires authentication.</p>
+
+        <hr>
+
+        <h2 id="headless-api">Headless API (IoT / Automation / AI)</h2>
+        <p>The headless API is the external integration surface for automated data collection. It uses API key authentication and is intentionally scoped to <strong>read structure + submit data</strong> — form and project management is only available through the web dashboard.</p>
+        <p>All four endpoints accept the same header:</p>
+        <pre><code>X-API-Key: &lt;your_key&gt;</code></pre>
+
+        <h3>List Projects</h3>
+        <pre><code class="language-http">GET /headless/projects</code></pre>
+        <p>Returns all projects visible to the API key's tenant.</p>
+        <pre><code class="language-json">[
+  { "id": "uuid", "name": "Rural Census 2026", "description": "..." }
+]</code></pre>
+
+        <h3>List Forms</h3>
+        <pre><code class="language-http">GET /headless/forms</code></pre>
+        <table>
+          <thead><tr><th>Parameter</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>project_id</code></td><td>No</td><td>Filter by project</td></tr>
+          </tbody>
+        </table>
+        <p>Returns only <strong>published</strong> forms.</p>
+        <pre><code class="language-json">[
+  {
+    "id": "uuid",
+    "name": "Household Survey",
+    "project_id": "uuid",
+    "version_num": 3
+  }
+]</code></pre>
+
+        <h3>Get Form Schema</h3>
+        <pre><code class="language-http">GET /headless/forms/&lt;form_id&gt;/schema</code></pre>
+        <p>Returns the full published schema for the form — field types, labels, options, validation rules, and conditional logic. Use this to understand what data a <code>submit</code> call should contain.</p>
+        <pre><code class="language-json">{
+  "id": "uuid",
+  "name": "Household Survey",
+  "version_num": 3,
+  "schema": {
+    "version": 1,
+    "title": "Household Survey",
+    "fields": [
+      { "id": "full_name", "type": "text", "label": "Full Name", "required": true },
+      { "id": "has_water", "type": "select_one", "label": "Running water?",
+        "options": [{"value": "yes", "label": "Yes"}, {"value": "no", "label": "No"}] }
+    ]
+  }
+}</code></pre>
+
+        <h3>Submit Data</h3>
+        <pre><code class="language-http">POST /headless/submit</code></pre>
+        <p><strong>Request:</strong></p>
+        <pre><code class="language-json">{
+  "form_id": "uuid",
+  "data_json": { "full_name": "Maria Lopez", "has_water": "yes" },
+  "collected_at": "2026-03-22T14:35:00Z",
+  "local_uuid": "device-generated-uuid"
+}</code></pre>
+        <p><code>local_uuid</code> is optional but recommended — resubmitting the same UUID is silently ignored (idempotency). The payload is validated against the form's published schema before being stored.</p>
+        <p><strong>Response (201):</strong></p>
+        <pre><code class="language-json">{ "status": "accepted", "id": "uuid" }</code></pre>
+
+        <p><strong>Python example (full flow):</strong></p>
+        <pre><code class="language-python">import requests
+
+BASE = "http://your-server:8000/api/v1/headless"
+HEADERS = {"X-API-Key": "your_key_here"}
+
+# 1. Discover forms
+projects = requests.get(f"{BASE}/projects", headers=HEADERS).json()
+forms = requests.get(f"{BASE}/forms", headers=HEADERS,
+                     params={"project_id": projects[0]["id"]}).json()
+
+# 2. Read the schema
+schema = requests.get(f"{BASE}/forms/{forms[0]['id']}/schema", headers=HEADERS).json()
+
+# 3. Submit
+response = requests.post(f"{BASE}/submit", headers=HEADERS, json={
+    "form_id": forms[0]["id"],
+    "data_json": {"full_name": "Maria Lopez", "has_water": "yes"},
+})
+print(response.json())  # {"status": "accepted", "id": "..."}</code></pre>
+
+        <hr>
+
+        <h2 id="api-keys">API Keys</h2>
+
+        <h3>Create API Key</h3>
+        <pre><code class="language-http">POST /api-keys</code></pre>
+        <pre><code class="language-json">{ "name": "Sensor Lab 3" }</code></pre>
+        <p><strong>Response:</strong></p>
+        <pre><code class="language-json">{ "id": "uuid", "key": "qb_...", "scopes": [], "created_at": "2026-03-22T10:00:00Z" }</code></pre>
+        <blockquote><p>The key is shown only once. Store it now.</p></blockquote>
+
+        <h3>List API Keys</h3>
+        <pre><code class="language-http">GET /api-keys</code></pre>
+        <p>Returns keys without secrets.</p>
+
+        <h3>Revoke API Key</h3>
+        <pre><code class="language-http">DELETE /api-keys/&lt;key_id&gt;</code></pre>
+
+        <hr>
+
+        <h2 id="settings">Settings</h2>
+
+        <h3>Generate Mobile Pairing Token</h3>
+        <pre><code class="language-http">POST /settings/mobile/pairing-token</code></pre>
+        <p>Generates a short-lived token for QR-code pairing. The token embeds the caller's user identity so the mobile device is pre-authenticated.</p>
+        <pre><code class="language-json">{
+  "token": "abc123...",
+  "expires_at": "2026-03-22T11:30:00Z",
+  "user_id": "uuid",
+  "user_email": "manager@org.com"
+}</code></pre>
+
+        <h3>List Connected Devices</h3>
+        <pre><code class="language-http">GET /settings/mobile/devices</code></pre>
+        <p>Returns all non-revoked paired devices. Admins and managers see all devices; field workers see only their own.</p>
+
+        <h3>Revoke Device</h3>
+        <pre><code class="language-http">DELETE /settings/mobile/devices/&lt;device_id&gt;</code></pre>
+        <p>Immediately invalidates the device token. The device will be unable to sync until re-paired.</p>
+
+        <h3>Get Server URL</h3>
+        <pre><code class="language-http">GET /settings/mobile/server-url</code></pre>
+
+        <h3>Set Server URL</h3>
+        <pre><code class="language-http">PUT /settings/mobile/server-url</code></pre>
+        <pre><code class="language-json">{ "server_url": "https://your-domain.com" }</code></pre>
+
+        <hr>
+
+        <h2 id="users">Users</h2>
+
+        <h3>List Users</h3>
+        <pre><code class="language-http">GET /users</code></pre>
+
+        <h3>Create User</h3>
+        <pre><code class="language-http">POST /users</code></pre>
+        <pre><code class="language-json">{ "email": "worker@org.com", "password": "Pass123!", "role": "field_worker" }</code></pre>
+        <p>Roles: <code>admin</code>, <code>manager</code>, <code>field_worker</code>.</p>
+
+        <h3>Delete User</h3>
+        <pre><code class="language-http">DELETE /users/&lt;user_id&gt;</code></pre>
+
+        <hr>
+
+        <h2 id="health">Health Check</h2>
+        <pre><code class="language-http">GET /health</code></pre>
+        <pre><code class="language-json">{ "status": "ok", "database": "connected", "timestamp": "2026-03-22T10:00:00Z" }</code></pre>
+
+        <hr>
+
+        <h2 id="mobile-pairing">Mobile Pairing</h2>
+        <pre><code class="language-http">POST /mobile/pair</code></pre>
+        <p>Called by the mobile app after scanning a QR code.</p>
+        <p><strong>Request:</strong></p>
+        <pre><code class="language-json">{ "token": "abc123...", "device_label": "Samsung Galaxy A55" }</code></pre>
+        <p><strong>Response:</strong></p>
+        <pre><code class="language-json">{
+  "device_token": "eyJ...",
+  "user_id": "uuid",
+  "user_email": "manager@org.com"
+}</code></pre>
+
+        <h3>Mobile: Download Forms</h3>
+        <pre><code class="language-http">GET /mobile/forms</code></pre>
+        <p>Returns all published forms assigned to the authenticated device's user. Used by the mobile app on initial pair and subsequent syncs.</p>
+
+        <hr>
+
+        <h2 id="error-codes">Error Codes</h2>
+        <table>
+          <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>200</td><td>OK</td></tr>
+            <tr><td>201</td><td>Created</td></tr>
+            <tr><td>204</td><td>No content (successful delete)</td></tr>
+            <tr><td>400</td><td>Bad request — invalid input</td></tr>
+            <tr><td>401</td><td>Unauthorized — missing or invalid credentials</td></tr>
+            <tr><td>403</td><td>Forbidden — authenticated but not allowed</td></tr>
+            <tr><td>404</td><td>Not found</td></tr>
+            <tr><td>409</td><td>Conflict — e.g. duplicate <code>local_uuid</code> (treated as success, not an error, in bulk sync)</td></tr>
+            <tr><td>422</td><td>Validation error — payload failed schema check</td></tr>
+            <tr><td>500</td><td>Server error</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2>See Also</h2>
+        <ul>
+          <li><a href="architecture.html">Architecture</a> — How the API fits into the system</li>
+          <li><a href="getting-started.html">Getting Started</a> — First setup and dashboard walkthrough</li>
+          <li><a href="deployment.html">Deployment Guide</a> — Production configuration</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
