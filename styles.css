@@ -1410,6 +1410,132 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--color-
 }
 
 /* ===== Use Cases ===== */
+/* ── Examples Section ── */
+.examples { background: var(--color-bg-subtle); }
+
+.examples-import-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-6);
+    margin-bottom: var(--space-10);
+    flex-wrap: wrap;
+}
+
+.import-step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    flex: 1;
+    min-width: 200px;
+}
+
+.import-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-amber);
+    color: #000;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    flex-shrink: 0;
+}
+
+.import-arrow {
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    font-weight: 300;
+}
+
+.examples-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+    margin-bottom: var(--space-10);
+}
+
+.example-category-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.example-category-card:hover {
+    border-color: var(--color-amber);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08);
+}
+
+.example-category-tutorials {
+    border-color: var(--color-amber);
+    background: linear-gradient(135deg, var(--color-bg) 0%, rgba(245,158,11,0.04) 100%);
+}
+
+.example-category-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-3);
+    display: block;
+}
+
+.example-category-card h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+}
+
+.example-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-3);
+}
+
+.example-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    padding: var(--space-1) 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.example-list li:last-child { border-bottom: none; }
+
+.example-list li::before {
+    content: "→ ";
+    color: var(--color-amber);
+    font-weight: 600;
+}
+
+.example-fields {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.examples-cta {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.examples-cta-note {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* ── Use Cases Section ── */
 .use-cases { background: var(--color-bg); }
 
 .use-cases-grid {
@@ -1739,6 +1865,7 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--color-
     .pricing-grid-4   { grid-template-columns: repeat(2, 1fr); }
     .benefits-grid    { grid-template-columns: repeat(2, 1fr); }
     .use-cases-grid   { grid-template-columns: repeat(2, 1fr); }
+    .examples-grid    { grid-template-columns: repeat(2, 1fr); }
     .docs-grid        { grid-template-columns: repeat(2, 1fr); }
     .community-grid   { gap: var(--space-10); }
     .footer-content   { grid-template-columns: 1fr; gap: var(--space-8); }
@@ -1803,6 +1930,9 @@ code { font-family: var(--font-mono); font-size: 0.9em; background: var(--color-
     .pricing-grid-4   { grid-template-columns: 1fr; }
     .benefits-grid    { grid-template-columns: 1fr; }
     .use-cases-grid   { grid-template-columns: 1fr; }
+    .examples-grid    { grid-template-columns: 1fr; }
+    .examples-import-bar { flex-direction: column; align-items: flex-start; }
+    .import-arrow     { display: none; }
     .docs-grid        { grid-template-columns: 1fr; }
     .footer-links     { grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
     .pricing-footnotes { padding: var(--space-5); }
