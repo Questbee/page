@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — Questbee</title>
+    <meta name="description" content="Questbee pricing: free Community Edition, Professional $6K/year, Enterprise $12K/year. Self-hosted field data collection with full data ownership.">
+    <meta name="author" content="Questbee">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/questbee-icon.svg" type="image/svg+xml">
+    <style>
+        .pricing-hero {
+            background: var(--color-hero-bg);
+            color: var(--color-hero-text);
+            padding: var(--space-20) var(--space-6) var(--space-16);
+            text-align: center;
+        }
+        .pricing-hero .section-label {
+            background: rgba(245,158,11,0.15);
+            color: var(--color-primary);
+        }
+        .pricing-hero h1 {
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: var(--space-4);
+            color: var(--color-hero-text);
+        }
+        .pricing-hero p {
+            font-size: var(--text-lg);
+            color: rgba(248,250,252,0.65);
+            max-width: 540px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        /* Page sections inherit .section-wrapper, .section-header etc from styles.css */
+        .pricing-page { background: var(--color-bg-subtle); }
+        .comparison-page { background: var(--color-bg); }
+
+        /* FAQ */
+        .faq { background: var(--color-bg-subtle); }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-6);
+        }
+        .faq-item {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+        }
+        .faq-item h3 {
+            font-size: var(--text-base);
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: var(--space-2);
+        }
+        .faq-item p {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: 1.65;
+        }
+        .faq-item a { font-weight: 600; }
+
+        /* CTA strip */
+        .pricing-cta {
+            background: var(--color-primary);
+            padding: var(--space-16) var(--space-6);
+            text-align: center;
+        }
+        .pricing-cta h2 {
+            font-size: var(--text-2xl);
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: var(--space-3);
+        }
+        .pricing-cta p {
+            color: rgba(15,23,42,0.7);
+            margin-bottom: var(--space-6);
+        }
+        .pricing-cta .btn-outline {
+            border-color: rgba(15,23,42,0.4);
+            color: #0f172a;
+        }
+        .pricing-cta .btn-outline:hover {
+            background: rgba(15,23,42,0.08);
+        }
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-hero h1 { font-size: var(--text-3xl); }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Questbee home">
+                <img src="images/questbee-icon.svg" alt="" class="logo-icon" width="32" height="32">
+                <span class="nav-brand">Questbee</span>
+            </a>
+            <ul class="nav-menu" id="nav-menu" role="list">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#community">Community</a></li>
+                <li><a href="pricing.html" style="color:var(--color-primary)">Pricing</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="index.html#partners">Partners</a></li>
+                <li><a href="docs/index.html">Docs</a></li>
+                <li><a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="nav-github" aria-label="View on GitHub">GitHub</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pricing-hero">
+        <span class="section-label">Pricing</span>
+        <h1>Start free. Scale when you need to.</h1>
+        <p>The Community Edition is free and open source forever. Upgrade for white-labeling, SSO, AI automation, and enterprise support.</p>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="pricing-page" aria-labelledby="pricing-heading">
+        <div class="section-wrapper">
+            <div class="pricing-grid pricing-grid-4">
+
+                <!-- Community -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Community</div>
+                    <div class="pricing-price">Free</div>
+                    <div class="pricing-desc">Server: MIT open source · App: free binary</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Form builder (24 field types)</li>
+                        <li class="feat-yes">Android app (free download)</li>
+                        <li class="feat-yes">Offline sync engine</li>
+                        <li class="feat-yes">Headless API / IoT ingestion</li>
+                        <li class="feat-yes">Self-hosted, unlimited users</li>
+                        <li class="feat-yes">Community support (GitHub)</li>
+                        <li class="feat-no">White-label branding</li>
+                        <li class="feat-no">SSO / Active Directory</li>
+                    </ul>
+                    <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="btn btn-outline btn-block">Get Started Free</a>
+                </div>
+
+                <!-- Professional -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Professional</div>
+                    <div class="pricing-price">$6K<span class="pricing-period">/year</span></div>
+                    <div class="pricing-desc">Up to 50 users · $100/user after</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Community</li>
+                        <li class="feat-yes">White-label branding</li>
+                        <li class="feat-yes">Advanced RBAC</li>
+                        <li class="feat-yes">Mobile app packaging (APK)</li>
+                        <li class="feat-yes">AI connection via MCP</li>
+                        <li class="feat-yes">Email support</li>
+                        <li class="feat-yes">Monthly option available</li>
+                        <li class="feat-no">SSO / SAML</li>
+                        <li class="feat-no">Audit logs</li>
+                    </ul>
+                    <a href="mailto:warionv@gmail.com" class="btn btn-outline btn-block">Get a Quote</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card pricing-featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">$12K<span class="pricing-period">/year</span></div>
+                    <div class="pricing-desc">Up to 200 users · $80/user after</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Professional</li>
+                        <li class="feat-yes">SSO / SAML / Active Directory</li>
+                        <li class="feat-yes">Audit logs &amp; compliance exports</li>
+                        <li class="feat-yes">AI connection via MCP</li>
+                        <li class="feat-yes">Priority support (8h SLA)</li>
+                        <li class="feat-yes">Branded iOS + Android apps</li>
+                        <li class="feat-yes">Implementation included</li>
+                        <li class="feat-yes">Non-profit pricing available</li>
+                    </ul>
+                    <a href="mailto:warionv@gmail.com" class="btn btn-primary btn-block">Contact Sales</a>
+                </div>
+
+                <!-- Enterprise+ -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise+</div>
+                    <div class="pricing-price">Custom</div>
+                    <div class="pricing-desc">Unlimited users · Multi-instance</div>
+                    <ul class="plan-features">
+                        <li class="feat-yes">Everything in Enterprise</li>
+                        <li class="feat-yes">Unlimited users</li>
+                        <li class="feat-yes">Multi-instance management</li>
+                        <li class="feat-yes">Dedicated deployment engineer</li>
+                        <li class="feat-yes">Custom SLA</li>
+                        <li class="feat-yes">Managed hosting option</li>
+                        <li class="feat-yes">Partner integration support</li>
+                        <li class="feat-yes">Volume license discounts</li>
+                    </ul>
+                    <a href="mailto:warionv@gmail.com" class="btn btn-outline btn-block">Talk to Us</a>
+                </div>
+            </div>
+
+            <div class="pricing-footnotes">
+                <p>💡 <strong>Per-user example:</strong> A 350-user Enterprise deployment = $12,000 + (150 extra × $80) = <strong>$24,000/year</strong>.</p>
+                <p>📅 <strong>Monthly option:</strong> Pay month-to-month at 1.5× the annual rate. Convert to annual any time for a 33% saving.</p>
+                <p>🏛️ <strong>Non-profit &amp; academic:</strong> Reduced rates available — <a href="mailto:warionv@gmail.com">contact us</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-page" aria-labelledby="comparison-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">How We Compare</span>
+                <h2 id="comparison-heading">How does Questbee compare?</h2>
+                <p class="section-subtitle">Most data collection tools store your data on their servers. Questbee installs on yours — same workflow, full ownership.</p>
+            </div>
+            <div class="comparison-table-wrap">
+                <table class="comparison-table" role="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" class="col-questbee">Questbee</th>
+                            <th scope="col">KoboToolbox / ODK</th>
+                            <th scope="col">Google Forms / SurveyMonkey</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Your data stays on your servers</td>
+                            <td class="col-questbee yes">✓ Always</td>
+                            <td class="partial">Only if self-hosted (complex)</td>
+                            <td class="no">✗ Stored in their cloud</td>
+                        </tr>
+                        <tr>
+                            <td>Works without internet</td>
+                            <td class="col-questbee yes">✓ Fully offline</td>
+                            <td class="partial">Partial</td>
+                            <td class="no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>Branded as your organization's app</td>
+                            <td class="col-questbee yes">✓</td>
+                            <td class="no">✗</td>
+                            <td class="partial">Paid add-on</td>
+                        </tr>
+                        <tr>
+                            <td>Easy to set up (one command)</td>
+                            <td class="col-questbee yes">✓</td>
+                            <td class="no">✗ Requires DevOps expertise</td>
+                            <td class="yes">✓ (but data goes to their cloud)</td>
+                        </tr>
+                        <tr>
+                            <td>AI assistant can build forms for you</td>
+                            <td class="col-questbee yes">✓ Paid plans</td>
+                            <td class="no">✗</td>
+                            <td class="no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>Free to use</td>
+                            <td class="col-questbee yes">✓ Community Edition</td>
+                            <td class="yes">✓ Free tier</td>
+                            <td class="partial">Free tier (limited)</td>
+                        </tr>
+                        <tr>
+                            <td>Open source</td>
+                            <td class="col-questbee yes">✓</td>
+                            <td class="yes">✓</td>
+                            <td class="no">✗</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" aria-labelledby="faq-heading">
+        <div class="section-wrapper">
+            <div class="section-header">
+                <span class="section-label">FAQ</span>
+                <h2 id="faq-heading">Common questions</h2>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Is the Community Edition really free forever?</h3>
+                    <p>Yes. The server is MIT licensed and the Android app is a free binary. There are no hidden limits on forms, submissions, or users.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What does "self-hosted" mean?</h3>
+                    <p>You run Questbee on your own server — on-premise, a cloud VM, or a private datacenter. Your data never leaves your infrastructure.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I try a paid plan before committing?</h3>
+                    <p>Yes. <a href="mailto:warionv@gmail.com">Contact us</a> for a 30-day pilot. We support you through setup and your first real data collection.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer monthly billing?</h3>
+                    <p>Yes on Professional and Enterprise. Monthly is 1.5× the annual monthly rate. You can convert to annual any time for a 33% saving.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What counts as a "user"?</h3>
+                    <p>A named account that can log in to the web console or submit data via the mobile app. Read-only dashboard viewers count as users too.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is there non-profit pricing?</h3>
+                    <p>Yes. NGOs, academic institutions, and public health agencies qualify for reduced rates. <a href="mailto:warionv@gmail.com">Get in touch</a> with your org details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Strip -->
+    <section class="pricing-cta">
+        <h2>Ready to start?</h2>
+        <p>Deploy in minutes on your own server — no credit card required for Community.</p>
+        <div class="cta-buttons">
+            <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="btn btn-outline btn-large">Get Community Free</a>
+            <a href="mailto:warionv@gmail.com" class="btn btn-large" style="background:#0f172a;color:#fff;">Contact Sales</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="images/questbee-icon.svg" alt="" width="28" height="28">
+                    <span>Questbee</span>
+                </div>
+                <p class="footer-tagline">Self-hosted, offline-first field data collection for organizations that need data sovereignty.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/Questbee/community" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://buymeacoffee.com/questbee" target="_blank" rel="noopener">☕ Donate</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="index.html#partners">Partners</a></li>
+                        <li><a href="docs/index.html">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="examples.html">Form Examples</a></li>
+                        <li><a href="docs/getting-started.html">Getting Started</a></li>
+                        <li><a href="docs/api-reference.html">API Reference</a></li>
+                        <li><a href="docs/deployment.html">Deployment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="mailto:warionv@gmail.com">About</a></li>
+                        <li><a href="mailto:warionv@gmail.com">Partnerships</a></li>
+                        <li><a href="mailto:warionv@gmail.com">Contact</a></li>
+                        <li><a href="mailto:warionv@gmail.com">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Questbee. Self-hosted, offline-first field data collection.</p>
+            <div class="footer-legal">
+                <a href="mailto:warionv@gmail.com">Privacy</a>
+                <a href="mailto:warionv@gmail.com">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('nav-open');
+            navToggle.classList.toggle('nav-toggle-open', isOpen);
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+    </script>
+</body>
+</html>
