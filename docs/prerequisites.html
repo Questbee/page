@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerequisites — Questbee Docs</title>
+  <meta name="description" content="How to install Docker and Git on Windows, macOS, and Linux before running Questbee.">
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+  <style>
+    /* ── OS tab switcher ──────────────────────────────────── */
+    .os-tabs {
+      display: flex;
+      gap: 0.375rem;
+      margin: 1.5rem 0 0;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0;
+    }
+    .os-tab {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .os-tab:hover { color: var(--text); background: var(--bg); }
+    .os-tab.active {
+      color: var(--brand-dark);
+      border-bottom-color: var(--brand);
+      background: var(--brand-light);
+    }
+    .os-tab .os-icon { font-size: 1rem; }
+
+    .os-panel { display: none; }
+    .os-panel.active { display: block; }
+
+    /* ── Info / callout blocks ────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+    .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .callout p { margin: 0; color: inherit; }
+    .callout-info  { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+    .callout-tip   { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .callout-warn  { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+
+    /* ── Step list ────────────────────────────────────────── */
+    .steps { list-style: none; margin: 0 0 1.5rem; padding: 0; counter-reset: steps; }
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 0.875rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      font-size: 0.9375rem;
+      color: #374151;
+    }
+    .steps li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.1rem;
+    }
+
+    /* ── Verify box ───────────────────────────────────────── */
+    .verify-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0 1.5rem;
+    }
+    .verify-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .verify-label {
+      padding: 0.5rem 0.875rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .verify-item pre { margin: 0; border-radius: 0; }
+
+    /* ── Next step CTA ────────────────────────────────────── */
+    .next-step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--brand-light);
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      margin-top: 2.5rem;
+      text-decoration: none;
+      transition: box-shadow 0.15s;
+    }
+    .next-step:hover { box-shadow: 0 2px 10px rgba(245,158,11,0.2); text-decoration: none; }
+    .next-step-text { font-weight: 700; color: #92400e; font-size: 0.9375rem; }
+    .next-step-sub  { font-size: 0.8125rem; color: #b45309; margin-top: 0.125rem; }
+    .next-step-arrow { font-size: 1.5rem; color: var(--brand-dark); flex-shrink: 0; }
+
+    @media (max-width: 600px) {
+      .verify-grid { grid-template-columns: 1fr; }
+      .os-tab span:not(.os-icon) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="prerequisites.html" class="docs-sidebar-link active">Prerequisites</a>
+      <a href="getting-started.html" class="docs-sidebar-link">Getting Started</a>
+      <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>Prerequisites</h1>
+
+        <p>Questbee runs inside <strong>Docker</strong> — a tool that packages software so it works the same way on any computer, whether that's a laptop or a server. You also need <strong>Git</strong> to download the Questbee code.</p>
+
+        <p>You only need to do this once. Once both are installed, follow the <a href="getting-started.html">Getting Started guide</a> to run Questbee.</p>
+
+        <div class="callout callout-info">
+          <span class="callout-icon">💻</span>
+          <p><strong>Minimum requirements:</strong> 2 CPU cores · 4 GB RAM · 10 GB free disk space. Any modern Windows, macOS, or Linux machine meets this.</p>
+        </div>
+
+        <!-- OS TABS -->
+        <div class="os-tabs" role="tablist" aria-label="Operating system">
+          <button class="os-tab" role="tab" data-os="windows" aria-selected="false">
+            <span class="os-icon">🪟</span><span>Windows</span>
+          </button>
+          <button class="os-tab" role="tab" data-os="mac" aria-selected="false">
+            <span class="os-icon">🍎</span><span>macOS</span>
+          </button>
+          <button class="os-tab" role="tab" data-os="linux" aria-selected="false">
+            <span class="os-icon">🐧</span><span>Linux</span>
+          </button>
+        </div>
+
+        <!-- ══════════════ WINDOWS ══════════════ -->
+        <div class="os-panel" id="panel-windows" role="tabpanel">
+
+          <h2 id="docker-windows">1. Install Docker Desktop</h2>
+
+          <p>Docker Desktop is a free application that installs Docker on Windows with a graphical interface. It includes everything Questbee needs.</p>
+
+          <div class="callout callout-warn">
+            <span class="callout-icon">⚠️</span>
+            <p><strong>Windows 10/11 required.</strong> Docker Desktop needs Windows 10 version 1903 or later (64-bit). If you are on Windows 7 or 8, please upgrade first.</p>
+          </div>
+
+          <ol class="steps">
+            <li>
+              Go to the official Docker Desktop download page:<br>
+              <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank" rel="noopener">docs.docker.com/desktop/install/windows-install/ ↗</a>
+            </li>
+            <li>Click <strong>Docker Desktop for Windows</strong> to download the installer (<code>Docker Desktop Installer.exe</code>).</li>
+            <li>Run the installer. When asked, leave the default options selected and click <strong>Next</strong> through each step.</li>
+            <li>When the installer asks about WSL 2, click <strong>OK</strong> — this is the recommended backend and installs automatically.</li>
+            <li>After installation, click <strong>Close and restart</strong>. Your computer will restart.</li>
+            <li>After restarting, Docker Desktop will open automatically. Wait for the whale icon <span style="font-size:1.1em">🐋</span> in the taskbar to stop animating — that means Docker is ready.</li>
+          </ol>
+
+          <div class="callout callout-tip">
+            <span class="callout-icon">✅</span>
+            <p>You do not need to create a Docker account or sign in. Click <strong>Skip</strong> if it asks you to log in.</p>
+          </div>
+
+          <h2 id="git-windows">2. Install Git</h2>
+
+          <p>Git is a tool for downloading and managing code. You will use it once to download Questbee.</p>
+
+          <ol class="steps">
+            <li>
+              Go to the official Git for Windows download page:<br>
+              <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win ↗</a>
+            </li>
+            <li>The download starts automatically. Run the installer (<code>Git-x.x.x-64-bit.exe</code>).</li>
+            <li>Click <strong>Next</strong> through all steps — the default options are correct for most users.</li>
+            <li>On the step <em>"Choosing the default editor"</em> you can pick any editor. If unsure, leave the default and continue.</li>
+            <li>Click <strong>Install</strong>, then <strong>Finish</strong>.</li>
+          </ol>
+
+        </div>
+
+        <!-- ══════════════ MACOS ══════════════ -->
+        <div class="os-panel" id="panel-mac" role="tabpanel">
+
+          <h2 id="docker-mac">1. Install Docker Desktop</h2>
+
+          <p>Docker Desktop is a free application that installs Docker on macOS with a graphical interface.</p>
+
+          <div class="callout callout-warn">
+            <span class="callout-icon">⚠️</span>
+            <p><strong>Check your chip.</strong> Click the Apple menu () → <strong>About This Mac</strong>. If it says <em>Apple M1 / M2 / M3</em> download the <strong>Apple Silicon</strong> version. If it says <em>Intel</em>, download the <strong>Intel chip</strong> version.</p>
+          </div>
+
+          <ol class="steps">
+            <li>
+              Go to the official Docker Desktop download page:<br>
+              <a href="https://docs.docker.com/desktop/install/mac-install/" target="_blank" rel="noopener">docs.docker.com/desktop/install/mac-install/ ↗</a>
+            </li>
+            <li>Download the correct version for your chip (Apple Silicon or Intel).</li>
+            <li>Open the downloaded <code>.dmg</code> file. Drag the <strong>Docker</strong> icon to your <strong>Applications</strong> folder.</li>
+            <li>Open Docker from Applications. macOS will ask if you want to open it — click <strong>Open</strong>.</li>
+            <li>Docker will ask for your Mac password to install its components. Enter your password and click <strong>Install Helper</strong>.</li>
+            <li>Wait for the whale icon 🐋 in the menu bar to stop animating — Docker is ready when it's still.</li>
+          </ol>
+
+          <div class="callout callout-tip">
+            <span class="callout-icon">✅</span>
+            <p>You do not need to create a Docker account. Click <strong>Skip</strong> if prompted to sign in.</p>
+          </div>
+
+          <h2 id="git-mac">2. Install Git</h2>
+
+          <p>Most Macs already have Git. Open <strong>Terminal</strong> (search for "Terminal" in Spotlight with ⌘ Space) and run:</p>
+
+          <pre><code class="language-bash">git --version</code></pre>
+
+          <p>If you see a version number (e.g. <code>git version 2.39.3</code>), Git is already installed — skip to the <a href="#verify">Verify</a> section below.</p>
+
+          <p>If a dialog pops up asking to install <strong>Command Line Developer Tools</strong>, click <strong>Install</strong> and wait for it to finish. Git will be included.</p>
+
+          <p>If neither happens, install Git via Homebrew. First install Homebrew if you don't have it:</p>
+
+          <pre><code class="language-bash">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+
+          <p>Then install Git:</p>
+
+          <pre><code class="language-bash">brew install git</code></pre>
+
+        </div>
+
+        <!-- ══════════════ LINUX ══════════════ -->
+        <div class="os-panel" id="panel-linux" role="tabpanel">
+
+          <h2 id="docker-linux">1. Install Docker Engine</h2>
+
+          <p>On Linux, Docker runs as a background service (no graphical interface needed). The commands below are for <strong>Ubuntu / Debian</strong>. For other distributions, see the official guide linked at the end.</p>
+
+          <div class="callout callout-info">
+            <span class="callout-icon">ℹ️</span>
+            <p>Open a <strong>Terminal</strong> and copy-paste these commands one at a time. You may be asked for your password — this is normal for <code>sudo</code> commands.</p>
+          </div>
+
+          <p><strong>Step 1 — Remove any old versions:</strong></p>
+          <pre><code class="language-bash">sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
+
+          <p><strong>Step 2 — Install using the official convenience script</strong> (easiest method):</p>
+          <pre><code class="language-bash">curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh</code></pre>
+
+          <p><strong>Step 3 — Allow your user to run Docker without <code>sudo</code>:</strong></p>
+          <pre><code class="language-bash">sudo usermod -aG docker $USER
+newgrp docker</code></pre>
+
+          <p><strong>Step 4 — Install Docker Compose v2</strong> (included with recent Docker installs, but just in case):</p>
+          <pre><code class="language-bash">sudo apt-get install docker-compose-plugin</code></pre>
+
+          <div class="callout callout-info">
+            <span class="callout-icon">🐧</span>
+            <p>Using a different Linux distribution? See the official guides:<br>
+              <a href="https://docs.docker.com/engine/install/fedora/" target="_blank" rel="noopener">Fedora ↗</a> ·
+              <a href="https://docs.docker.com/engine/install/centos/" target="_blank" rel="noopener">CentOS ↗</a> ·
+              <a href="https://docs.docker.com/engine/install/rhel/" target="_blank" rel="noopener">RHEL ↗</a> ·
+              <a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener">All distributions ↗</a>
+            </p>
+          </div>
+
+          <h2 id="git-linux">2. Install Git</h2>
+
+          <p><strong>Ubuntu / Debian:</strong></p>
+          <pre><code class="language-bash">sudo apt-get update && sudo apt-get install -y git</code></pre>
+
+          <p><strong>Fedora / RHEL / CentOS:</strong></p>
+          <pre><code class="language-bash">sudo dnf install -y git</code></pre>
+
+        </div>
+
+        <!-- ══════════════ VERIFY (all OS) ══════════════ -->
+        <hr>
+        <h2 id="verify">Verify the installation</h2>
+
+        <p>Open a <strong>Terminal</strong> (on Windows: search for "PowerShell" or "Command Prompt") and run these two commands. You should see version numbers, not errors.</p>
+
+        <div class="verify-grid">
+          <div class="verify-item">
+            <div class="verify-label">Check Docker</div>
+            <pre><code class="language-bash">docker --version</code></pre>
+          </div>
+          <div class="verify-item">
+            <div class="verify-label">Check Git</div>
+            <pre><code class="language-bash">git --version</code></pre>
+          </div>
+        </div>
+
+        <p>Expected output (your version numbers may differ):</p>
+
+        <pre><code class="language-bash">Docker version 27.3.1, build ce12230
+git version 2.47.0</code></pre>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">⚠️</span>
+          <p><strong>On Windows:</strong> if you just installed Docker Desktop, make sure it is open and the whale icon has stopped animating before running <code>docker --version</code>.</p>
+        </div>
+
+        <div class="callout callout-tip">
+          <span class="callout-icon">🎉</span>
+          <p>Both commands returned a version number? You are ready. Follow the Getting Started guide to run Questbee in under 5 minutes.</p>
+        </div>
+
+        <!-- Next step -->
+        <a href="getting-started.html" class="next-step">
+          <div>
+            <div class="next-step-text">Next: Getting Started →</div>
+            <div class="next-step-sub">Clone the repo, configure your environment, and run Questbee with one command.</div>
+          </div>
+          <span class="next-step-arrow">→</span>
+        </a>
+
+      </div><!-- /docs-content -->
+    </main>
+  </div>
+
+  <script>
+    // OS tab switching
+    const tabs = document.querySelectorAll('.os-tab');
+    const panels = document.querySelectorAll('.os-panel');
+
+    function activateOS(os) {
+      tabs.forEach(t => {
+        const active = t.dataset.os === os;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active);
+      });
+      panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + os));
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => activateOS(tab.dataset.os)));
+
+    // Auto-detect OS on load
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes('mac'))         activateOS('mac');
+    else if (ua.includes('linux'))  activateOS('linux');
+    else                            activateOS('windows');
+  </script>
+</body>
+</html>
