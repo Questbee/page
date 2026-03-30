@@ -70,6 +70,7 @@
           <li>Under <strong>Mobile Pairing</strong>, click <strong>Generate QR Code</strong></li>
           <li>A QR code appears — it is valid for a short time (shown on screen)</li>
         </ol>
+        <blockquote><strong>Important:</strong> Each QR code is single-use. If pairing fails or you need to pair again after unpairing, cancel the existing QR and generate a new one before scanning.</blockquote>
 
         <h3>Step 2 — Connect the App</h3>
         <ol>
@@ -166,6 +167,7 @@
           <li>Make sure your phone can reach the server (same Wi-Fi, or the server is publicly accessible)</li>
           <li>Ask your administrator to verify the server is running: <code>docker compose ps</code></li>
           <li>The QR code expires after a short time — ask for a new one if it has been more than a few minutes</li>
+          <li><strong>Each QR code can only be used once.</strong> If you unpaired and are trying to pair again, cancel the current QR in the dashboard and generate a fresh one before scanning</li>
         </ul>
 
         <h3>Forms not appearing after pairing</h3>

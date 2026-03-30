@@ -44,6 +44,8 @@ Before collecting data, the app must be connected to your organization's Questbe
 3. Under **Mobile Pairing**, click **Generate QR Code**
 4. A QR code appears — it is valid for a short time (shown on screen)
 
+> **Important:** Each QR code is single-use. If pairing fails or you need to pair again after unpairing, cancel the existing QR and generate a new one before scanning.
+
 ### Step 2 — Connect the App
 
 1. Open the Questbee app on your phone
@@ -166,6 +168,7 @@ Submissions from all devices appear together in the dashboard, tagged with the d
 - Make sure your phone can reach the server (same Wi-Fi, or the server is publicly accessible)
 - Ask your administrator to verify the server is running: `docker compose ps`
 - The QR code expires after a short time — ask for a new one if it has been more than a few minutes
+- **Each QR code can only be used once.** If you unpaired the device and are trying to pair again, cancel the current QR code in the dashboard and generate a fresh one before scanning
 
 **Forms not appearing after pairing**
 - Pull down to refresh on the Forms tab
