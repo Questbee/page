@@ -703,6 +703,60 @@ docker compose up --build
         </div>
     </section>
 
+    <!-- Support / Donate -->
+    <section class="support" id="support" aria-labelledby="support-heading">
+        <div class="support-inner">
+            <div class="support-text">
+                <div class="support-label">Support the project</div>
+                <h2 id="support-heading">Keep Questbee free and actively maintained</h2>
+                <p>Questbee is built and maintained as a side project. It's free and open source — but hosting, development tools, and time all have a real cost.</p>
+                <p>If Questbee saves your organization time or money, consider sponsoring the project. Every contribution helps keep it maintained, documented, and improving.</p>
+                <p style="font-size:0.8rem;color:var(--color-text-light);">All contributions go directly to the developer. No VC, no company behind this.</p>
+            </div>
+
+            <div class="donate-card">
+                <h3>Choose how to support</h3>
+                <div class="donate-options">
+
+                    <a href="https://github.com/sponsors/mnavas" target="_blank" rel="noopener" class="donate-btn donate-btn-github">
+                        <span class="donate-btn-icon">♥</span>
+                        <span class="donate-btn-text">
+                            GitHub Sponsors
+                            <small>Monthly or one-time via GitHub</small>
+                        </span>
+                    </a>
+
+                    <a href="https://paypal.me/warionv" target="_blank" rel="noopener" class="donate-btn donate-btn-paypal">
+                        <span class="donate-btn-icon">💳</span>
+                        <span class="donate-btn-text">
+                            PayPal — Send money
+                            <small>paypal.me/warionv</small>
+                        </span>
+                    </a>
+
+                    <button class="donate-btn donate-btn-deuna" onclick="document.getElementById('deuna-modal').classList.add('open')">
+                        <span class="donate-btn-icon">📱</span>
+                        <span class="donate-btn-text">
+                            De Una · Banco Pichincha
+                            <small>Pago con QR — Ecuador</small>
+                        </span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DeUna QR Modal -->
+    <div class="modal-overlay" id="deuna-modal" onclick="if(event.target===this)this.classList.remove('open')">
+        <div class="modal-box">
+            <h3>De Una · Banco Pichincha</h3>
+            <p>Escanea el QR con tu app bancaria para enviar tu aporte.<br>¡Muchas gracias!</p>
+            <img src="images/deuna-qr.png" alt="QR De Una — Banco Pichincha — Navas Minaca Mario Fernando" />
+            <button class="modal-close" onclick="document.getElementById('deuna-modal').classList.remove('open')">Cerrar</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
