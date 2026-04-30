@@ -167,9 +167,9 @@
       <div class="docs-content">
         <h1>Prerequisites</h1>
 
-        <p>Questbee runs inside <strong>Docker</strong> — a tool that packages software so it works the same way on any computer, whether that's a laptop or a server. You also need <strong>Git</strong> to download the Questbee code.</p>
+        <p>Questbee runs inside <strong>Docker</strong> — a tool that packages software so it works the same way on any computer, whether that's a laptop or a server. You also need <strong>Git</strong> to download the Questbee code, and <strong>Python 3</strong> to run the <code>questbee</code> CLI tool.</p>
 
-        <p>You only need to do this once. Once both are installed, follow the <a href="getting-started.html">Getting Started guide</a> to run Questbee.</p>
+        <p>You only need to do this once. Once all three are installed, follow the <a href="getting-started.html">Getting Started guide</a> to run Questbee.</p>
 
         <div class="callout callout-info">
           <span class="callout-icon">💻</span>
@@ -233,6 +233,26 @@
             <li>Click <strong>Install</strong>, then <strong>Finish</strong>.</li>
           </ol>
 
+          <h2 id="python-windows">3. Install Python 3</h2>
+
+          <p>The Questbee CLI (<code>questbee.bat</code>) is a Python script. Python 3 must be installed so it can run.</p>
+
+          <ol class="steps">
+            <li>
+              Go to the official Python download page:<br>
+              <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">python.org/downloads/windows/ ↗</a>
+            </li>
+            <li>Click the big <strong>Download Python 3.x.x</strong> button.</li>
+            <li>Run the installer. <strong>Important:</strong> on the first screen, check the box <strong>"Add python.exe to PATH"</strong> before clicking Install Now.</li>
+            <li>Click <strong>Install Now</strong> and wait for it to complete.</li>
+            <li>Click <strong>Close</strong>.</li>
+          </ol>
+
+          <div class="callout callout-warn">
+            <span class="callout-icon">⚠️</span>
+            <p>If you forget to check <strong>"Add python.exe to PATH"</strong>, Command Prompt won't find Python. Re-run the installer, choose <strong>Modify</strong>, and enable the PATH option.</p>
+          </div>
+
         </div>
 
         <!-- ══════════════ MACOS ══════════════ -->
@@ -282,6 +302,23 @@
 
           <pre><code class="language-bash">brew install git</code></pre>
 
+          <h2 id="python-mac">3. Install Python 3</h2>
+
+          <p>The Questbee CLI (<code>./questbee</code>) is a Python script. macOS ships with Python 3 on recent versions — check first:</p>
+
+          <pre><code class="language-bash">python3 --version</code></pre>
+
+          <p>If you see a version number (e.g. <code>Python 3.12.3</code>), Python is already installed — you are done.</p>
+
+          <p>If the command is not found, install Python 3 via Homebrew:</p>
+
+          <pre><code class="language-bash">brew install python3</code></pre>
+
+          <div class="callout callout-tip">
+            <span class="callout-icon">✅</span>
+            <p>The <code>./questbee</code> CLI will also offer to install Python automatically if it is missing when you first run it.</p>
+          </div>
+
         </div>
 
         <!-- ══════════════ LINUX ══════════════ -->
@@ -328,13 +365,32 @@ newgrp docker</code></pre>
           <p><strong>Fedora / RHEL / CentOS:</strong></p>
           <pre><code class="language-bash">sudo dnf install -y git</code></pre>
 
+          <h2 id="python-linux">3. Install Python 3</h2>
+
+          <p>Most Linux distributions include Python 3 by default. Check first:</p>
+
+          <pre><code class="language-bash">python3 --version</code></pre>
+
+          <p>If not installed, add it:</p>
+
+          <p><strong>Ubuntu / Debian:</strong></p>
+          <pre><code class="language-bash">sudo apt-get install -y python3</code></pre>
+
+          <p><strong>Fedora / RHEL / CentOS:</strong></p>
+          <pre><code class="language-bash">sudo dnf install -y python3</code></pre>
+
+          <div class="callout callout-tip">
+            <span class="callout-icon">✅</span>
+            <p>The <code>./questbee</code> CLI will also offer to install Python automatically if it is missing when you first run it.</p>
+          </div>
+
         </div>
 
         <!-- ══════════════ VERIFY (all OS) ══════════════ -->
         <hr>
         <h2 id="verify">Verify the installation</h2>
 
-        <p>Open a <strong>Terminal</strong> (on Windows: search for "PowerShell" or "Command Prompt") and run these two commands. You should see version numbers, not errors.</p>
+        <p>Open a <strong>Terminal</strong> (on Windows: search for "PowerShell" or "Command Prompt") and run these three commands. You should see version numbers, not errors.</p>
 
         <div class="verify-grid">
           <div class="verify-item">
@@ -345,12 +401,21 @@ newgrp docker</code></pre>
             <div class="verify-label">Check Git</div>
             <pre><code class="language-bash">git --version</code></pre>
           </div>
+          <div class="verify-item">
+            <div class="verify-label">Check Python (Mac / Linux)</div>
+            <pre><code class="language-bash">python3 --version</code></pre>
+          </div>
+          <div class="verify-item">
+            <div class="verify-label">Check Python (Windows)</div>
+            <pre><code class="language-bash">python --version</code></pre>
+          </div>
         </div>
 
         <p>Expected output (your version numbers may differ):</p>
 
         <pre><code class="language-bash">Docker version 27.3.1, build ce12230
-git version 2.47.0</code></pre>
+git version 2.47.0
+Python 3.12.3</code></pre>
 
         <div class="callout callout-warn">
           <span class="callout-icon">⚠️</span>
@@ -359,7 +424,7 @@ git version 2.47.0</code></pre>
 
         <div class="callout callout-tip">
           <span class="callout-icon">🎉</span>
-          <p>Both commands returned a version number? You are ready. Follow the Getting Started guide to run Questbee in under 5 minutes.</p>
+          <p>All three commands returned version numbers? You are ready. Follow the Getting Started guide to run Questbee in under 5 minutes.</p>
         </div>
 
         <!-- Next step -->
