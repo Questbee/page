@@ -320,19 +320,18 @@
                     <div class="code-panel-body">
                         <pre><code><span class="code-comment"># Clone the repository</span>
 git clone https://github.com/Questbee/community.git
-cd questbee/community
+cd community
 
-<span class="code-comment"># Configure environment</span>
-cp .env.example .env   <span class="code-comment"># fill in DB_PASSWORD and SECRET_KEY</span>
-
-<span class="code-comment"># Start all services</span>
-docker compose up --build
+<span class="code-comment"># Run the setup wizard</span>
+<span class="code-comment"># Checks Docker, sets admin password,</span>
+<span class="code-comment"># generates secrets, and starts everything</span>
+./questbee install
 
 <span class="code-comment"># Dashboard available at:</span>
 <span class="code-success">→</span> http://localhost:3000
 
-<span class="code-comment"># API available at:</span>
-<span class="code-success">→</span> http://localhost:8000/api/v1</code></pre>
+<span class="code-comment"># Day-to-day commands:</span>
+./questbee start | stop | logs | update</code></pre>
                     </div>
                     <div class="code-panel-footer">
                         <span class="code-tag">FastAPI</span>
@@ -552,6 +551,12 @@ docker compose up --build
                     <p>Quick setup guide for developers and IT admins. Up and running in under 30 minutes.</p>
                     <span class="doc-link">Read guide →</span>
                 </a>
+                <a href="docs/cli-reference.html" class="doc-card">
+                    <div class="doc-icon">⌨️</div>
+                    <h3>CLI Reference</h3>
+                    <p>Every day commands — start, stop, update, logs, and status — without needing to type Docker commands.</p>
+                    <span class="doc-link">Read guide →</span>
+                </a>
                 <a href="docs/architecture.html" class="doc-card">
                     <div class="doc-icon">🏗️</div>
                     <h3>Architecture</h3>
@@ -684,7 +689,7 @@ docker compose up --build
                         <span class="faq-arrow" aria-hidden="true">+</span>
                     </button>
                     <div class="faq-answer" hidden>
-                        <p>Yes — the Community Edition is available now. The full stack (API, dashboard, mobile app, sync engine) is running and deployable with a single <code>docker compose up</code>. We are onboarding pilot partners for the first production deployments and offering favorable early-access pricing.</p>
+                        <p>Yes — the Community Edition is available now. The full stack (API, dashboard, mobile app, sync engine) is running and deployable with a single <code>./questbee install</code> command. We are onboarding pilot partners for the first production deployments and offering favorable early-access pricing.</p>
                         <p><a href="https://github.com/Questbee/community" target="_blank" rel="noopener">Get started on GitHub</a> or <a href="mailto:warionv@gmail.com">contact us</a> to discuss a pilot.</p>
                     </div>
                 </div>

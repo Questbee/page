@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLI Reference — Questbee Docs</title>
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+  <nav class="docs-topnav">
+    <a href="../index.html" class="docs-topnav-logo">
+      <img src="../images/questbee-icon.svg" width="24" height="24" alt="">
+      Questbee
+    </a>
+    <div class="docs-topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#support">Support</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-section">Guides</div>
+      <a href="prerequisites.html" class="docs-sidebar-link">Prerequisites</a>
+      <a href="getting-started.html" class="docs-sidebar-link">Getting Started</a>
+      <a href="cli-reference.html" class="docs-sidebar-link active">CLI Reference</a>
+      <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
+      <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
+      <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
+      <a href="api-reference.html" class="docs-sidebar-link">API Reference</a>
+    </aside>
+
+    <main class="docs-main">
+      <div class="docs-content">
+        <h1>CLI Reference — Everyday Commands</h1>
+        <p>Questbee ships with a command-line tool that handles every common task — starting, stopping, updating, and monitoring the server — without needing to type Docker commands.</p>
+
+        <blockquote>
+          <p><strong>Mac / Linux:</strong> <code>./questbee &lt;command&gt;</code> — run from the <code>community/</code> folder.<br>
+          <strong>Windows:</strong> <code>questbee &lt;command&gt;</code> — double-click <code>questbee.bat</code> or run from Command Prompt.</p>
+        </blockquote>
+
+        <hr>
+
+        <h2 id="install">First-time setup</h2>
+
+        <pre><code class="language-bash">./questbee install</code></pre>
+
+        <p>Runs the full first-time setup wizard:</p>
+        <ol>
+          <li>Checks that Docker is installed and running (offers to install it on Linux)</li>
+          <li>Prompts for your admin email and password</li>
+          <li>Generates strong random secrets for the database and JWT signing key</li>
+          <li>Writes your <code>.env</code> file automatically</li>
+          <li>Starts all containers</li>
+          <li>Prints the dashboard URL and your login email</li>
+        </ol>
+
+        <p>Run this <strong>once</strong>. If <code>.env</code> already exists, the command exits safely with instructions on how to start the server.</p>
+
+        <hr>
+
+        <h2 id="start">Start</h2>
+
+        <pre><code class="language-bash">./questbee start</code></pre>
+
+        <p>Starts all containers in the background. Use this after a <code>stop</code>, after a system reboot, or any time the server is down.</p>
+
+        <pre><code class="language-bash">→ Starting Questbee…
+✓ Questbee started.
+  http://localhost:3000
+  http://192.168.1.42:3000</code></pre>
+
+        <hr>
+
+        <h2 id="stop">Stop</h2>
+
+        <pre><code class="language-bash">./questbee stop</code></pre>
+
+        <p>Gracefully stops all containers. Data is preserved — this does not delete anything.</p>
+
+        <pre><code class="language-bash">→ Stopping Questbee…
+✓ Questbee stopped.</code></pre>
+
+        <hr>
+
+        <h2 id="restart">Restart</h2>
+
+        <pre><code class="language-bash">./questbee restart</code></pre>
+
+        <p>Stops and restarts all containers without rebuilding. Useful after editing <code>.env</code> for non-image-level config changes.</p>
+
+        <hr>
+
+        <h2 id="logs">View logs</h2>
+
+        <pre><code class="language-bash">./questbee logs</code></pre>
+
+        <p>Streams live logs from all containers (API, web, database). Press <kbd>Ctrl+C</kbd> to exit.</p>
+
+        <p>To filter logs by service, use Docker directly:</p>
+
+        <pre><code class="language-bash">docker compose logs -f api    # API logs only
+docker compose logs -f web    # Dashboard logs only
+docker compose logs -f db     # Database logs only</code></pre>
+
+        <hr>
+
+        <h2 id="status">Status</h2>
+
+        <pre><code class="language-bash">./questbee status</code></pre>
+
+        <p>Shows whether each container is running, healthy, or stopped.</p>
+
+        <pre><code class="language-bash">NAME              STATUS           PORTS
+community-db-1    Up (healthy)
+community-api-1   Up (healthy)     0.0.0.0:8000->8000/tcp
+community-web-1   Up (healthy)     0.0.0.0:3000->3000/tcp</code></pre>
+
+        <p>A container showing <strong>Up (healthy)</strong> is ready to serve requests. <strong>Up (health: starting)</strong> means it just launched and is still initializing — wait 20–30 seconds and check again.</p>
+
+        <hr>
+
+        <h2 id="update">Update</h2>
+
+        <pre><code class="language-bash">./questbee update</code></pre>
+
+        <p>Pulls the latest version from GitHub, rebuilds the Docker images, and restarts all containers. Your data, uploads, and <code>.env</code> are preserved.</p>
+
+        <pre><code class="language-bash">1. Checking Git…
+✓ Git is ready.
+
+2. Pulling latest version…
+   (git pull output)
+
+3. Rebuilding images…
+   (docker build output)
+
+4. Restarting…
+✓ Questbee updated and restarted.
+  http://localhost:3000</code></pre>
+
+        <blockquote><p><strong>Tip:</strong> Run <code>./questbee logs</code> after an update to confirm everything started cleanly.</p></blockquote>
+
+        <hr>
+
+        <h2 id="hostname">Find the server address</h2>
+
+        <pre><code class="language-bash">./questbee hostname</code></pre>
+
+        <p>Prints all URLs where Questbee is reachable on the local network. Use the LAN IP (e.g. <code>192.168.x.x</code>) when entering the server URL in Settings → Mobile Pairing so the phone can reach the server over Wi-Fi.</p>
+
+        <pre><code class="language-bash">Questbee is reachable at:
+
+  http://localhost:3000
+  http://192.168.1.42:3000
+
+  Share any of these with users on the same network.
+  Use the LAN IP when pairing the mobile app over Wi-Fi.</code></pre>
+
+        <hr>
+
+        <h2 id="help">Help</h2>
+
+        <pre><code class="language-bash">./questbee help
+./questbee -h
+./questbee --help</code></pre>
+
+        <p>Prints all available commands with a short description.</p>
+
+        <hr>
+
+        <h2 id="quick-reference">Quick reference card</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>What it does</th>
+              <th>When to use it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>./questbee install</code></td><td>First-time setup wizard</td><td>Once, on a fresh clone</td></tr>
+            <tr><td><code>./questbee start</code></td><td>Start the server</td><td>After a stop or reboot</td></tr>
+            <tr><td><code>./questbee stop</code></td><td>Stop the server</td><td>Before maintenance or shutdown</td></tr>
+            <tr><td><code>./questbee restart</code></td><td>Restart all containers</td><td>After editing <code>.env</code></td></tr>
+            <tr><td><code>./questbee logs</code></td><td>View live logs</td><td>Debugging or monitoring</td></tr>
+            <tr><td><code>./questbee status</code></td><td>Check container health</td><td>After start, to confirm it's up</td></tr>
+            <tr><td><code>./questbee update</code></td><td>Pull latest version &amp; restart</td><td>When a new release is available</td></tr>
+            <tr><td><code>./questbee hostname</code></td><td>Print all server URLs</td><td>Before pairing the mobile app</td></tr>
+            <tr><td><code>./questbee help</code></td><td>Show all commands</td><td>Any time</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="troubleshooting">Troubleshooting with the CLI</h2>
+
+        <h3>Server not responding after start</h3>
+        <pre><code class="language-bash">./questbee status   # check if all containers are Up
+./questbee logs     # look for error messages</code></pre>
+
+        <h3>Web dashboard opens but shows errors</h3>
+        <pre><code class="language-bash">docker compose logs web   # dashboard-specific logs
+docker compose logs api   # API-specific logs</code></pre>
+
+        <h3>Mobile app can't connect</h3>
+        <pre><code class="language-bash">./questbee hostname   # get the correct LAN IP to enter in Settings → Mobile Pairing</code></pre>
+
+        <h3>After a server reboot</h3>
+        <pre><code class="language-bash">./questbee start</code></pre>
+        <p>Containers do not auto-start on reboot by default. To make them start automatically, enable Docker's start-on-boot option for your operating system, or add a systemd service.</p>
+
+        <h3>Full reset — delete all data and start over</h3>
+        <pre><code class="language-bash">docker compose down -v   # removes containers AND data volumes
+rm .env
+./questbee install       # set up fresh</code></pre>
+        <blockquote><p><strong>Warning:</strong> <code>docker compose down -v</code> permanently deletes all submissions, uploads, and the database. Back up first.</p></blockquote>
+
+        <hr>
+
+        <h2>Next steps</h2>
+        <ul>
+          <li><a href="getting-started.html">Getting Started</a> — First login, first form, mobile pairing</li>
+          <li><a href="deployment.html">Deployment Guide</a> — Production setup with HTTPS</li>
+          <li><a href="mobile-app.html">Mobile App Guide</a> — Install the app and collect data offline</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

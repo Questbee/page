@@ -28,6 +28,7 @@
       <div class="docs-sidebar-section">Guides</div>
       <a href="prerequisites.html" class="docs-sidebar-link">Prerequisites</a>
       <a href="getting-started.html" class="docs-sidebar-link active">Getting Started</a>
+      <a href="cli-reference.html" class="docs-sidebar-link">CLI Reference</a>
       <a href="deployment.html" class="docs-sidebar-link">Deployment</a>
       <a href="mobile-app.html" class="docs-sidebar-link">Mobile App</a>
       <a href="architecture.html" class="docs-sidebar-link">Architecture</a>
@@ -55,21 +56,27 @@
         <pre><code class="language-bash">git clone https://github.com/Questbee/community.git
 cd community</code></pre>
 
-        <h3>2. Configure Environment</h3>
-        <pre><code class="language-bash">cp .env.example .env</code></pre>
-        <p>Edit <code>.env</code> — the minimum required values:</p>
-        <pre><code class="language-bash">DB_PASSWORD=a_strong_password
-SECRET_KEY=run_python3_to_generate_this
-ADMIN_EMAIL=admin@yourorg.com
-ADMIN_PASSWORD=ChangeMe123!
-ALLOWED_ORIGINS=http://localhost:3000
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1</code></pre>
-        <p>Generate a proper <code>SECRET_KEY</code>:</p>
-        <pre><code class="language-bash">python3 -c "import secrets; print(secrets.token_hex(32))"</code></pre>
-        <blockquote><p><strong>Note on email:</strong> use a real-looking domain like <code>yourorg.com</code>. Pydantic rejects reserved TLDs like <code>.local</code>.</p></blockquote>
+        <h3>2. Run the Setup Wizard</h3>
+        <pre><code class="language-bash">./questbee install</code></pre>
+        <p>The wizard handles everything in one step:</p>
+        <ol>
+          <li>Checks that Docker is installed and running (offers to install it on Linux)</li>
+          <li>Prompts for your admin email and password</li>
+          <li>Generates strong random secrets for the database and JWT signing key</li>
+          <li>Writes your <code>.env</code> file automatically</li>
+          <li>Starts all containers</li>
+          <li>Prints the dashboard URL and your login email</li>
+        </ol>
+        <blockquote><p><strong>Windows:</strong> run <code>questbee install</code> from Command Prompt, or double-click <code>questbee.bat</code>.</p></blockquote>
 
-        <h3>3. Start the Stack</h3>
-        <pre><code class="language-bash">docker compose up --build</code></pre>
+        <h3>3. First Login</h3>
+        <ol>
+          <li>Open <strong>http://localhost:3000</strong></li>
+          <li>Log in with the admin email and password you entered during setup</li>
+          <li>You will be redirected to a <strong>Change Password</strong> screen — this is mandatory on first login</li>
+          <li>After changing your password, you land on the dashboard</li>
+        </ol>
+
         <table>
           <thead><tr><th>Service</th><th>URL</th><th>Purpose</th></tr></thead>
           <tbody>
@@ -79,13 +86,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1</code></pre>
           </tbody>
         </table>
 
-        <h3>4. First Login</h3>
-        <ol>
-          <li>Open <strong>http://localhost:3000</strong></li>
-          <li>Log in with <code>ADMIN_EMAIL</code> and <code>ADMIN_PASSWORD</code> from your <code>.env</code></li>
-          <li>You will be redirected to a <strong>Change Password</strong> screen — this is mandatory on first login</li>
-          <li>After changing your password, you land on the dashboard</li>
-        </ol>
+        <blockquote><p><strong>See all CLI commands:</strong> <a href="cli-reference.html">CLI Reference</a> — start, stop, update, logs, and more without typing Docker commands.</p></blockquote>
 
         <hr>
 
@@ -228,10 +229,11 @@ docker compose restart db   # restart database if needed</code></pre>
 
         <h2>Next Steps</h2>
         <ul>
+          <li><a href="cli-reference.html">CLI Reference</a> — Start, stop, update, and monitor without Docker commands</li>
+          <li><a href="deployment.html">Deployment Guide</a> — Production setup with HTTPS and backups</li>
+          <li><a href="mobile-app.html">Mobile App Guide</a> — Full field worker reference</li>
           <li><a href="architecture.html">Architecture</a> — System design overview</li>
           <li><a href="api-reference.html">API Reference</a> — Headless API and IoT ingestion</li>
-          <li><a href="deployment.html">Deployment Guide</a> — Production setup</li>
-          <li><a href="mobile-app.html">Mobile App Guide</a> — Full field worker reference</li>
         </ul>
       </div>
     </main>

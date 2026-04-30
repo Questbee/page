@@ -16,39 +16,33 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/questbee-io/questbee.git
-cd questbee/community
+git clone https://github.com/Questbee/community.git
+cd community
 ```
 
-### 2. Configure Environment
+### 2. Run the Setup Wizard
 
 ```bash
-cp .env.example .env
+./questbee install
 ```
 
-Edit `.env` — the minimum required values:
+The wizard handles everything in one step:
 
-```env
-DB_PASSWORD=a_strong_password
-SECRET_KEY=run_python3_c_import_secrets_print_secrets_token_hex_32
-ADMIN_EMAIL=admin@yourorg.com
-ADMIN_PASSWORD=ChangeMe123!
-ALLOWED_ORIGINS=http://localhost:3000
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-```
+1. Checks that Docker is installed and running (offers to install it on Linux)
+2. Prompts for your admin email and password
+3. Generates strong random secrets for the database and JWT signing key
+4. Writes your `.env` file automatically
+5. Starts all containers
+6. Prints the dashboard URL and your login email
 
-Generate a proper `SECRET_KEY`:
-```bash
-python3 -c "import secrets; print(secrets.token_hex(32))"
-```
+> **Windows:** run `questbee install` from Command Prompt, or double-click `questbee.bat`.
 
-> **Note on email:** use a real-looking domain like `yourorg.com`. Pydantic rejects reserved TLDs like `.local`.
+### 3. First Login
 
-### 3. Start the Stack
-
-```bash
-docker compose up --build
-```
+1. Open **http://localhost:3000**
+2. Log in with the admin email and password you entered during setup
+3. You will be redirected to a **Change Password** screen — this is mandatory on first login
+4. After changing your password, you land on the dashboard
 
 | Service | URL | Purpose |
 |---|---|---|
@@ -56,12 +50,7 @@ docker compose up --build
 | API | http://localhost:8000 | FastAPI backend |
 | API docs (Swagger) | http://localhost:8000/docs | Interactive endpoint explorer |
 
-### 4. First Login
-
-1. Open **http://localhost:3000**
-2. Log in with `ADMIN_EMAIL` and `ADMIN_PASSWORD` from your `.env`
-3. You will be redirected to a **Change Password** screen — this is mandatory on first login
-4. After changing your password, you land on the dashboard
+> **See all CLI commands:** [CLI Reference](cli-reference.md) — start, stop, update, logs, and more without typing Docker commands.
 
 ---
 
@@ -209,7 +198,8 @@ docker compose down -v
 
 ## Next Steps
 
+- [CLI Reference](cli-reference.md) — Start, stop, update, and monitor without Docker commands
+- [Deployment Guide](deployment.md) — Production setup with HTTPS and backups
+- [Mobile App Guide](mobile-app.md) — Full field worker reference
 - [Architecture](architecture.md) — System design overview
 - [API Reference](api-reference.md) — Headless API and IoT ingestion
-- [Deployment Guide](deployment.md) — Production setup
-- [Mobile App Guide](mobile-app.md) — Full field worker reference
