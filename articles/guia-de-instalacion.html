@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pon Questbee en marcha en 30 minutos — Guía de instalación</title>
+  <meta name="description" content="Tu equipo sale al campo la próxima semana y necesitas una herramienta de encuestas que funcione sin internet. Así se instala Questbee en unos 30 minutos, sin conocimientos técnicos previos.">
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="articles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <header class="topnav">
+    <a href="../index.html" class="topnav-logo">
+      <img src="../images/questbee-icon.svg" width="26" height="26" alt="">
+      Questbee
+    </a>
+    <div class="topnav-links">
+      <a href="../index.html">Inicio</a>
+      <a href="../docs/index.html">Docs</a>
+      <a href="../index.html#support">Soporte</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </header>
+
+  <div class="article-page">
+
+    <!-- Breadcrumb -->
+    <nav class="article-breadcrumb" aria-label="Ruta de navegación">
+      <a href="../index.html">Inicio</a>
+      <span class="sep">›</span>
+      <span>Guía de instalación</span>
+    </nav>
+
+    <!-- Article header -->
+    <header class="article-header">
+      <span class="article-tag">Guía</span>
+      <h1>Pon Questbee en marcha en 30 minutos</h1>
+      <div class="article-meta">
+        <span>12 min de lectura</span>
+        <span class="sep">·</span>
+        <span>Instalación</span>
+        <span class="sep">·</span>
+        <span>Actualizado mayo 2025</span>
+        <div class="article-lang">
+          <a href="installation-guide.html">EN</a>
+          <a href="guia-de-instalacion.html" class="active">ES</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Table of contents -->
+    <nav class="article-toc" aria-label="Tabla de contenidos">
+      <div class="article-toc-inner">
+        <h3>Contenidos</h3>
+        <ol>
+          <li><a href="#antes-de-empezar">Antes de empezar</a></li>
+          <li><a href="#obtener-los-archivos">Obtener los archivos</a></li>
+          <li><a href="#asistente">Ejecutar el asistente de instalación</a></li>
+          <li><a href="#primer-acceso">Iniciar sesión por primera vez</a></li>
+          <li><a href="#primer-formulario">Crear tu primer formulario</a></li>
+          <li><a href="#app-movil">Conectar la app móvil</a></li>
+          <li><a href="#mantenimiento">Mantener todo en marcha</a></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Article body -->
+    <article class="article-body">
+
+      <p>Tu equipo sale al campo la semana que viene. Alguien encontró Questbee — una herramienta de encuestas gratuita que funciona sin internet una vez instalada — y ahora eres tú quien tiene que ponerla en marcha. Viste la página principal, parece exactamente lo que necesitan, y te preguntas qué tan complicado será.</p>
+
+      <p>No lo es. La instalación completa tarda unos 30 minutos en una computadora portátil o en un servidor que ya tengas disponible. El proceso te hace unas pocas preguntas a través de un asistente guiado y se encarga de todo lo demás. Al final, tu equipo tendrá una plataforma lista con un panel web y una app móvil preparada para salir al campo.</p>
+
+      <p>Esta guía recorre cada paso. Si en algún momento te quedas atascado, la <a href="../docs/index.html">documentación completa</a> está disponible — pero la mayoría de las personas no la necesita.</p>
+
+      <h2 id="antes-de-empezar">Antes de empezar</h2>
+
+      <p>Questbee corre en tu propia computadora o servidor — eso es lo que lo hace gratuito y lo que mantiene tus datos bajo tu control. Antes de que el asistente pueda hacer su trabajo, necesitas tener tres herramientas instaladas en esa máquina: <strong>Docker</strong>, <strong>Git</strong> y <strong>Python 3</strong>.</p>
+
+      <p>Piensa en Docker como el motor que hace funcionar todo. Git es la herramienta con la que descargas los archivos de Questbee. Python es lo que ejecuta el asistente de instalación. Ninguna requiere configuración de tu parte — solo instalación.</p>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <p>¿Nunca instalaste alguna de estas herramientas? La <a href="../docs/prerequisites.html">guía de requisitos previos</a> tiene instrucciones paso a paso para Windows, macOS y Linux — incluyendo qué hacer clic y dónde descargar cada una.</p>
+      </div>
+
+      <p>Para verificar si ya las tienes, abre una ventana de terminal y ejecuta estas cuatro líneas una por una:</p>
+
+      <pre><code class="language-bash">docker --version
+docker compose version
+git --version
+python3 --version</code></pre>
+
+      <p>Si cada una muestra un número de versión, estás listo. Si alguna da error, la <a href="../docs/prerequisites.html">guía de requisitos previos</a> lo resuelve en pocos minutos.</p>
+
+      <p>La máquina también debería tener al menos 4 GB de memoria y 50 GB de espacio libre en disco — aproximadamente lo que trae de fábrica una computadora portátil moderna.</p>
+
+      <h2 id="obtener-los-archivos">Obtener los archivos</h2>
+
+      <p>Abre una terminal y navega a la carpeta donde quieres instalar Questbee. Luego ejecuta:</p>
+
+      <pre><code class="language-bash">git clone https://github.com/Questbee/community.git
+cd community</code></pre>
+
+      <p>Esto descarga los archivos de Questbee a tu máquina y te mueve dentro de la carpeta del proyecto. Todo lo que sigue ocurre dentro de esa carpeta.</p>
+
+      <h2 id="asistente">Ejecutar el asistente de instalación</h2>
+
+      <p>Aquí es donde todo se vuelve fácil. Un solo comando inicia un asistente guiado que te hace unas pocas preguntas y se encarga del resto:</p>
+
+      <pre><code class="language-bash">./questbee install</code></pre>
+
+      <p>El asistente te preguntará si estás configurando esto para uso local (solo tu máquina) o para un servidor en producción, establecerá una contraseña para la base de datos y generará una clave de seguridad. No necesitas anotar nada — todo se guarda automáticamente en un archivo de configuración.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✅</span>
+        <p>Cuando el asistente termina, todo ya está en marcha. No necesitas iniciar nada manualmente ni editar ningún archivo.</p>
+      </div>
+
+      <p>Una vez que termina, confirma que las tres partes del sistema estén funcionando:</p>
+
+      <pre><code class="language-bash">./questbee status</code></pre>
+
+      <p>Deberías ver el panel web, la API y la base de datos con estado <strong>running</strong>. Si algo no está corriendo, la salida del asistente generalmente indica el motivo.</p>
+
+      <h2 id="primer-acceso">Iniciar sesión por primera vez</h2>
+
+      <p>Abre un navegador y ve a <code>http://localhost:3000</code> — o, si instalaste en un servidor separado, reemplaza <code>localhost</code> por la dirección IP de esa máquina en tu red.</p>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <p>El asistente imprimió la dirección exacta al final. Si la perdiste, ejecuta <code>./questbee hostname</code> para verla de nuevo.</p>
+      </div>
+
+      <p>En la primera visita, Questbee crea automáticamente una cuenta de administrador. El nombre de usuario y la contraseña se muestran al final de la salida del asistente. Cópialos antes de cerrar esa ventana de terminal.</p>
+
+      <p>Inicia sesión y llegarás al panel principal. Desde ahí gestionas los formularios, revisas lo que tu equipo envió y controlas qué dispositivos están conectados. Tómate un minuto para explorarlo antes de continuar.</p>
+
+      <h2 id="primer-formulario">Crear tu primer formulario</h2>
+
+      <p>Haz clic en <strong>Formularios</strong> en la barra lateral izquierda. Aquí viven todos tus formularios de recopilación de datos. Haz clic en <strong>Nuevo formulario</strong> para abrir el constructor de formularios.</p>
+
+      <div class="step-label"><span class="step-num">1</span> Ponle nombre</div>
+      <p>Elige un nombre que tu equipo de campo reconozca — algo como "Visita domiciliaria — mayo 2025" o "Inspección de punto de agua."</p>
+
+      <div class="step-label"><span class="step-num">2</span> Agrega los campos</div>
+      <p>Arrastra los campos que necesitas. Questbee admite respuestas de texto, números, fechas, opciones desplegables, ubicación GPS, captura de fotos y más. Constrúyelo igual que diseñarías un formulario en papel — sección por sección, pregunta por pregunta.</p>
+
+      <div class="step-label"><span class="step-num">3</span> Publícalo</div>
+      <p>Cuando el formulario se vea bien, haz clic en <strong>Publicar</strong>. Este es el paso que más gente olvida la primera vez.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <p>Un formulario que no está publicado no aparecerá en los teléfonos de tu equipo. Guarda y publica antes de entregar los dispositivos.</p>
+      </div>
+
+      <h2 id="app-movil">Conectar la app móvil</h2>
+
+      <p>La app móvil de Questbee es donde tu equipo de campo hace su trabajo. Funciona en Android, guarda todo en el teléfono y sincroniza de vuelta con tu panel cuando hay conexión — aunque sea breve.</p>
+
+      <p>Conectar un teléfono toma unos dos minutos y usa un código QR, así que tu equipo no tiene que escribir nada.</p>
+
+      <div class="step-label"><span class="step-num">1</span> Encuentra la dirección de tu servidor</div>
+      <p>En la terminal, ejecuta:</p>
+      <pre><code class="language-bash">./questbee hostname</code></pre>
+      <p>Esto muestra la dirección de red local de tu máquina — algo como <code>192.168.1.100</code>. Cópiala. Eso es lo que el teléfono usará para encontrar tu servidor.</p>
+
+      <div class="step-label"><span class="step-num">2</span> Abre la sección App Móvil</div>
+      <p>En el panel web, haz clic en <strong>App Móvil</strong> en la barra lateral. Pega la dirección que acabas de copiar en el campo <strong>Dirección del servidor</strong>. El panel te muestra una vista previa de la dirección completa que usará — verifica que se vea bien antes de continuar.</p>
+
+      <div class="step-label"><span class="step-num">3</span> Nombra el dispositivo y genera un código QR</div>
+      <p>Escribe un nombre para este dispositivo — "Tablet de campo 1" o el nombre de la persona que lo va a llevar. Luego haz clic en <strong>Generar código QR</strong>.</p>
+
+      <div class="step-label"><span class="step-num">4</span> Escanea desde el teléfono</div>
+      <p>Abre la app de Questbee, toca <strong>Vincular con código QR</strong> y apunta la cámara hacia la pantalla. El teléfono se conecta automáticamente y descarga todos tus formularios publicados. Ya está listo para salir al campo.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✅</span>
+        <p>¿Estás configurando todo un equipo? Haz clic en <strong>Vincular otro dispositivo</strong> después de cada escaneo — la dirección del servidor queda guardada y solo necesitas generar un código nuevo para cada teléfono.</p>
+      </div>
+
+      <h2 id="mantenimiento">Mantener todo en marcha</h2>
+
+      <p>Una vez que Questbee está instalado, gestionarlo es sencillo. Un pequeño conjunto de comandos cubre todo lo que necesitarás en el día a día:</p>
+
+      <ul>
+        <li><code>./questbee start</code> — inicia todo (úsalo después de reiniciar la máquina)</li>
+        <li><code>./questbee stop</code> — apaga todo de forma limpia</li>
+        <li><code>./questbee status</code> — revisa qué está funcionando</li>
+        <li><code>./questbee logs</code> — ve qué está pasando en tiempo real</li>
+        <li><code>./questbee update</code> — descarga la última versión de Questbee</li>
+        <li><code>./questbee hostname</code> — recuerda la dirección de tu servidor</li>
+      </ul>
+
+      <p>Eso es todo el sistema. Tus formularios están listos, tus teléfonos están vinculados y tu equipo puede empezar a recopilar datos — con o sin internet. Cuando regresen y se conecten a la red, todo se sincroniza automáticamente y aparece en tu panel.</p>
+
+      <p>Si quieres ir más lejos — configurar un dominio público, gestionar roles de usuario o explorar todas las funciones — la <a href="../docs/index.html">documentación de Questbee</a> lo cubre todo. O simplemente empieza con lo que tienes y crece desde ahí.</p>
+
+    </article>
+
+    <!-- Footer links -->
+    <footer class="article-footer">
+      <h3>Continúa leyendo</h3>
+      <div class="article-footer-links">
+        <a href="../docs/prerequisites.html">
+          <span>📋</span> Guía de requisitos previos
+        </a>
+        <a href="../docs/mobile-app.html">
+          <span>📱</span> Guía de la app móvil
+        </a>
+        <a href="../docs/cli-reference.html">
+          <span>⌨️</span> Todos los comandos CLI
+        </a>
+        <a href="../docs/deployment.html">
+          <span>🚀</span> Despliegue en un servidor
+        </a>
+      </div>
+    </footer>
+
+  </div><!-- /.article-page -->
+
+</body>
+</html>

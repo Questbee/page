@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Questbee Running in 30 Minutes — Installation Guide</title>
+  <meta name="description" content="Your team is heading to the field and you need a survey tool that works without internet. Here's how to get Questbee up and running in about 30 minutes — no technical background required.">
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="articles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <header class="topnav">
+    <a href="../index.html" class="topnav-logo">
+      <img src="../images/questbee-icon.svg" width="26" height="26" alt="">
+      Questbee
+    </a>
+    <div class="topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="../docs/index.html">Docs</a>
+      <a href="../index.html#support">Support</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </header>
+
+  <div class="article-page">
+
+    <!-- Breadcrumb -->
+    <nav class="article-breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="sep">›</span>
+      <span>Installation Guide</span>
+    </nav>
+
+    <!-- Article header -->
+    <header class="article-header">
+      <span class="article-tag">Guide</span>
+      <h1>Get Questbee Running in 30 Minutes</h1>
+      <div class="article-meta">
+        <span>12 min read</span>
+        <span class="sep">·</span>
+        <span>Setup &amp; Installation</span>
+        <span class="sep">·</span>
+        <span>Updated May 2025</span>
+        <div class="article-lang">
+          <a href="installation-guide.html" class="active">EN</a>
+          <a href="guia-de-instalacion.html">ES</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Table of contents -->
+    <nav class="article-toc" aria-label="Table of contents">
+      <div class="article-toc-inner">
+        <h3>Contents</h3>
+        <ol>
+          <li><a href="#before-you-start">Before you start</a></li>
+          <li><a href="#get-the-files">Get the files</a></li>
+          <li><a href="#setup-wizard">Run the setup wizard</a></li>
+          <li><a href="#first-login">Log in for the first time</a></li>
+          <li><a href="#create-form">Create your first form</a></li>
+          <li><a href="#mobile-app">Connect the mobile app</a></li>
+          <li><a href="#daily-commands">Keeping things running</a></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Article body -->
+    <article class="article-body">
+
+      <p>Your team is heading to the field next week. Someone found Questbee — a free survey tool that works without internet once it's set up — and now you're the one who has to get it running. You've looked at the homepage, it seems like exactly what you need, and you're wondering how hard this is going to be.</p>
+
+      <p>Not hard at all. The whole setup takes about 30 minutes on a laptop or a small server you already have. You'll answer a few questions in a guided wizard, and by the end of it your team will have a working platform with a web dashboard and a mobile app ready to go into the field.</p>
+
+      <p>This guide walks through every step. If you get stuck, the <a href="../docs/index.html">full documentation</a> is always there — but most people don't need it.</p>
+
+      <h2 id="before-you-start">Before you start</h2>
+
+      <p>Questbee runs on your own computer or server — that's what makes it free and what keeps your data under your control. Before the setup wizard can do its work, three tools need to be installed on that machine: <strong>Docker</strong>, <strong>Git</strong>, and <strong>Python 3</strong>.</p>
+
+      <p>Think of Docker as the engine that runs everything. Git is how you get the Questbee files. Python is what runs the setup wizard. None of them require any configuration on your part — just installation.</p>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <p>Never installed these before? The <a href="../docs/prerequisites.html">Prerequisites guide</a> has step-by-step instructions for Windows, macOS, and Linux — including what to click and where to download each one.</p>
+      </div>
+
+      <p>To check whether you already have them, open a terminal window and run these four lines one by one:</p>
+
+      <pre><code class="language-bash">docker --version
+docker compose version
+git --version
+python3 --version</code></pre>
+
+      <p>If each one prints a version number, you're ready. If any of them shows an error, the <a href="../docs/prerequisites.html">prerequisites guide</a> will sort you out in a few minutes.</p>
+
+      <p>You'll also want the machine to have at least 4 GB of memory and 50 GB of free disk space — roughly what a modern laptop has by default.</p>
+
+      <h2 id="get-the-files">Get the files</h2>
+
+      <p>Open a terminal and navigate to the folder where you want to install Questbee. Then run:</p>
+
+      <pre><code class="language-bash">git clone https://github.com/Questbee/community.git
+cd community</code></pre>
+
+      <p>This downloads the Questbee files to your machine and moves you into the project folder. Everything from here happens inside that folder.</p>
+
+      <h2 id="setup-wizard">Run the setup wizard</h2>
+
+      <p>This is the part where it gets easy. One command starts a guided wizard that asks you a handful of questions and handles the rest:</p>
+
+      <pre><code class="language-bash">./questbee install</code></pre>
+
+      <p>The wizard will ask you whether you're setting this up for local use (just your machine) or for a live server, then set a password for the database and generate a security key. You don't need to write any of this down — it's saved automatically in a configuration file.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✅</span>
+        <p>When the wizard finishes, everything is already running. You don't need to start anything manually or edit any files.</p>
+      </div>
+
+      <p>Once it's done, confirm that all three parts of the system are up:</p>
+
+      <pre><code class="language-bash">./questbee status</code></pre>
+
+      <p>You should see the web dashboard, the API, and the database all listed as <strong>running</strong>. If something isn't running, the wizard output usually tells you why.</p>
+
+      <h2 id="first-login">Log in for the first time</h2>
+
+      <p>Open a browser and go to <code>http://localhost:3000</code> — or, if you installed on a separate server, swap <code>localhost</code> for that machine's IP address on your network.</p>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <p>The wizard printed the exact address at the end. If you missed it, run <code>./questbee hostname</code> to see it again.</p>
+      </div>
+
+      <p>On the first visit, Questbee creates an admin account automatically. The username and password are shown at the end of the wizard output. Copy them before closing that terminal window.</p>
+
+      <p>Log in and you'll land on the main dashboard. That's your home base — from here you manage forms, review what your team submitted, and control which devices are connected. Take a minute to look around before moving on.</p>
+
+      <h2 id="create-form">Create your first form</h2>
+
+      <p>Click <strong>Forms</strong> in the left sidebar. This is where all your data collection forms live. Click <strong>New Form</strong> to open the form builder.</p>
+
+      <div class="step-label"><span class="step-num">1</span> Name your form</div>
+      <p>Give it a name that your field team will recognize — something like "Household Visit — May 2025" or "Water Point Inspection."</p>
+
+      <div class="step-label"><span class="step-num">2</span> Add your fields</div>
+      <p>Drag in the fields you need. Questbee supports text answers, numbers, dates, dropdown choices, GPS location, photo capture, and more. Build it the same way you'd design a paper form — section by section, question by question.</p>
+
+      <div class="step-label"><span class="step-num">3</span> Publish it</div>
+      <p>When the form looks right, hit <strong>Publish</strong>. This is the step most people miss the first time around.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <p>A form that isn't published won't appear on your team's phones. Save and publish before you hand out devices.</p>
+      </div>
+
+      <h2 id="mobile-app">Connect the mobile app</h2>
+
+      <p>The Questbee mobile app is where your field team does their work. It runs on Android, stores everything on the phone, and syncs back to your dashboard when there's a connection — even a brief one.</p>
+
+      <p>Connecting a phone takes about two minutes and uses a QR code, so your team doesn't have to type anything.</p>
+
+      <div class="step-label"><span class="step-num">1</span> Find your server address</div>
+      <p>In the terminal, run:</p>
+      <pre><code class="language-bash">./questbee hostname</code></pre>
+      <p>This shows the local network address of your machine — something like <code>192.168.1.100</code>. Copy it. This is what the phone will use to find your server.</p>
+
+      <div class="step-label"><span class="step-num">2</span> Open the Mobile App section</div>
+      <p>In the web dashboard, click <strong>Mobile App</strong> in the sidebar. Paste the address you just copied into the <strong>Server Address</strong> field. The dashboard shows you a preview of the full address it will use — check that it looks right before continuing.</p>
+
+      <div class="step-label"><span class="step-num">3</span> Name the device and generate a QR code</div>
+      <p>Enter a name for this device — "Field Tablet 1" or the name of the person who will carry it. Then click <strong>Generate QR Code</strong>.</p>
+
+      <div class="step-label"><span class="step-num">4</span> Scan on the phone</div>
+      <p>Open the Questbee app, tap <strong>Pair with QR Code</strong>, and point the camera at the screen. The phone connects automatically and downloads all your published forms. It's ready to go into the field.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✅</span>
+        <p>Setting up a whole team? Click <strong>Pair another device</strong> after each scan — the server address stays saved and you just generate a new code for each phone.</p>
+      </div>
+
+      <h2 id="daily-commands">Keeping things running</h2>
+
+      <p>Once Questbee is set up, managing it is straightforward. A small set of commands covers everything you'll need day to day:</p>
+
+      <ul>
+        <li><code>./questbee start</code> — start everything (use this after a reboot)</li>
+        <li><code>./questbee stop</code> — shut everything down cleanly</li>
+        <li><code>./questbee status</code> — check what's running</li>
+        <li><code>./questbee logs</code> — see what's happening in real time</li>
+        <li><code>./questbee update</code> — pull the latest version of Questbee</li>
+        <li><code>./questbee hostname</code> — remind yourself of your server's address</li>
+      </ul>
+
+      <p>That's the whole system. Your forms are ready, your phones are paired, and your team can start collecting data — with or without internet. When they get back and connect to the network, everything syncs automatically and appears in your dashboard.</p>
+
+      <p>If you want to go further — set up a public domain, configure user roles, or explore the full feature set — the <a href="../docs/index.html">Questbee documentation</a> covers all of it. Or just start with what you have and build from there.</p>
+
+    </article>
+
+    <!-- Footer links -->
+    <footer class="article-footer">
+      <h3>Continue reading</h3>
+      <div class="article-footer-links">
+        <a href="../docs/prerequisites.html">
+          <span>📋</span> Prerequisites guide
+        </a>
+        <a href="../docs/mobile-app.html">
+          <span>📱</span> Mobile App guide
+        </a>
+        <a href="../docs/cli-reference.html">
+          <span>⌨️</span> All CLI commands
+        </a>
+        <a href="../docs/deployment.html">
+          <span>🚀</span> Deploying to a server
+        </a>
+      </div>
+    </footer>
+
+  </div><!-- /.article-page -->
+
+</body>
+</html>
