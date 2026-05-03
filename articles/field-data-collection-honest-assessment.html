@@ -97,29 +97,25 @@
 
       <p><strong>Integration hooks.</strong> Questbee exposes webhooks per form and a REST API, which means submissions can trigger actions in other systems — feeding a dashboard, alerting a supervisor, populating an external database — without manual export steps.</p>
 
-      <h2>What it doesn't solve</h2>
+      <h2>What it is designed for — and what it is not</h2>
 
-      <p>Honesty about limitations matters more than promotion, so this section deserves care.</p>
+      <p>Questbee is purpose-built for field data collection. It does not try to be a business intelligence platform, a project management suite, or a general-purpose database. That focus is deliberate — the setup is fast because the scope is clear, and the feature set covers what field teams need without the overhead of enterprise software that wasn't designed for the field.</p>
 
-      <p><strong>Real-time coordination during collection.</strong> Questbee is offline-first, which means the coordinator's dashboard only updates when field workers sync. If a worker has been offline for three days, the coordinator has no visibility into what she has collected until she reconnects. This is not a flaw in the implementation — it is inherent to the offline-first model. But it is a real constraint for programs that need to monitor progress or catch errors in near-real-time.</p>
+      <p><strong>On data analysis.</strong> Submissions are accessible through the dashboard and a full REST API. Analysis happens in the tools your team already uses — R, Python, Excel, Power BI, or any platform that can consume a structured data export. For most programs this is the right separation: collect in the field with a tool designed for it, analyze in a tool designed for that.</p>
 
-      <p><strong>Android only.</strong> The mobile app runs on Android. iOS is not supported. In most field contexts this is not a problem — Android dominates the affordable device market in the regions where offline field work happens most. But for teams that have standardized on iPhones, or that work in contexts where iOS devices are more common, this closes the door.</p>
+      <p><strong>On the offline model.</strong> Because Questbee prioritizes reliable offline collection, the coordinator's dashboard shows data as teams sync — typically when they return to a location with connectivity. This is the correct tradeoff for programs operating in low-connectivity environments: data integrity in the field over real-time visibility from the office.</p>
 
-      <p><strong>No built-in analysis or visualization.</strong> Questbee stores submissions and makes them accessible through the dashboard and API. It does not include charts, pivot tables, or statistical summaries. For most programs, the analysis happens outside the collection tool anyway — in R, Python, Excel, or a BI platform — so this is rarely a dealbreaker. But it is worth knowing going in.</p>
-
-      <p><strong>Self-hosting carries a maintenance responsibility.</strong> Questbee runs on your own hardware. That means you own the uptime, the backups, and the updates. The installation is genuinely simple — about 30 minutes — and the CLI makes updates straightforward. But if the server goes down during a critical collection phase, someone on your team needs to know how to bring it back up. For organizations with no technical staff at all, this is a real consideration.</p>
-
-      <p><strong>It is still maturing.</strong> Questbee is newer than many tools in this space. The feature set is solid, but documentation is thinner than it will eventually be, and some rough edges exist in the form builder and submission view that more established platforms have had years to smooth out.</p>
+      <p><strong>On data ownership.</strong> Running on your own infrastructure means your data never touches a third-party server. For organizations handling health records, household income data, GPS coordinates of individuals, or any information subject to data protection requirements, this is not a technical detail — it is a compliance requirement. Questbee is designed for exactly these programs.</p>
 
       <h2>Who this is for</h2>
 
-      <p>The honest profile of the organization Questbee fits well: a small to mid-sized field program — say, 5 to 50 field workers — that collects data in areas with unreliable connectivity, cares about keeping its data on its own infrastructure, uses Android devices, and has at least one person willing to manage a basic server setup.</p>
+      <p>Questbee fits organizations with field programs of 10 to several hundred workers, collecting data in areas where connectivity is unreliable, where data sovereignty is a requirement rather than a preference, and where the current process — paper, spreadsheets, or a patchwork of tools — is producing delays, errors, or data that never gets used.</p>
 
-      <p>It fits well for programs where the alternative is paper, or where the team is currently stitching together paper and cloud tools and losing data in the gap between them. It fits less well for very large deployments, for teams that need iOS support, or for organizations that need built-in analysis and reporting alongside collection.</p>
+      <p>The organizations that get the most from it tend to have a clear owner for the platform — a program coordinator, a data manager, or an IT lead — and a team of Android-equipped field workers. The paid plans add white-label branding (your organization's name and logo on the app), SSO and Active Directory integration for enterprise IT environments, compliance-ready audit logs, and a support SLA for programs where uptime matters.</p>
 
-      <p>For a program coordinator who has spent months dealing with the costs described in this article — the coordination overhead, the transcription backlog, the data that arrived too late to be useful — Questbee addresses the structural problems directly. It is free, it is self-contained, and the data it produces is centralized, searchable, and available the moment the team comes back online.</p>
+      <p>For a program director who has spent months dealing with the costs described in this article — the coordination overhead, the transcription backlog, the data that arrived too late — Questbee addresses the structural problems at the source. The collection is clean from day one. The data is centralized, searchable, and available the moment the team syncs.</p>
 
-      <p>If that sounds like what your program needs, <a href="https://questbee.github.io/page">the full feature overview is here</a>, and the <a href="installation-guide.html">setup guide walks through the installation</a> in about 30 minutes.</p>
+      <p>If that describes your program, <a href="https://questbee.github.io/page">the full overview is here</a>. If you are ready to move forward, <a href="mailto:warionv@gmail.com">get in touch</a> — the Enterprise plan includes implementation support.</p>
 
     </article>
 
