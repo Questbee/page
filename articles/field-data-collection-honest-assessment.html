@@ -35,7 +35,7 @@
       <span class="article-tag">Analysis</span>
       <h1>Field Data Collection: What the Paper System Actually Costs</h1>
       <div class="article-meta">
-        <span>9 min read</span>
+        <span>11 min read</span>
         <span class="sep">·</span>
         <span>Field teams &amp; NGOs</span>
         <span class="sep">·</span>
@@ -93,15 +93,17 @@
 
       <p><strong>QR code device pairing.</strong> Onboarding a field worker onto the system takes a minute. You generate a QR code in the web dashboard, the worker scans it with the app, and the device is registered and authenticated. No account creation, no password to remember, no IT support required. For a team of twenty people who may not be technically confident, this removes a significant barrier.</p>
 
-      <p><strong>A complete field type set.</strong> The form builder supports the types that field surveys actually need: GPS coordinates, photos, audio recordings, barcode scanning, digital signatures, repeating groups (for household members or multiple observations at one location), and calculated fields. These are not afterthoughts — they are in the core schema.</p>
+      <p><strong>A complete field type set.</strong> The form builder supports the types that field surveys actually need: GPS coordinates, geotrace paths, route tracking, photos, audio recordings, barcode and QR code scanning, digital signatures, repeating groups (for household members or multiple observations at one location), and calculated fields. These are not afterthoughts — they are in the core schema, and the export system is built around them.</p>
 
-      <p><strong>Integration hooks.</strong> Questbee exposes webhooks per form and a REST API, which means submissions can trigger actions in other systems — feeding a dashboard, alerting a supervisor, populating an external database — without manual export steps.</p>
+      <p><strong>Analysis-ready exports out of the box.</strong> The export system is worth understanding specifically, because it is where the field type set pays off. A single package download from the dashboard includes: a flat CSV with all fields handled correctly — geopoints as four separate columns (latitude, longitude, accuracy, altitude); select-multiple fields as pipe-separated values; barcodes and QR codes as scanned text ready to join against existing registries; a GeoJSON FeatureCollection with every geopoint as a Point and every route or trace as a LineString, ready to open in QGIS, ArcGIS, Mapbox, or any GIS tool without conversion; a GPX file for every route field, with full per-point telemetry — speed, altitude, heading, accuracy, and pause segmentation; a media ZIP with every photo, signature, and audio file organized by submission ID and field name, alongside an index CSV linking each file to its source record; and separate linked CSVs for every repeat group. An auto-generated README documents each column and field label. The data comes out indexed and cross-referenced — not a raw dump that requires cleanup before it can be used.</p>
+
+      <p><strong>Integration hooks.</strong> Questbee exposes webhooks per form and a full REST API, which means submissions can trigger actions in other systems — feeding a dashboard, alerting a supervisor, populating an external database — without manual export steps. A headless API surface also supports IoT devices and automated agents submitting structured data directly.</p>
 
       <h2>What it is designed for — and what it is not</h2>
 
       <p>Questbee is purpose-built for field data collection. It does not try to be a business intelligence platform, a project management suite, or a general-purpose database. That focus is deliberate — the setup is fast because the scope is clear, and the feature set covers what field teams need without the overhead of enterprise software that wasn't designed for the field.</p>
 
-      <p><strong>On data analysis.</strong> Submissions are accessible through the dashboard and a full REST API. Analysis happens in the tools your team already uses — R, Python, Excel, Power BI, or any platform that can consume a structured data export. For most programs this is the right separation: collect in the field with a tool designed for it, analyze in a tool designed for that.</p>
+      <p><strong>On data analysis.</strong> The export is where this becomes concrete. From the dashboard, a coordinator downloads a full package — CSV, GeoJSON, GPX tracks, indexed media, repeat-group tables, and a README — in one click. The GeoJSON opens directly in any mapping platform. The GPX loads into any route analysis tool. The media files are named and indexed, with a table linking each file back to its submission and field. Repeat groups come out as separate linked tables, not embedded text. For programs that use barcodes or QR codes for identity matching against existing registries, the scanned values are in the flat CSV, ready to join. The work of structuring the data — which in most workflows happens after export, at significant time cost — is already done before the coordinator opens the file.</p>
 
       <p><strong>On the offline model.</strong> Because Questbee prioritizes reliable offline collection, the coordinator's dashboard shows data as teams sync — typically when they return to a location with connectivity. This is the correct tradeoff for programs operating in low-connectivity environments: data integrity in the field over real-time visibility from the office.</p>
 
