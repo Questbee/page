@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Data Collection: What the Paper System Actually Costs</title>
+  <meta name="description" content="An honest look at why paper-based field surveys fail at scale, what software gets right, and what it still doesn't — including an honest assessment of Questbee's strengths and limitations.">
+  <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="articles.css">
+</head>
+<body>
+
+  <header class="topnav">
+    <a href="../index.html" class="topnav-logo">
+      <img src="../images/questbee-icon.svg" width="26" height="26" alt="">
+      Questbee
+    </a>
+    <div class="topnav-links">
+      <a href="../index.html">Home</a>
+      <a href="../docs/index.html">Docs</a>
+      <a href="../index.html#support">Support</a>
+      <a href="https://github.com/Questbee/community" target="_blank" rel="noopener" class="github">GitHub</a>
+    </div>
+  </header>
+
+  <div class="article-page">
+
+    <nav class="article-breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="sep">›</span>
+      <span>Field Data Collection: What the Paper System Actually Costs</span>
+    </nav>
+
+    <header class="article-header">
+      <span class="article-tag">Analysis</span>
+      <h1>Field Data Collection: What the Paper System Actually Costs</h1>
+      <div class="article-meta">
+        <span>9 min read</span>
+        <span class="sep">·</span>
+        <span>Field teams &amp; NGOs</span>
+        <span class="sep">·</span>
+        <span>May 2025</span>
+        <div class="article-lang">
+          <a href="field-data-collection-honest-assessment.html" class="active">EN</a>
+          <a href="recopilacion-de-datos-en-campo-evaluacion.html">ES</a>
+        </div>
+      </div>
+    </header>
+
+    <article class="article-body">
+
+      <p>Most field teams underestimate what their data collection process actually costs them. Not in money — in time, in quality, and in the decisions that never get made because the data arrived too late, too degraded, or not at all. Paper-based collection looks cheap on the surface. The forms cost almost nothing to print. The clipboards already exist. But that calculation ignores most of what the process actually involves.</p>
+
+      <p>This is an honest look at where paper systems break down at scale, what software does and doesn't fix, and — specifically — what Questbee gets right and where it still has room to grow.</p>
+
+      <h2>The coordination problem</h2>
+
+      <p>Running a field survey with twenty people is a coordination challenge that paper handles poorly. Each person goes out with a stack of forms and a territory to cover. They work independently for hours or days. And from the coordinator's desk, they are invisible.</p>
+
+      <p>This invisibility has real consequences. Imagine a field worker who misunderstands question 4 on day one — maybe she interprets "household income" as individual income, or includes a category of respondents the protocol excludes. With paper, you won't know until the forms come back. By then she has applied that same interpretation to forty interviews. Correcting it retroactively ranges from difficult to impossible.</p>
+
+      <p>The same applies to coverage gaps. There is no way to see, mid-campaign, that one field worker is significantly behind or that two workers have been visiting the same households. You find out at the end, when the data is already collected and the team has been paid and dispersed.</p>
+
+      <p>Coordination in paper-based systems happens entirely before collection begins — in the briefing, the training, the form design. Once people go into the field, the coordinator has almost no ability to intervene. This front-loading of coordination is why field surveys require such lengthy preparation: every possible confusion has to be resolved before day one, because there is no mechanism to resolve it after.</p>
+
+      <h2>The transcription tax</h2>
+
+      <p>The cost that almost never appears in a field survey budget is the cost of turning paper forms into usable data. Transcription — entering responses from paper into a spreadsheet or database — is a second campaign that lives inside every paper-based program.</p>
+
+      <p>A field team of fifteen people spending two weeks in the field might return with 600 completed surveys. Entering those at a reasonable pace of 10–15 minutes per form takes somewhere between 100 and 150 hours of work. That is three to four person-weeks of effort, for data that is already collected. During that time — which in practice often stretches over weeks as it competes with other priorities — the data is inaccessible. You cannot run a check. You cannot answer a stakeholder's question. You cannot compare this month's results to last month's.</p>
+
+      <p>And transcription introduces errors. Studies of manual data entry across a range of contexts consistently find error rates between 1% and 5% per field. For a survey with 30 questions and 600 responses, a 2% error rate means around 360 incorrect values in the final dataset — errors that are invisible, because no one compares the paper form to the database entry after the fact.</p>
+
+      <p>The combination of delay and degradation means that by the time the data is ready to analyze, it is both late and less accurate than it was when it was collected. That gap — between what the field team observed and what the analyst eventually sees — is the true cost of paper.</p>
+
+      <h2>What "offline mode" usually means</h2>
+
+      <p>Digital tools were designed to fix the transcription problem, and they do. But most digital survey tools were designed with an implicit assumption: that somewhere in the field workflow, there will be a connection. Forms load from a server. Submissions are sent to a cloud. The offline mode, where it exists, is an accommodation — a way to buffer data temporarily until the real infrastructure (the connection) is available again.</p>
+
+      <p>For field teams working in cities or in areas with reliable mobile coverage, this works fine. For teams working in rural areas, remote communities, or regions with poor infrastructure, it creates a different set of problems. A tool that requires a connection to submit can lose data when that connection never comes. A tool that caches data locally but depends on a cloud server for form definitions will fail when the server is unreachable. The offline mode that says "sync when connected" is not the same as a system designed to work disconnected for days at a time.</p>
+
+      <p>The distinction matters in practice. A field worker who is three days in a remote district, collecting ten interviews a day, needs to know with certainty that her data is safe on her device — not dependent on a connection she may not have. "Usually works offline" is not the same as "works offline by design."</p>
+
+      <h2>What Questbee gets right</h2>
+
+      <p>Questbee was built around offline-first as a design premise, not an accommodation. The mobile app stores everything locally on the device. There is no network call during collection — forms load from local storage, responses are written to local storage, and the sync to the central server happens only when a connection is available. A field worker can go offline for a week and come back with a complete, intact dataset.</p>
+
+      <p>A few specific design decisions are worth noting.</p>
+
+      <p><strong>Form versioning with live continuity.</strong> When you edit a form while collection is already underway, Questbee creates a draft version alongside the currently published one. Field workers continue using the published version on their devices until you explicitly push the update. This is the right behavior — mid-campaign form changes are common, and a system that forces you to choose between deploying a correction and disrupting active collection is a system that discourages corrections.</p>
+
+      <p><strong>Timestamps that tell the full story.</strong> Every submission carries two timestamps: when the response was collected (recorded on the device at the moment of collection) and when it was submitted to the server (when the sync happened). For offline-heavy deployments, these can be days apart. The separation matters for analysis — it lets you reconstruct the field timeline accurately, rather than inferring collection time from submission time.</p>
+
+      <p><strong>QR code device pairing.</strong> Onboarding a field worker onto the system takes a minute. You generate a QR code in the web dashboard, the worker scans it with the app, and the device is registered and authenticated. No account creation, no password to remember, no IT support required. For a team of twenty people who may not be technically confident, this removes a significant barrier.</p>
+
+      <p><strong>A complete field type set.</strong> The form builder supports the types that field surveys actually need: GPS coordinates, photos, audio recordings, barcode scanning, digital signatures, repeating groups (for household members or multiple observations at one location), and calculated fields. These are not afterthoughts — they are in the core schema.</p>
+
+      <p><strong>Integration hooks.</strong> Questbee exposes webhooks per form and a REST API, which means submissions can trigger actions in other systems — feeding a dashboard, alerting a supervisor, populating an external database — without manual export steps.</p>
+
+      <h2>What it doesn't solve</h2>
+
+      <p>Honesty about limitations matters more than promotion, so this section deserves care.</p>
+
+      <p><strong>Real-time coordination during collection.</strong> Questbee is offline-first, which means the coordinator's dashboard only updates when field workers sync. If a worker has been offline for three days, the coordinator has no visibility into what she has collected until she reconnects. This is not a flaw in the implementation — it is inherent to the offline-first model. But it is a real constraint for programs that need to monitor progress or catch errors in near-real-time.</p>
+
+      <p><strong>Android only.</strong> The mobile app runs on Android. iOS is not supported. In most field contexts this is not a problem — Android dominates the affordable device market in the regions where offline field work happens most. But for teams that have standardized on iPhones, or that work in contexts where iOS devices are more common, this closes the door.</p>
+
+      <p><strong>No built-in analysis or visualization.</strong> Questbee stores submissions and makes them accessible through the dashboard and API. It does not include charts, pivot tables, or statistical summaries. For most programs, the analysis happens outside the collection tool anyway — in R, Python, Excel, or a BI platform — so this is rarely a dealbreaker. But it is worth knowing going in.</p>
+
+      <p><strong>Self-hosting carries a maintenance responsibility.</strong> Questbee runs on your own hardware. That means you own the uptime, the backups, and the updates. The installation is genuinely simple — about 30 minutes — and the CLI makes updates straightforward. But if the server goes down during a critical collection phase, someone on your team needs to know how to bring it back up. For organizations with no technical staff at all, this is a real consideration.</p>
+
+      <p><strong>It is still maturing.</strong> Questbee is newer than many tools in this space. The feature set is solid, but documentation is thinner than it will eventually be, and some rough edges exist in the form builder and submission view that more established platforms have had years to smooth out.</p>
+
+      <h2>Who this is for</h2>
+
+      <p>The honest profile of the organization Questbee fits well: a small to mid-sized field program — say, 5 to 50 field workers — that collects data in areas with unreliable connectivity, cares about keeping its data on its own infrastructure, uses Android devices, and has at least one person willing to manage a basic server setup.</p>
+
+      <p>It fits well for programs where the alternative is paper, or where the team is currently stitching together paper and cloud tools and losing data in the gap between them. It fits less well for very large deployments, for teams that need iOS support, or for organizations that need built-in analysis and reporting alongside collection.</p>
+
+      <p>For a program coordinator who has spent months dealing with the costs described in this article — the coordination overhead, the transcription backlog, the data that arrived too late to be useful — Questbee addresses the structural problems directly. It is free, it is self-contained, and the data it produces is centralized, searchable, and available the moment the team comes back online.</p>
+
+      <p>If that sounds like what your program needs, <a href="https://questbee.github.io/page">the full feature overview is here</a>, and the <a href="installation-guide.html">setup guide walks through the installation</a> in about 30 minutes.</p>
+
+    </article>
+
+    <footer class="article-footer">
+      <h3>Continue reading</h3>
+      <div class="article-footer-links">
+        <a href="what-is-questbee.html">
+          <span>🔍</span> What is Questbee?
+        </a>
+        <a href="installation-guide.html">
+          <span>🚀</span> Get Questbee running
+        </a>
+        <a href="../docs/mobile-app.html">
+          <span>📱</span> Mobile app guide
+        </a>
+        <a href="../docs/index.html">
+          <span>📖</span> Full documentation
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
