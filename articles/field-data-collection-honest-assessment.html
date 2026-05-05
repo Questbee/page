@@ -57,9 +57,9 @@
 
       <p>This invisibility has real consequences. Imagine a field worker who misunderstands question 4 on day one — maybe they interpret "household income" as individual income, or include a category of respondents the protocol excludes. With paper, you won't know until the forms come back. By then they have applied that same interpretation to forty interviews. Correcting it retroactively ranges from difficult to impossible.</p>
 
-      <p>The same applies to coverage gaps. There is no way to see, mid-campaign, that one field worker is significantly behind or that two workers have been visiting the same households. You find out at the end, when the data is already collected and the team has been paid and dispersed.</p>
+      <p>Coverage gaps follow the same logic. There is no way to see, mid-campaign, that one worker is three days behind schedule, or that two workers have spent the week interviewing the same households while half the territory sits untouched. You find out at the end — after the data has been collected, the team paid, and everyone dispersed.</p>
 
-      <p>Coordination in paper-based systems happens entirely before collection begins — in the briefing, the training, the form design. Once people go into the field, the coordinator has almost no ability to intervene. This front-loading is why field surveys require such lengthy preparation: every possible confusion has to be resolved before day one, because there is no mechanism to resolve it after.</p>
+      <p>Coordination in paper-based systems is front-loaded by design. It happens entirely before collection begins — in the briefing, the training, the form design. Once people go into the field, the coordinator becomes a spectator. Every possible confusion has to be resolved before day one, because there is no mechanism for anything after.</p>
 
       <h2>The transcription tax</h2>
 
@@ -83,8 +83,6 @@
 
       <p>Questbee was built around offline-first as a design premise, not an accommodation. The mobile app stores everything locally on the device. There is no network call during collection — forms load from local storage, responses are written to local storage, and the sync to the central server happens only when a connection is available. A field worker can go offline for a week and come back with a complete, intact dataset.</p>
 
-      <p>A few specific design decisions are worth noting.</p>
-
       <p><strong>Form versioning with live continuity.</strong> When you edit a form while collection is already underway, Questbee creates a draft version alongside the currently published one. Field workers continue using the published version on their devices until you explicitly push the update. This is the right behavior — mid-campaign form changes are common, and a system that forces you to choose between deploying a correction and disrupting active collection is a system that discourages corrections.</p>
 
       <p><strong>Timestamps that tell the full story.</strong> Every submission carries two timestamps: when the response was collected (recorded on the device at the moment of collection) and when it was submitted to the server (when the sync happened). For offline-heavy deployments, these can be days apart. The separation matters for analysis — it lets you reconstruct the field timeline accurately, rather than inferring collection time from submission time.</p>
@@ -99,13 +97,15 @@
 
       <h2>Who this is for</h2>
 
-      <p>Questbee is purpose-built for field data collection. It does not try to be a business intelligence platform, a project management suite, or a general-purpose database. That focus is deliberate — the setup is fast because the scope is clear, and the feature set covers what field teams need without the overhead of enterprise software that was never designed for the field.</p>
+      <p>Questbee is purpose-built for field data collection — not a business intelligence platform, not a project management suite, not a general-purpose database. That narrowness is intentional. The setup is fast because the scope is clear; the feature set covers what field teams need without the overhead of enterprise software designed for offices, not the field.</p>
 
       <p>The exports described above are available in one download from the dashboard. Analysis happens in the tools your team already uses — R, Python, Excel, Power BI, QGIS, or any platform that can open a structured file. For most programs this is the right separation: collect with a tool designed for it, analyze with a tool designed for that.</p>
 
       <p>Running on your own infrastructure means your data never touches a third-party server. For organizations handling health records, household income data, GPS coordinates of individuals, or any information subject to data protection requirements, this is not a technical detail — it is a compliance requirement. Questbee is designed for exactly these programs.</p>
 
-      <p>Questbee fits organizations with field programs of 10 to several hundred workers, collecting in areas where connectivity is unreliable, where data sovereignty is a requirement rather than a preference, and where the current process — paper, spreadsheets, or a patchwork of tools — is producing delays, errors, or data that never gets used. The organizations that get the most from it tend to have a clear platform owner — a program coordinator, a data manager, or an IT lead — and a team of Android-equipped field workers. The paid plans add white-label branding, SSO and Active Directory integration, compliance-ready audit logs, and a support SLA for programs where uptime matters.</p>
+      <p>Questbee fits organizations with field programs of 10 to several hundred workers, collecting in areas where connectivity is unreliable, where data sovereignty is a requirement rather than a preference, and where the current process — paper, spreadsheets, or a patchwork of tools — is producing delays, errors, or data that never gets used. The organizations that get the most from it tend to have a clear platform owner — a program coordinator, a data manager, or an IT lead — and a team of field workers equipped with smartphones or tablets. The paid plans add white-label branding, SSO and Active Directory integration, compliance-ready audit logs, and a support SLA for programs where uptime matters.</p>
+
+      <p>For programs dealing with the coordination gap described above, Questbee narrows what paper makes absolute. When field workers sync — at the end of a day, or when they pass through an area with signal — their submissions appear in the dashboard. If a systematic error surfaces on day two, a corrected form can be pushed before day three; workers pick it up on their next sync. GPS coordinates on every submission show which areas have been covered and which haven't, making gaps visible while there is still time to act on them.</p>
 
       <p>For a program director who has spent months dealing with the costs described in this article — the coordination overhead, the transcription backlog, the data that arrived too late — Questbee addresses the structural problems at the source. The collection is clean from day one. The data is centralized, searchable, and available the moment the team syncs.</p>
 
