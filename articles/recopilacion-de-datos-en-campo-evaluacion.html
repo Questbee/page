@@ -51,6 +51,11 @@
 
       <p>La mayoría de los equipos de campo subestiman lo que su proceso de recopilación de datos les cuesta realmente — no en dinero, sino en tiempo, en calidad y en las decisiones que nunca se toman porque los datos llegaron demasiado tarde o demasiado degradados. El trabajo en papel parece barato en apariencia. Los formularios no cuestan casi nada de imprimir. Los portapapeles ya existen. Pero ese cálculo ignora la mayor parte de lo que el proceso implica realmente.</p>
 
+      <figure class="article-image">
+        <img src="paper_problem.png" alt="Escritorio con pilas de formularios en papel, notas manuscritas y señales de desorganización en la recopilación de datos de campo">
+        <figcaption>Ilustración generada con IA.</figcaption>
+      </figure>
+
       <h2>El problema de la coordinación</h2>
 
       <p>Dirigir una encuesta de campo con veinte personas es un desafío de coordinación que el papel maneja mal. Cada persona sale con una pila de formularios y un territorio que cubrir. Trabajan de forma independiente durante horas o días. Y desde el escritorio del coordinador, son invisibles.</p>
@@ -83,6 +88,11 @@
 
       <p>Questbee fue construido con el modo sin conexión como premisa de diseño, no como adaptación. La app móvil almacena todo localmente en el dispositivo. No hay llamadas de red durante la recopilación — los formularios se cargan desde el almacenamiento local, las respuestas se escriben en el almacenamiento local, y la sincronización con el servidor central ocurre solo cuando hay una conexión disponible. Un trabajador de campo puede estar desconectado durante una semana y regresar con un conjunto de datos completo e íntegro.</p>
 
+      <figure class="article-image">
+        <img src="questbee_tablet.png" alt="Trabajador de campo usando una tablet con la app de Questbee en un entorno rural, recopilando datos sin conexión">
+        <figcaption>Ilustración generada con IA.</figcaption>
+      </figure>
+
       <p><strong>Versionado de formularios con continuidad activa.</strong> Cuando editas un formulario mientras la recopilación ya está en curso, Questbee crea una versión borrador junto a la publicada actualmente. Los trabajadores de campo continúan usando la versión publicada en sus dispositivos hasta que envíes explícitamente la actualización. Este es el comportamiento correcto — los cambios de formulario a mitad de campaña son comunes, y un sistema que te obliga a elegir entre implementar una corrección e interrumpir la recopilación activa desincentiva las correcciones.</p>
 
       <p><strong>Marcas de tiempo que cuentan la historia completa.</strong> Cada respuesta lleva dos marcas de tiempo: cuándo se recopiló la respuesta (registrada en el dispositivo en el momento de la recopilación) y cuándo se envió al servidor (cuando ocurrió la sincronización). En implementaciones con mucho tiempo sin conexión, estas pueden estar separadas por días. La separación importa para el análisis — permite reconstruir con precisión la línea de tiempo del campo, en lugar de inferir el momento de recopilación a partir del momento de envío.</p>
@@ -98,6 +108,11 @@
       <h2>Para quién es</h2>
 
       <p>Questbee fue construido específicamente para la recopilación de datos en campo — no una plataforma de inteligencia de negocios, no una suite de gestión de proyectos, no una base de datos de propósito general. Esa estrechez es intencional. La instalación es rápida porque el alcance es claro; el conjunto de funciones cubre lo que los equipos de campo necesitan sin la sobrecarga de software diseñado para oficinas, no para el campo.</p>
+
+      <figure class="article-image">
+        <img src="questbee_laptop.png" alt="Laptop mostrando el panel web de Questbee para crear y gestionar formularios de encuesta de campo">
+        <figcaption>Ilustración generada con IA.</figcaption>
+      </figure>
 
       <p>Las exportaciones descritas arriba están disponibles en una sola descarga desde el panel. El análisis ocurre en las herramientas que tu equipo ya usa — R, Python, Excel, Power BI, QGIS, o cualquier plataforma que pueda abrir un archivo estructurado. Para la mayoría de los programas esta es la separación correcta: recopilar con una herramienta diseñada para eso, analizar con una herramienta diseñada para eso.</p>
 

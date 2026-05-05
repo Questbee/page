@@ -311,6 +311,24 @@ body {
   color: var(--brand-dark);
 }
 
+/* Article images */
+.article-image {
+  margin: 2rem 0;
+}
+.article-image img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  border: 1px solid var(--border);
+}
+.article-image figcaption {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  text-align: right;
+  font-style: italic;
+}
+
 @media (max-width: 600px) {
   .article-header h1 { font-size: 1.5rem; }
   .article-lang { margin-left: 0; margin-top: 0.5rem; }
