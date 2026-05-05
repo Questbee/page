@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Field Data Collection: What the Paper System Actually Costs</title>
-  <meta name="description" content="An honest look at why paper-based field surveys fail at scale, what software gets right, and what it still doesn't — including an honest assessment of Questbee's strengths and limitations.">
+  <meta name="description" content="An honest look at why paper-based field surveys fail at scale, what software gets right, and what it still doesn't — including a direct assessment of Questbee's strengths and design decisions.">
   <link rel="icon" href="../images/questbee-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="articles.css">
 </head>
@@ -35,11 +35,11 @@
       <span class="article-tag">Analysis</span>
       <h1>Field Data Collection: What the Paper System Actually Costs</h1>
       <div class="article-meta">
-        <span>11 min read</span>
+        <span>9 min read</span>
         <span class="sep">·</span>
         <span>Field teams &amp; NGOs</span>
         <span class="sep">·</span>
-        <span>May 2025</span>
+        <span>May 2026</span>
         <div class="article-lang">
           <a href="field-data-collection-honest-assessment.html" class="active">EN</a>
           <a href="recopilacion-de-datos-en-campo-evaluacion.html">ES</a>
@@ -49,19 +49,17 @@
 
     <article class="article-body">
 
-      <p>Most field teams underestimate what their data collection process actually costs them. Not in money — in time, in quality, and in the decisions that never get made because the data arrived too late, too degraded, or not at all. Paper-based collection looks cheap on the surface. The forms cost almost nothing to print. The clipboards already exist. But that calculation ignores most of what the process actually involves.</p>
-
-      <p>This is an honest look at where paper systems break down at scale, what software does and doesn't fix, and — specifically — what Questbee gets right and where it still has room to grow.</p>
+      <p>Most field teams underestimate what their data collection process actually costs — not in money, but in time, in quality, and in the decisions that never get made because the data arrived too late or too degraded to use. Paper-based collection looks cheap on the surface. The forms cost almost nothing to print. The clipboards already exist. But that calculation ignores most of what the process actually involves.</p>
 
       <h2>The coordination problem</h2>
 
       <p>Running a field survey with twenty people is a coordination challenge that paper handles poorly. Each person goes out with a stack of forms and a territory to cover. They work independently for hours or days. And from the coordinator's desk, they are invisible.</p>
 
-      <p>This invisibility has real consequences. Imagine a field worker who misunderstands question 4 on day one — maybe she interprets "household income" as individual income, or includes a category of respondents the protocol excludes. With paper, you won't know until the forms come back. By then she has applied that same interpretation to forty interviews. Correcting it retroactively ranges from difficult to impossible.</p>
+      <p>This invisibility has real consequences. Imagine a field worker who misunderstands question 4 on day one — maybe they interpret "household income" as individual income, or include a category of respondents the protocol excludes. With paper, you won't know until the forms come back. By then they have applied that same interpretation to forty interviews. Correcting it retroactively ranges from difficult to impossible.</p>
 
       <p>The same applies to coverage gaps. There is no way to see, mid-campaign, that one field worker is significantly behind or that two workers have been visiting the same households. You find out at the end, when the data is already collected and the team has been paid and dispersed.</p>
 
-      <p>Coordination in paper-based systems happens entirely before collection begins — in the briefing, the training, the form design. Once people go into the field, the coordinator has almost no ability to intervene. This front-loading of coordination is why field surveys require such lengthy preparation: every possible confusion has to be resolved before day one, because there is no mechanism to resolve it after.</p>
+      <p>Coordination in paper-based systems happens entirely before collection begins — in the briefing, the training, the form design. Once people go into the field, the coordinator has almost no ability to intervene. This front-loading is why field surveys require such lengthy preparation: every possible confusion has to be resolved before day one, because there is no mechanism to resolve it after.</p>
 
       <h2>The transcription tax</h2>
 
@@ -79,7 +77,7 @@
 
       <p>For field teams working in cities or in areas with reliable mobile coverage, this works fine. For teams working in rural areas, remote communities, or regions with poor infrastructure, it creates a different set of problems. A tool that requires a connection to submit can lose data when that connection never comes. A tool that caches data locally but depends on a cloud server for form definitions will fail when the server is unreachable. The offline mode that says "sync when connected" is not the same as a system designed to work disconnected for days at a time.</p>
 
-      <p>The distinction matters in practice. A field worker who is three days in a remote district, collecting ten interviews a day, needs to know with certainty that her data is safe on her device — not dependent on a connection she may not have. "Usually works offline" is not the same as "works offline by design."</p>
+      <p>The distinction matters in practice. A field worker three days into a remote district, collecting ten interviews a day, needs to know with certainty that their data is safe on their device — not dependent on a connection they may not have. "Usually works offline" is not the same as "works offline by design."</p>
 
       <h2>What Questbee gets right</h2>
 
@@ -95,25 +93,19 @@
 
       <p><strong>A complete field type set.</strong> The form builder supports the types that field surveys actually need: GPS coordinates, geotrace paths, route tracking, photos, audio recordings, barcode and QR code scanning, digital signatures, repeating groups (for household members or multiple observations at one location), and calculated fields. These are not afterthoughts — they are in the core schema, and the export system is built around them.</p>
 
-      <p><strong>Analysis-ready exports out of the box.</strong> The export system is worth understanding specifically, because it is where the field type set pays off. A single package download from the dashboard includes: a flat CSV with all fields handled correctly — geopoints as four separate columns (latitude, longitude, accuracy, altitude); select-multiple fields as pipe-separated values; barcodes and QR codes as scanned text ready to join against existing registries; a GeoJSON FeatureCollection with every geopoint as a Point and every route or trace as a LineString, ready to open in QGIS, ArcGIS, Mapbox, or any GIS tool without conversion; a GPX file for every route field, with full per-point telemetry — speed, altitude, heading, accuracy, and pause segmentation; a media ZIP with every photo, signature, and audio file organized by submission ID and field name, alongside an index CSV linking each file to its source record; and separate linked CSVs for every repeat group. An auto-generated README documents each column and field label. The data comes out indexed and cross-referenced — not a raw dump that requires cleanup before it can be used.</p>
+      <p><strong>Analysis-ready exports out of the box.</strong> A single package download from the dashboard includes: a flat CSV with all fields handled correctly — geopoints as four separate columns (latitude, longitude, accuracy, altitude); select-multiple fields as pipe-separated values; barcodes and QR codes as scanned text ready to join against existing registries; a GeoJSON FeatureCollection with every geopoint as a Point and every route or trace as a LineString, ready to open in QGIS, ArcGIS, Mapbox, or any GIS tool without conversion; a GPX file for every route field, with full per-point telemetry — speed, altitude, heading, accuracy, and pause segmentation; a media ZIP with every photo, signature, and audio file organized by submission ID and field name, alongside an index CSV linking each file to its source record; and separate linked CSVs for every repeat group. An auto-generated README documents each column and field label. The data comes out indexed and cross-referenced — not a raw dump that requires cleanup before it can be used.</p>
 
       <p><strong>Integration hooks.</strong> Questbee exposes webhooks per form and a full REST API, which means submissions can trigger actions in other systems — feeding a dashboard, alerting a supervisor, populating an external database — without manual export steps. A headless API surface also supports IoT devices and automated agents submitting structured data directly.</p>
 
-      <h2>What it is designed for — and what it is not</h2>
-
-      <p>Questbee is purpose-built for field data collection. It does not try to be a business intelligence platform, a project management suite, or a general-purpose database. That focus is deliberate — the setup is fast because the scope is clear, and the feature set covers what field teams need without the overhead of enterprise software that wasn't designed for the field.</p>
-
-      <p><strong>On data analysis.</strong> The export is where this becomes concrete. From the dashboard, a coordinator downloads a full package — CSV, GeoJSON, GPX tracks, indexed media, repeat-group tables, and a README — in one click. The GeoJSON opens directly in any mapping platform. The GPX loads into any route analysis tool. The media files are named and indexed, with a table linking each file back to its submission and field. Repeat groups come out as separate linked tables, not embedded text. For programs that use barcodes or QR codes for identity matching against existing registries, the scanned values are in the flat CSV, ready to join. The work of structuring the data — which in most workflows happens after export, at significant time cost — is already done before the coordinator opens the file.</p>
-
-      <p><strong>On the offline model.</strong> Because Questbee prioritizes reliable offline collection, the coordinator's dashboard shows data as teams sync — typically when they return to a location with connectivity. This is the correct tradeoff for programs operating in low-connectivity environments: data integrity in the field over real-time visibility from the office.</p>
-
-      <p><strong>On data ownership.</strong> Running on your own infrastructure means your data never touches a third-party server. For organizations handling health records, household income data, GPS coordinates of individuals, or any information subject to data protection requirements, this is not a technical detail — it is a compliance requirement. Questbee is designed for exactly these programs.</p>
-
       <h2>Who this is for</h2>
 
-      <p>Questbee fits organizations with field programs of 10 to several hundred workers, collecting data in areas where connectivity is unreliable, where data sovereignty is a requirement rather than a preference, and where the current process — paper, spreadsheets, or a patchwork of tools — is producing delays, errors, or data that never gets used.</p>
+      <p>Questbee is purpose-built for field data collection. It does not try to be a business intelligence platform, a project management suite, or a general-purpose database. That focus is deliberate — the setup is fast because the scope is clear, and the feature set covers what field teams need without the overhead of enterprise software that was never designed for the field.</p>
 
-      <p>The organizations that get the most from it tend to have a clear owner for the platform — a program coordinator, a data manager, or an IT lead — and a team of Android-equipped field workers. The paid plans add white-label branding (your organization's name and logo on the app), SSO and Active Directory integration for enterprise IT environments, compliance-ready audit logs, and a support SLA for programs where uptime matters.</p>
+      <p>The exports described above are available in one download from the dashboard. Analysis happens in the tools your team already uses — R, Python, Excel, Power BI, QGIS, or any platform that can open a structured file. For most programs this is the right separation: collect with a tool designed for it, analyze with a tool designed for that.</p>
+
+      <p>Running on your own infrastructure means your data never touches a third-party server. For organizations handling health records, household income data, GPS coordinates of individuals, or any information subject to data protection requirements, this is not a technical detail — it is a compliance requirement. Questbee is designed for exactly these programs.</p>
+
+      <p>Questbee fits organizations with field programs of 10 to several hundred workers, collecting in areas where connectivity is unreliable, where data sovereignty is a requirement rather than a preference, and where the current process — paper, spreadsheets, or a patchwork of tools — is producing delays, errors, or data that never gets used. The organizations that get the most from it tend to have a clear platform owner — a program coordinator, a data manager, or an IT lead — and a team of Android-equipped field workers. The paid plans add white-label branding, SSO and Active Directory integration, compliance-ready audit logs, and a support SLA for programs where uptime matters.</p>
 
       <p>For a program director who has spent months dealing with the costs described in this article — the coordination overhead, the transcription backlog, the data that arrived too late — Questbee addresses the structural problems at the source. The collection is clean from day one. The data is centralized, searchable, and available the moment the team syncs.</p>
 
